@@ -1,0 +1,75 @@
+# The Geometry of OLS {#sec-geometry}
+
+In the last section we saw how the OLS estimator can, more generally, be described as a linear transformation of the $Y$ vector.
+
+$$
+\hat{\beta} = (X'X)^{-1}X'Y
+$$
+
+We also saw that in order for there to be a (unique) solution to the least squared problem, the $X$ matrix must be full rank. This rules out any perfect colinearity between variables in the $X$ matrix, including the constant.
+
+Given the vector of OLS coefficients, we can also estimate the residual,
+
+$$
+\begin{align}
+\hat{\varepsilon} =& Y - X\hat{\beta} \\
+=&Y-X(X'X)^{-1}X'Y \\
+=&(I_n-X(X'X)X^{-1})Y
+\end{align}
+$$
+
+by plugging the definition of $\hat{\beta}$. Thus, the OLS estimator separates the vector $Y$ into two components:
+
+$$
+\begin{align}
+ Y =& X\hat{\beta} + \hat{\varepsilon}\\
+=&\underbrace{X(X'X)^{-1}X'}_{P_X}Y + (\underbrace{I_n-X(X'X)X^{-1}}_{I_n-P_X = M_X})Y \\
+=&P_XY + M_XY
+\end{align}
+$$
+
+The matrix $P_X = X(X'X)^{-1}X'$ is a $n\times n$ *projection* matrix. It is a linear transformation that projects any vector into the span of $X$: $S(X)$. (See @sec-compendium more information on these terms.) $S(X)$ is the vector space spanned by the columns of $X$. The dimensions of this vector space depends on the rank of $P_X$,
+
+$$
+dim(S(X)) = r(P_X) = r(X) = k
+$$
+
+The matrix $M_X = I_n-X(X'X)^{-1}X'$ is also a $n\times n$ projection matrix. It projects any vector into $X$'s *orthogonal* span: $S^{\perp}(X)$. Any vector $z\in S^{\perp}(X)$ is orthogonal to $X$. This includes the estimated residual, which is by definition orthogonal to the predicted values and, indeed, any column of $X$ (i.e. any regressor). The dimension of this orthogonal vector space depends on the rank of $M_X$,
+
+$$
+dim(S^{\perp}(X)) = r(M_X) = r(I_n)-r(X) = n-k
+$$
+
+The orthogonality of these two projections can be easily shown, since projection matrices are idempotent ($P_XP_X = P_X$) and symmetric ($P_X' = P_X$). Consider the inner product of these two projections,
+
+$$
+P_X'M_X = P_X(I_n-P_X) = P_X-P_XP_X = P_X-P_X = 0
+$$
+
+The least squares estimator is a projection of Y into two vector spaces: one the span of the columns of $X$ and the other a space orthogonal to $X$.
+
+Why is this useful? Well, it helps us understand the "mechanics" (technically geometry) of OLS. When work with linear regression models, we typically assume either strict exogeneity - $E[\varepsilon|X]=0$ - or uncorrelatedness - $E[X'\varepsilon]=0$ - where the former implies the latter (but not the other way around).
+
+When we use OLS, we estimate the vector $\hat{\beta}$ such that,
+
+$$
+X'\hat{\varepsilon}=0 \quad always
+$$
+
+This is true, *not just in expectation*, but by definition. The relationship is "mechanical": the covariates and estimated residual are perfectly uncorrelated. This can be easily shown:
+
+$$
+\begin{align}
+X'\hat{\varepsilon} =& X'M_XY \\
+=& X'(I_n-P_X)Y \\
+=&X'I_nY-X'X(X'X)^{-1}X'Y \\
+=&X'Y-X'Y \\
+=&0
+\end{align}
+$$
+
+You are essentially imposing the assumption of uncorrelatedness between the explained and unexplained components of Y on the data. This means that if the assumption is wrong, so is the projection.
+
+## Partitioned regression
+
+The tools of linear algebra also help us to understand partitioned regression. In fact, I would go as far to to say that it is quite difficult to understand partitioned regression without an understanding of projection matrices. Moreover, we need to understand partitioned regression to really understand multivariate regression.

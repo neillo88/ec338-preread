@@ -1,0 +1,98 @@
+# The Linear Regression Model
+
+## Vector notation
+
+Most undergraduate textbooks discuss data in terms of random variables: the dependent or outcome variable (typically denoted $Y_i$) and various independent or explanatory variables ($X_{i1},X_{i2},\ldots,X_{ik}$). There's nothing wrong with this language, but to understand the geometry of OLS we will need to think in terms of random *vectors*.
+
+When working with cross-sectional data, we think of a random sample as a collection of $n$ realizations of the same random variable. Each observation represents a different unit (e.g., individual, firm, classroom, etc.) and we typically add the assumption that the data is *i.i.d.* (independently and identically distributed) across units of observation. It makes no difference then if we think of this random sample as a collection of $n\times 1$ random vectors, where each *row* represents a different unit and the unit of observation is maintained across random vector. 
+
+For each unit you observe the outcome ($Y_i$) and a vector of explanatory variables (or regressors):
+
+$$
+X_i = \begin{bmatrix}X_{i1} \\ X_{i2} \\ \vdots \\ X_{ik}\end{bmatrix}
+$$
+
+Take note of the ordering of the subscripts: the first denotes the unit of observation ($i$) and the second the number of the regressor ($j=1\dots k$). The pair $(Y_i,X_i)$ represents an *observation*, where $Y_i$ is a single random variable and $X_i$ a random (column) vector.[^linear-reg-1] A collection of observations forms a sample.
+
+[^linear-reg-1]: In these notes, as in the remainder of EC338, I treat $X_i$ as a column vector. Some texts, including Wooldridge (2011), will treat $X_i$ as a row vector. This distinction is not significant, but will affect your notation. I will point this out at a later stage.
+
+You are, no doubt, familiar with the linear regression model. A simple univariate model is typically written as,
+
+$$
+Y_i = \beta_1 + \beta_2 X_{i2} + \varepsilon_i
+$$
+
+Where $\beta_1$ is the constant (intercept) and $\beta_2$ the slope coefficient. In EC338, we will discuss in more detail the justification for this model. For now, let us focus on notation.
+
+The linear regression model is linear *in parameters*, which means we can express the outcome as a linear transformation of a finite set of parameters (i.e. $k\times 1$ vector of parameters). These (population) parameters are assumed to be constants and unknown to the econometrician. 
+
+We can rewrite the above equation using vectors,
+
+$$
+\begin{align} Y_i &= \begin{bmatrix}1\;X_{i2}\end{bmatrix}\begin{bmatrix}\beta_1 \\ \beta_2\end{bmatrix} + \varepsilon_i \\
+&= \begin{bmatrix}1\\ X_{i2}\end{bmatrix}'\begin{bmatrix}\beta_1 \\ \beta_2\end{bmatrix} + \varepsilon_i \\
+&=X_i'\beta + \varepsilon_i
+\end{align}
+$$
+
+Where $X_i$ is a column vector including the number 1 in the first row (for the constant/intercept) and $X_{i2}$ in the second row.
+
+> **\[important\]** You may find my notation slightly unusual. A lot undergraduate textbooks use different letters ($\alpha$, $\beta$, $\gamma$, etc.) to denote the constant and slope coefficients. As we are collecting all coefficients in a single vector, it helps to use indexes instead of different letters.
+>
+> Then there is the issue of the where to start the index: $0$ or $1$. This decision is somewhat arbitrary and hinges on whether the the $k$ regressors included in the model includes the constant term. At the top of the page I described an observation as an outcome and a random vector of regressors. As the constant is not *random* it is natural to think of it apart from the set of regressors included in the model. However, this decision is somewhat arbitrary. You could simply set $X_{i1} = 1\;\forall\;i$ and the constant would be included in $k$.
+>
+> **In EC226, you indexed from 0.** Recall, the linear model as $k+1$ parameters; the $+1$ for the constant. When computing the degrees of freedom for the RSS, you solved for $n-k-1$: $k$ regressors plus the constant.
+>
+> **Here we will index from** $1$**.** This distinction makes it easier to keep track of the size of the matrix. It is also a more natural notation if you consider that the model need not have a constant. The choice of including a constant is therefore no different to including any other regressor. Moreover, when we consider models with fixed effects the constant typically drops from the model.
+>
+> The key thing to remember is that you need to keep track of the number of parameters in the model, that includes the constant *if there is one*.
+
+We can easily extend this notation to the case of multivariate regression. For example, consider a model with a constant and $k-1$ regressors.
+
+$$
+\begin{align} Y_i &= \beta_1 + \beta_2 X_{i2} + \beta_3 X_{i3} + \ldots + \beta_k X_{ik} + \varepsilon_i \\
+&= \begin{bmatrix} 1\; X_{i2}\; X_{i3}\; \dots\; X_{ik} \end{bmatrix} \begin{bmatrix} \beta_1\\ \beta_2\\ \beta_3\\ \vdots\\ \beta_k\end{bmatrix} + \varepsilon_i \\
+&=X_i'\beta + \varepsilon_i
+\end{align}
+$$
+
+Regardless of the number of regressors, the notation remains the same. Take note of the fact that the $X_i$ is a column vector which means that the notation must include a transpose: $X_i'\beta$. Excluding the transpose is incorrect since you cannot multiple two $k\times1$ column vectors. You can multiply a $1\times k$ row vector with a $k\times 1$ column vector giving you a $1\times 1$ scalar. The result should be a scalar since $Y_i$ is a scalar.
+
+This notation is not universal. For example, Wooldridge (2011) treats $X_i$ as a row vector. For this reason, the linear regression model can be expressed as $X_i\beta$. Both notations are used in the applied literature, but I am more familiar with and prefer the column-vector notation.
+
+## Matrix notation
+
+The above expressions for the linear regression model all describe a single unit of observation from the sample. Consider, each line included the subscript $i$. Since the model is assumed to be the same for each observation, this an accurate depiction of the linear regression model. However, we also need to think about the correct notation for the entire sample. To do so, we will have to worker with both vectors and matrices.
+
+Since the model is the same for each observation in the sample, we could imagine "stacking" all $n$ observations on top of one another to form a vector. Consider first the outcome variable,
+
+$$
+Y=\begin{bmatrix}Y_1\\ Y_2 \\ \vdots\\ Y_n \end{bmatrix}
+$$
+
+$$
+
+$$
+
+$Y$ is a $n\times 1$ column vector of all outcomes in the sample. You can distinguish the vector $Y$ from the scalar $Y_i$ by the absence of a subscript.
+
+Similarly, we can stack the right-hand side of the equation.
+
+$$
+\begin{align}
+Y&=\begin{bmatrix}X_1'\beta\\ X_2'\beta \\ \vdots\\ X_n'\beta \end{bmatrix}+ \begin{bmatrix}\varepsilon_1\\ \varepsilon_2 \\ \vdots\\ \varepsilon_n \end{bmatrix}\\
+&=\begin{bmatrix}X_1'\\ X_2' \\ \vdots\\ X_n' \end{bmatrix}\beta+ \begin{bmatrix}\varepsilon_1\\ \varepsilon_2 \\ \vdots\\ \varepsilon_n \end{bmatrix}\\
+&=X\beta+\varepsilon
+\end{align}
+$$
+
+Like $Y$, $\varepsilon$ is a $n\times 1$ vector. $X$ is a $n\times k$ matrix and $\beta$ remains a $k\times 1$ vector of parameters. The product of a $n\times k$ matrix and $k\times 1$ vector is a $n\times 1$ vector: the same size vector as $Y$ and $\varepsilon$. As it is important to understand the structure of $X$, let us write it out in detail.
+
+$$
+X = \begin{bmatrix}X_1'\\ X_2' \\ \vdots\\ X_n' \end{bmatrix} = \begin{bmatrix}X_{11} & X_{12}&\dots&X_{1k}\\ X_{21}& X_{22}& & \\ \vdots & & \ddots &\\ X_{n1} & & & X_{nk} \end{bmatrix}
+$$
+The $X$ matrix has $n$ rows, each representing a different unit of observation, and $k$ columns, each representing a different regressor. Recall, one of these regressors *may* be a constant. If the model includes a constant then $X_{i1}=1\;\forall\;i$. This means that the first column of $X$ is a vector of $1$'s. Each subsequent column represents another regressor.
+
+If you are familiar with rectangular datasets from with working in STATA or R, then you may have notices that $X$ is essentially the "dataset" (excluding the outcome variable). In a rectangular dataset, each row represents a different observation and each column a different variable. That's what we have here.
+
+Why is this noteworthy? When assert that there must be an absence of perfect colinearity between the variables in the model, we are actually saying that the columns of $X$ must be linearly independent. The formal way of expressing this is that $X$ must have *full* column rank; or $r(X)=k$ (see @sec-compendium for a definition of linear dependence and rank). This is why the OLS condition included in EC226 as "no perfect colinearity" is sometimes referred to as the rank condition. Without full rank, we cannot estimate the linear regression model.

@@ -1,0 +1,352 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrreprt}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\makeatother
+\makeatletter
+\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, interior hidden, sharp corners, breakable, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, frame hidden]}{\end{tcolorbox}}\fi
+
+\hypertarget{sec-geometry}{%
+\chapter{The Geometry of OLS}\label{sec-geometry}}
+
+In the last section we saw how the OLS estimator can, more generally, be
+described as a linear transformation of the \(Y\) vector.
+
+\[
+\hat{\beta} = (X'X)^{-1}X'Y
+\]
+
+We also saw that in order for there to be a (unique) solution to the
+least squared problem, the \(X\) matrix must be full rank. This rules
+out any perfect colinearity between variables in the \(X\) matrix,
+including the constant.
+
+Given the vector of OLS coefficients, we can also estimate the residual,
+
+\[
+\begin{align}
+\hat{\varepsilon} =& Y - X\hat{\beta} \\
+=&Y-X(X'X)^{-1}X'Y \\
+=&(I_n-X(X'X)X^{-1})Y
+\end{align}
+\]
+
+by plugging the definition of \(\hat{\beta}\). Thus, the OLS estimator
+separates the vector \(Y\) into two components:
+
+\[
+\begin{align}
+ Y =& X\hat{\beta} + \hat{\varepsilon}\\
+=&\underbrace{X(X'X)^{-1}X'}_{P_X}Y + (\underbrace{I_n-X(X'X)X^{-1}}_{I_n-P_X = M_X})Y \\
+=&P_XY + M_XY
+\end{align}
+\]
+
+The matrix \(P_X = X(X'X)^{-1}X'\) is a \(n\times n\) \emph{projection}
+matrix. It is a linear transformation that projects any vector into the
+span of \(X\): \(S(X)\). (See \textbf{?@sec-compendium} more information
+on these terms.) \(S(X)\) is the vector space spanned by the columns of
+\(X\). The dimensions of this vector space depends on the rank of
+\(P_X\),
+
+\[
+dim(S(X)) = r(P_X) = r(X) = k
+\]
+
+The matrix \(M_X = I_n-X(X'X)^{-1}X'\) is also a \(n\times n\)
+projection matrix. It projects any vector into \(X\)'s \emph{orthogonal}
+span: \(S^{\perp}(X)\). Any vector \(z\in S^{\perp}(X)\) is orthogonal
+to \(X\). This includes the estimated residual, which is by definition
+orthogonal to the predicted values and, indeed, any column of \(X\)
+(i.e.~any regressor). The dimension of this orthogonal vector space
+depends on the rank of \(M_X\),
+
+\[
+dim(S^{\perp}(X)) = r(M_X) = r(I_n)-r(X) = n-k
+\]
+
+The orthogonality of these two projections can be easily shown, since
+projection matrices are idempotent (\(P_XP_X = P_X\)) and symmetric
+(\(P_X' = P_X\)). Consider the inner product of these two projections,
+
+\[
+P_X'M_X = P_X(I_n-P_X) = P_X-P_XP_X = P_X-P_X = 0
+\]
+
+The least squares estimator is a projection of Y into two vector spaces:
+one the span of the columns of \(X\) and the other a space orthogonal to
+\(X\).
+
+Why is this useful? Well, it helps us understand the ``mechanics''
+(technically geometry) of OLS. When work with linear regression models,
+we typically assume either strict exogeneity - \(E[\varepsilon|X]=0\) -
+or uncorrelatedness - \(E[X'\varepsilon]=0\) - where the former implies
+the latter (but not the other way around).
+
+When we use OLS, we estimate the vector \(\hat{\beta}\) such that,
+
+\[
+X'\hat{\varepsilon}=0 \quad always
+\]
+
+This is true, \emph{not just in expectation}, but by definition. The
+relationship is ``mechanical'': the covariates and estimated residual
+are perfectly uncorrelated. This can be easily shown:
+
+\[
+\begin{align}
+X'\hat{\varepsilon} =& X'M_XY \\
+=& X'(I_n-P_X)Y \\
+=&X'I_nY-X'X(X'X)^{-1}X'Y \\
+=&X'Y-X'Y \\
+=&0
+\end{align}
+\]
+
+You are essentially imposing the assumption of uncorrelatedness between
+the explained and unexplained components of Y on the data. This means
+that if the assumption is wrong, so is the projection.
+
+\hypertarget{partitioned-regression}{%
+\section{Partitioned regression}\label{partitioned-regression}}
+
+The tools of linear algebra also help us to understand partitioned
+regression. In fact, I would go as far to to say that it is quite
+difficult to understand partitioned regression without an understanding
+of projection matrices. Moreover, we need to understand partitioned
+regression to really understand multivariate regression.
+
+Let us divide the set of regressors into two groups: \(X_1\) a single
+regressor and \(X_2\) a \(n\times (k-1)\) matrix. We can rewrite the
+linear model as,
+
+\[
+Y = X\beta+ \varepsilon =\beta_1X_1+X_2\beta_2+\varepsilon
+\]
+
+Partitioned regression is typically taught as follows. The OLS estimator
+for \(\beta_1\) can achieved by first regressing \(X_1\) on \(X_2\),
+
+\[
+X_1 = X_2\gamma_2+\upsilon_1
+\]
+
+Next, you regress \(Y\) on the residual from the above model,
+
+\[
+Y = \gamma_1 \hat{\upsilon}_1+\xi
+\]
+
+The OLS estimator for \(\gamma_1\) is equal to that of \(\beta_1\).
+
+Let us begin by applying our existing knowledge. From above, we know
+that the residual from the regression of \(X_1\) on \(X_2\) is,
+
+\[
+\hat{\upsilon} = M_2X_1
+\]
+
+where \(M_2 = I_n-X_2(X_2'X_2)^{-1}X_2'\). Thus, the model we estimate
+in the second step, is
+
+\[
+Y = \gamma_1M_2X_1+\xi
+\]
+
+We know that
+\(\hat{\gamma}_1 = (\hat{\upsilon}'\hat{\upsilon})^{-1}\hat{\upsilon}'Y\).
+Replacing the value of the residual, we get
+
+\[
+\begin{align}
+\hat{\gamma}_1 =& (\hat{\upsilon}'\hat{\upsilon})^{-1}\hat{\upsilon}'Y \\
+=&(X_1'M_2M_2X_1)^{-1}X_1'M_2Y \\
+=&(X_1'M_2X_1)^{-1}X_1'M_2Y
+\end{align}
+\] \textgreater{} {[}note{]} We use both the symmetry and idempotent
+quality of \(M_2\).
+
+Next we want to show that \(\hat{\beta}_1\) is given by the same value.
+This part is more complicated. Let's start with by reminding ourselves
+of the following:
+
+\[
+\begin{align}
+X'X\hat{\beta} &= X'Y \\
+\begin{bmatrix}X_1 & X_2\end{bmatrix}'\begin{bmatrix}X_1 & X_2\end{bmatrix}\begin{bmatrix}\hat{\beta}_1 \\ \hat{\beta}_2\end{bmatrix} &= \begin{bmatrix}X_1 & X_2\end{bmatrix}'Y \\
+\begin{bmatrix}X_1'X_1 & X_1'X_2 \\ X_2'X_1 & X_2'X_2 \end{bmatrix}\begin{bmatrix}\hat{\beta}_1 \\ \hat{\beta}_2\end{bmatrix} &= \begin{bmatrix}X_1'Y \\ X_2'Y\end{bmatrix}
+\end{align}
+\] We could solve for \(\hat{\beta}_1\) by solving for the inverse of
+\(X'X\); however, this will take a long time. An easier approach is to
+simply verify that \(\hat{\beta}_1=(X_1'M_2X_1)^{-1}X_1'M_2Y\). Recall,
+\(\hat{\beta}\) splits \(Y\) into two components:
+
+\[
+Y = \hat{\beta}_1X_1+X_2\hat{\beta}_2 + \hat{\varepsilon}
+\]
+
+If we plug this definition of \(Y\) into the above expression we get,
+
+\[
+\begin{align}
+&(X_1'M_2X_1)^{-1}X_1'M_2(\hat{\beta}_1X_1+X_2\hat{\beta}_2 + \hat{\varepsilon}) \\
+=&\hat{\beta}_1\underbrace{(X_1'M_2X_1)^{-1}X_1'M_2X_1}_{=I_n} \\
+&+\underbrace{(X_1'M_2X_1)^{-1}X_1'M_2X_2\hat{\beta_2}}_{=0} \\
+&+\underbrace{(X_1'M_2X_1)^{-1}X_1'M_2\hat{\varepsilon}}_{=0} \\
+=&\hat{\beta}_1
+\end{align}
+\] In line 2 I use the fact that \(\hat{\beta}_1\) is a scalar and can
+be moved to the front (order of multiplication does not matter). In line
+3 we exploit the fact that \(M_2X_2=0\) by definition. Line 4 uses the
+fact that \(M_2\hat{\varepsilon}=\hat{\varepsilon}\) which means that
+\(X_1'M_2\hat{\varepsilon}=X_1'\hat{\varepsilon}=0\).
+
+
+
+\end{document}

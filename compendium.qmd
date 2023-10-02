@@ -1,0 +1,245 @@
+# Compendium {#sec-compendium}
+
+## Linear independence
+
+Consider a set of $k$ $n$-dimensional vectors $\{X_{1},X_{2},...,X_{k}\}$. These vectors are,
+
+> **\[definition\]** *linearly dependent* if there exists a set of scalars $\{a_{1},a_{2},\dots,a_{k}\}$ such that
+>
+> $$
+> a_1X_1 + a_2X_2+\ldots+a_kX_k=0
+> $$
+>
+> where at least one $a_i\neq0$.
+
+Alternatively, they are,
+
+> **\[definition\]** *linearly independent* if the only set of scalars $\{a_{1},a_{2},\dots,a_{k}\}$ that satisfies the above condition is $a_1,a_2,\dots,a_k=0$.
+
+If we collect these $k$ column-vectors in a matrix, $X=[X_1\;X_2 \dots X_k]$, then the linear dependence condition can be written as,
+
+$$
+a_1X_1 + a_2X_2+\ldots+a_kX_k=\begin{bmatrix} X_1\;X_2 \dots X_k\end{bmatrix}\begin{bmatrix}a_1\\a_2\\\vdots\\a_k\end{bmatrix}=Xa = 0
+$$
+
+Given any $n\times k$ matrix $X$, its columns are,
+
+> **\[definition\]** *linearly dependent* if there exists a vector $a\in\mathbb{R}^k$ such that $a\neq0$ and $Xa=0$;
+
+or
+
+> **\[definition\]** *linearly independent* if the only vector $a\in\mathbb{R}^k$ such that $Xa=0$ is $a=0$.
+
+For any matrix there may be more than one vector $a\in\mathbb{R}^{k}$ such that $Xa=0$. Indeed, if both $a_{1},a_{2}\in\mathbb{R}^{k}$
+
+satisfy this condition and $a_{1}\neq a_{2}$ then you can show that any linear combination of $\{a_{1},a_{2}\}$ satisfies the
+
+condition $X(a_{1}b_{1}+a_{2}b_{2})=0$ for $b_{1},b_{2}\in\mathbb{R}$. Thus, there exists an entire set of vectors which satisfy this condition. This set is referred to as the,
+
+> **\[definition\]** *null space* of $X$,
+>
+> $$
+> \mathcal{N}(X) = \{a\in\mathbb{R}^k:\;Xa=0\}
+> $$
+
+It should be evident from the definition that if the columns of $X$ are linearly independent then $\mathcal{N}(X)=\{0\}$, a singleton. That is, it just includes the 0-vector.
+
+## Vector spaces, bases, and spans
+
+Here, we concern ourselves only with real vectors from $\mathbb{R}^n$.
+
+> **\[definition\]** A *vector space*, denoted $\mathcal{V}$, refers to a set of vectors which is closed under finite addition and scalar multiplication.
+
+> **\[definition\]** A set of $k$ linearly independent vectors, $\{X_1,X_2,\dots,X_k\}$, forms a basis for vector space $\mathcal{V}$ if $\forall\;y\in\mathcal{V}$ there exists a set of $k$ scalars such that,
+>
+> $$
+> y=X_1b_1+X_2b_2+\ldots+X_kb_k
+> $$
+
+Based on these definitions, it is evident that for the Euclidean space, $\mathbb{E}^n$, any $n$ linearly independent vectors from $\mathbb{R}^n$ is a basis. For example, any point in $\mathbb{E}^2$ can be defined as a multiple of,
+
+$$
+\begin{bmatrix}1\\0\end{bmatrix}\quad \text{and} \quad\begin{bmatrix}0\\1\end{bmatrix}
+$$
+
+Consider again the $n\times k$ matrix $X$, where $k<n$. Then we define the,
+
+> **\[definition\]** *column space* (or *span*) of $X$, denoted $\mathcal{S}(X)$, as the vector space generate by the $k$ columns of $X$. Formally,
+>
+> $$
+> \mathcal{S}(X) = \{y\in\mathbb{R}^n:\;y=Xb\quad\text{for some }b\in \mathbb{R}^k\} 
+> $$
+
+A property to note about the span or column space $X$ is,
+
+> **\[result\]** $\mathcal{S}(X)=\mathcal{S}(XX')$
+
+where $XX'$ is a $n\times n$ matrix.
+
+Finally, we can define the,
+
+> **\[definition\]** *orthogonal column space* (or *orthogonal* *span*) of $X$ as,
+>
+> $$
+> \mathcal{S}^{\perp}(X) = \{y\in \mathbb{R}^k:\;y'x=0\quad \forall x\in\mathcal{S}(X)\}
+> $$
+
+## Rank
+
+Consider a $n\times k$ matrix $X$, the
+
+> **\[definition\]** *row rank* of $X$ is the maximum number of linearly independent rows:
+>
+> $$
+> rowrank(X) \leq n
+> $$
+
+We say that matrix $X$ has *full* row rank if $rowrank(X)=n$.
+
+The,
+
+> **\[definition\]** *column rank* of $X$ is the maximum number of linearly independent columns:
+>
+> $$
+> colrank(X) \leq k
+> $$
+
+We say that matrix $X$ has *full* column rank if $colrank(X)=k$.
+
+An important result is,
+
+> **\[result\]** the rank of $X$:
+>
+> $$
+> r(X) = rowrank(X)=colrank(X) \\
+> \Rightarrow r(X)\leq min\{n,k\}
+> $$
+
+In addition, since the $r(X)$ depends on the number of linearly independent columns, we can say that,
+
+> **\[result\]** the dimension of $\mathcal{S}(X)$, $dim(\mathcal{S}(X))$, is given by the $r(X)$.
+
+Here are a few additional results,
+
+> **\[result\]** $r(X)=r(X')$
+>
+> **\[result\]** $r(XY)\leq min\{r(X),r(Y)\}$
+>
+> **\[result\]** $r(XY)=r(X)$ if $Y$ is square and full rank
+>
+> **\[result\]** $r(X+Y)\leq r(X) + r(Y)$
+
+## Properties of square matrices
+
+Consider the case of a square, $n\times n$, matrix $A$. We say that,
+
+> **\[definition\]** $A$ is *singular* if the $r(A)<n$,
+
+or that,
+
+> **\[definition\]** $A$ is *non-singular* if the $r(A)=n$.
+
+The singularity of a square matrix is important as it determines the invertibility of a matrix, which typically relates the existence of a unique solution in systems of linear equations. Here are a few key results,
+
+> **\[result\]** There exists a matrix $B=A^{-1}$, such that $AB=I_n$ (where $I_n$ is the identity matrix), if and only if $A$ is non-singular.
+>
+> **\[result\]** $A$ is non-singular if and only if the determinant of $A$ is non-zero: $det(A)\neq0$.[^compendium-1]
+>
+> **\[result\]** Likewise, $A$ is singular if and only if $det(A)=0$.
+>
+> **\[result\]** $AA^{-1}=A^{-1}A=I$
+>
+> **\[result\]** $(A')^{-1}=(A^{-1})'$
+>
+> **\[result\]** If their respective inverses exist, then $(AB)^{-1}=B^{-1}A^{-1}$.
+>
+> **\[result\]** $det(AB)=det(A)det(B)$
+>
+> **\[result\]** $det(A^{-1})=det(A)^{-1}$
+
+[^compendium-1]: These notes do not cover how to calculate the determinant of a square matrix. You should be able to find a definition easily online.
+
+For any square matrix $A$,
+
+> **\[definition\]** the *trace* of $A$ is the sum of all diagonal elements:
+>
+> $$
+> tr(A) = \sum_{i=1}^na_{ii}
+> $$
+
+Regarding the trace of a square matrix, here are a few important results:
+
+> **\[result\]** $tr(A+B) = tr(A) + tr(B)$
+>
+> **\[result\]** $tr(\lambda A) = \lambda tr(A)$ where $\lambda$ is a scalar
+>
+> **\[result\]** $tr(A) = tr(A')$
+>
+> **\[result\]** $tr(AB) = tr(BA)$ where $AB$ and $BA$ are both square, but need not be of the same order.
+>
+> **\[result\]** $||A|| = (tr(A'A))^{1/2}$
+
+## Properties of symmetric matrices
+
+A symmetric matrix has the property that $A=A'$. Therefore, $A$ must be square.
+
+Here are a few important results concerning symmetric matrices.
+
+> **\[result\]** $A^{-1}$ exists if $det(A)\neq 0$ and $r(A)=n$
+>
+> **\[result\]** A is *diagonalizable*.[^compendium-2]
+>
+> **\[result\]** The eigenvector decomposition of a square matrix gives you $A=C\Lambda C^{-1}$ where $\Lambda$ is a diagonal matrix of eigenvalues and \$C\$ a matrix of the corresponding eigenvectors. The symmetry of $A$ gives you that $C^{-1}=C'\Rightarrow A=C\Lambda C'$ with $C'C=CC'=I_{n}$.[^compendium-3]
+
+[^compendium-2]: A matrix is diagonalizable if it is *similar* to some other diagonal matrix. Matrices $B$ and $C$ are similar if $C=PBP^{-1}$. A square matrix which is not diagonalizable is *defective*. This property relates closely to eigenvector decomposition.
+
+[^compendium-3]: Recall, an eigenvalue and eigenvector pair, $(\lambda,c)$, of matrix $A$ satisfy:\
+    $$
+    Ac = \lambda c\Rightarrow (A-\lambda I_n)c=0
+    $$
+
+A key definition concerning symmetric matrices is their positive definiteness:
+
+> **\[definition\]** $A$ is *positive semi-definite* if for any $x\in\mathbb{R}^n,\;x'Ax\geq0$.
+
+Given the eigenvector decomposition of a symmetric matrix, *positive semi-definiteness* implies $\Lambda$ is *positive semi-definite*: $\lambda_i\geq0\quad\forall i$. Likewise,
+
+> **\[definition\]** $A$ is *positive definite* if for any $x\in\mathbb{R}^n,\;x'Ax>0$.
+
+Again, based on the egeinvector decomposition, *positive semi-definiteness* implies $\Lambda$ is *positive definite*: $\lambda_i>0\quad\forall i$.
+
+A few more results are:
+
+> **\[result\]** $tr(A) = \sum_{i=1}^n\lambda_i$
+>
+> **\[result\]** $r(A) = r(\Lambda)$
+>
+> **\[result\]** $det(A) = \prod_{i=1}^n \lambda_i$
+
+This last result can be used to prove that any positive definite matrix is non-singular and therefore has an inverse.
+
+Any full-rank, positive semi-definite, symmetric matrix $B$ has the additional properties:
+
+> **\[result\]** $B=C\Lambda C'$ and $B^{-1} = C\Lambda^{-1}C'$
+>
+> **\[result\]** We can define the square-root of $B$ as $B^{1/2} = C\Lambda^{1/2}C'$. Similarly, $B^{-1/2} = C\Lambda^{-1/2}C'$.
+
+## Properties of idempotent matrices
+
+An idempotent matrix has the property that $D=DD$. Therefore, $D$ must be square.
+
+Here are a few important results concerning idempotent matrices.
+
+> **\[result\]** $D$ is positive definite
+>
+> **\[result\]** $D$ is diagonalizable
+>
+> **\[result\]** $(I_n-D)$ is also an idempotent matrix
+>
+> **\[result\]** With the exception of $I_n$, all idempotent matrices are singular.
+>
+> **\[result\]** $r(D) = tr(D) = \sum_{i=1}^n\lambda_i$
+>
+> **\[result\]** $\lambda_i\in\{0,1\}\quad \forall\;i$
+
+*Projection* matrices are idempotent, but need not be symmetric. However, for the purposes of this module we will deal exclusively with symmetric idempotent projection matrices.
