@@ -155,7 +155,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, interior hidden, frame hidden, boxrule=0pt, sharp corners, enhanced, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, breakable, frame hidden, borderline west={3pt}{0pt}{shadecolor}, interior hidden, boxrule=0pt, enhanced]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -1206,7 +1206,7 @@ This notation is particularly useful because it does not need to be
 adapted when you add more time periods. However, it can only be used in
 applications with longitudinal data. If you are using repeated
 cross-sections then you cannot include unit fixed effects and must
-retain a treatment group indicator. We will discuss this futher in
+retain a treatment group indicator. We will discuss this further in
 EC338.
 
 \bookmarksetup{startatroot}
