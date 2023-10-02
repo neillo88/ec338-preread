@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -57,7 +57,8 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -78,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./dummy-var.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Dummy Variables</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -178,8 +179,8 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Dummy variables are used extensively in Microeconometrics. This because of the discrete nature of most policy ‘treatments’ studied in Microeconomics as well as the extensive use of fixed effects. A dummy variable, <span class="math inline">\(D_i=\{0,1\}\)</span>, can be used to split the sample into two (or more) groups; e.g., treatment and control.</p>
-<p>In basic setting the use a of dummy variable might be relatively straight forward. For example, consider a linear model using to assess a single treatment from a randomized control trial,</p>
+<p>Dummy variables are used extensively in Microeconometrics. They are used to model discrete public policy and experimental ‘treatments’ in Microeconomics and are the building blocks of “fixed effects” used widely in Microeconomics models.</p>
+<p>Any dummy variable, <span class="math inline">\(D_i=\mathbf{1}\{true\}\)</span>, splits the sample into two groups: true (e.g.&nbsp;treated) and false (e.g.&nbsp;control/untreated). In a basic setting the use a of dummy variable might be relatively straight forward. For example, consider a linear model using to assess a single treatment from a randomized control trial,</p>
 <p><span class="math display">\[
 Y_i = \beta_{10}+\beta_{11} D_{1i} + \varepsilon_i
 \]</span> where <span class="math inline">\(D_{1i} = \mathbf{1}\{treated\}\)</span> identifies those who are treated in the sample.</p>
@@ -226,7 +227,7 @@ Z_i = \delta + \sum_{j=2}^J \psi_j D_{ji} + \nu_i
 \]</span> Second, the choice of base category among the control variables is irrelevant. Indeed, even if we dropped the constant and included a dummy variable for all <span class="math inline">\(J\)</span> categories, we would achieve the same estimator. This is because,</p>
 <p><span class="math display">\[
 M_{D_0} = M_{D_1} = M_{D_2} ... = M_{D_J}
-\]</span> where M_{D_0} is the orthogonal projection matrix from a regression with all J categories (and no constant) and M_{D_j} is the orthogonal projection matrix from a regression with the <span class="math inline">\(j\)</span>-th category excluded (and a constant).</p>
+\]</span> where <span class="math inline">\(M_{D_0}\)</span> is the orthogonal projection matrix from a regression with all <span class="math inline">\(J\)</span> categories (and no constant) and <span class="math inline">\(M_{D_j}\)</span> is the orthogonal projection matrix from a regression with the <span class="math inline">\(j\)</span>-th category excluded (and a constant).</p>
 <section id="fixed-effects" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="fixed-effects"><span class="header-section-number">5.1</span> Fixed Effects</h2>
 <p>One way of interpreting a model with an (exhaustive) set of dummy variables is as a model with a group-specific constant. Since, it makes no difference to parameter of interest whether you include the constant and <span class="math inline">\(J-1\)</span> dummies or exclude the constant and include all <span class="math inline">\(J\)</span> dummy variables, we can consider the model,<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>

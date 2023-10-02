@@ -1,8 +1,8 @@
 # Dummy Variables {#sec-dummy}
 
-Dummy variables are used extensively in Microeconometrics. This because of the discrete nature of most policy 'treatments' studied in Microeconomics as well as the extensive use of fixed effects. A dummy variable, $D_i=\{0,1\}$, can be used to split the sample into two (or more) groups; e.g., treatment and control. 
+Dummy variables are used extensively in Microeconometrics. They are used to model discrete public policy and experimental 'treatments' in Microeconomics and are the building blocks of "fixed effects" used widely in Microeconomics models. 
 
-In basic setting the use a of dummy variable might be relatively straight forward. For example, consider a linear model using to assess a single treatment from a randomized control trial, 
+Any dummy variable, $D_i=\mathbf{1}\{true\}$, splits the sample into two groups: true (e.g. treated) and false (e.g. control/untreated). In a basic setting the use a of dummy variable might be relatively straight forward. For example, consider a linear model using to assess a single treatment from a randomized control trial, 
 
 $$
 Y_i = \beta_{10}+\beta_{11} D_{1i} + \varepsilon_i
@@ -79,8 +79,8 @@ Second, the choice of base category among the control variables is irrelevant. I
 $$
 M_{D_0} = M_{D_1} = M_{D_2} ... = M_{D_J}
 $$
-where M_{D_0} is the orthogonal projection matrix from a regression with all J categories (and no constant) and 
-M_{D_j} is the orthogonal projection matrix from a regression with the $j$-th category excluded (and a constant).
+where $M_{D_0}$ is the orthogonal projection matrix from a regression with all $J$ categories (and no constant) and 
+$M_{D_j}$ is the orthogonal projection matrix from a regression with the $j$-th category excluded (and a constant).
 
 
 ## Fixed Effects

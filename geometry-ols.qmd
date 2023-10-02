@@ -22,7 +22,7 @@ by plugging the definition of $\hat{\beta}$. Thus, the OLS estimator separates t
 
 $$
 \begin{align}
- Y =& X\hat{\beta} + \hat{\varepsilon}\\
+ Y =& X\hat{\beta} + \hat{\varepsilon} \\
 =&\underbrace{X(X'X)^{-1}X'}_{P_X}Y + (\underbrace{I_n-X(X'X)X^{-1}}_{I_n-P_X = M_X})Y \\
 =&P_XY + M_XY
 \end{align}
@@ -92,7 +92,7 @@ $$
 Y = \gamma_1 \hat{\upsilon}_1+\xi
 $$
 
-The partitioned regression result states that the OLS estimator for $\hat{\gamma_1}=\hat{\beta_1}$. This aids in our understanding of $\beta_1$ as the partial effect of $X_1$ on $Y$, holding $X_2$ constant. 
+The partitioned regression result states that the OLS estimator for $\hat{\gamma_1}=\hat{\beta_1}$. This aids in our understanding of $\beta_1$ as the partial effect of $X_1$ on $Y$, holding $X_2$ constant.
 
 We can show this using projection matrices. Let us begin by applying our existing knowledge. From above, we know that the residual from the regression of $X_1$ on $X_2$ is,
 
@@ -140,7 +140,6 @@ $$
 &+\underbrace{(X_1'M_2X_1)^{-1}X_1'M_2\hat{\varepsilon}}_{=0} \\
 =&\hat{\beta}_1
 \end{align}
-$$
-In line 2, I use the fact that $\hat{\beta}_1$ is a scalar and can be moved to the front (since the order of multiplication does not matter with a scalar). In line 3, I use the fact that $M_2X_2=0$ by definition. Line 4 uses the fact that $M_2\hat{\varepsilon}=\hat{\varepsilon}$ which means that $X_1'M_2\hat{\varepsilon}=X_1'\hat{\varepsilon}=0$.
+$$ In line 2, I use the fact that $\hat{\beta}_1$ is a scalar and can be moved to the front (since the order of multiplication does not matter with a scalar). In line 3, I use the fact that $M_2X_2=0$ by definition. Line 4 uses the fact that $M_2\hat{\varepsilon}=\hat{\varepsilon}$ which means that $X_1'M_2\hat{\varepsilon}=X_1'\hat{\varepsilon}=0$.
 
-The OLS estimator solves for $\beta_1$ using the variance in $X_1$ that is orthogonal to $X_2$. This is the manner in which we "hold $X_2$ constant": the variation in $M_2X_1$ is orthogonal to $X_2$. Changes in $M_2X_1$ are *uncorrelated* with changes in $X_2$; *as if* the variation in $M_2X_1$ arose independently of $X_2$. However, uncorrelatedness does NOT imply independence. 
+The OLS estimator solves for $\beta_1$ using the variance in $X_1$ that is orthogonal to $X_2$. This is the manner in which we "hold $X_2$ constant": the variation in $M_2X_1$ is orthogonal to $X_2$. Changes in $M_2X_1$ are *uncorrelated* with changes in $X_2$; *as if* the variation in $M_2X_1$ arose independently of $X_2$. However, uncorrelatedness does NOT imply independence.

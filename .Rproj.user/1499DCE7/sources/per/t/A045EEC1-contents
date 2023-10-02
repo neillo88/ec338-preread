@@ -6,7 +6,7 @@ $$
 \hat{\beta} = (X'X)^{-1}X'Y
 $$
 
-We also saw that in order for there to be a (unique) solution to the least squared problem, the $X$ matrix must be full rank. This rules out any perfect colinearity between variables in the $X$ matrix, including the constant.
+We also saw that in order for there to be a (unique) solution to the least squared problem, the $X$ matrix must be full rank. This rules out any perfect colinearity between columns (i.e. regressors) in the $X$ matrix, including the constant.
 
 Given the vector of OLS coefficients, we can also estimate the residual,
 
@@ -22,13 +22,13 @@ by plugging the definition of $\hat{\beta}$. Thus, the OLS estimator separates t
 
 $$
 \begin{align}
- Y =& X\hat{\beta} + \hat{\varepsilon}\\
+ Y =& X\hat{\beta} + \hat{\varepsilon} \\
 =&\underbrace{X(X'X)^{-1}X'}_{P_X}Y + (\underbrace{I_n-X(X'X)X^{-1}}_{I_n-P_X = M_X})Y \\
 =&P_XY + M_XY
 \end{align}
 $$
 
-The matrix $P_X = X(X'X)^{-1}X'$ is a $n\times n$ *projection* matrix. It is a linear transformation that projects any vector into the span of $X$: $S(X)$. (See @sec-compendium more information on these terms.) $S(X)$ is the vector space spanned by the columns of $X$. The dimensions of this vector space depends on the rank of $P_X$,
+The matrix $P_X = X(X'X)^{-1}X'$ is a $n\times n$ *projection* matrix. It is a linear transformation that projects any vector into the span of $X$: $S(X)$. (See @sec-compendium for more information on these terms.) $S(X)$ is the vector space spanned by the columns of $X$. The dimensions of this vector space depends on the rank of $P_X$,
 
 $$
 dim(S(X)) = r(P_X) = r(X) = k
@@ -53,7 +53,7 @@ Why is this useful? Well, it helps us understand the "mechanics" (technically ge
 When we use OLS, we estimate the vector $\hat{\beta}$ such that,
 
 $$
-X'\hat{\varepsilon}=0 \quad always
+X'(Y-X\hat{\beta})=X'\hat{\varepsilon}=0 \quad always
 $$
 
 This is true, *not just in expectation*, but by definition. The relationship is "mechanical": the covariates and estimated residual are perfectly uncorrelated. This can be easily shown:
@@ -72,4 +72,74 @@ You are essentially imposing the assumption of uncorrelatedness between the expl
 
 ## Partitioned regression
 
-The tools of linear algebra also help us to understand partitioned regression. In fact, I would go as far to to say that it is quite difficult to understand partitioned regression without an understanding of projection matrices. Moreover, we need to understand partitioned regression to really understand multivariate regression.
+The tools of linear algebra can help us better understand partitioned regression. Indeed, I would go as far to to say that it is quite difficult to understand partitioned regression without an understanding of projection matrices. Moreover, we need to understand partitioned regression to really understand multivariate regression.
+
+Let us divide the set of regressors into two groups: $X_1$ a single regressor and $X_2$ a $n\times (k-1)$ matrix. We can rewrite the linear model as,
+
+$$
+Y = X\beta+ \varepsilon =\beta_1X_1+X_2\beta_2+\varepsilon
+$$
+
+Partitioned regression is typically taught as follows. The OLS estimator for $\beta_1$ can achieved by first regressing $X_1$ on $X_2$,
+
+$$
+X_1 = X_2\gamma_2+\upsilon_1
+$$
+
+Next, you regress $Y$ on the residual from the above model,
+
+$$
+Y = \gamma_1 \hat{\upsilon}_1+\xi
+$$
+
+The partitioned regression result states that the OLS estimator for $\hat{\gamma_1}=\hat{\beta_1}$. This aids in our understanding of $\beta_1$ as the partial effect of $X_1$ on $Y$, holding $X_2$ constant.
+
+We can show this using projection matrices. Let us begin by applying our existing knowledge. From above, we know that the residual from the regression of $X_1$ on $X_2$ is,
+
+$$
+\hat{\upsilon} = M_2X_1
+$$
+
+where $M_2 = I_n-X_2(X_2'X_2)^{-1}X_2'$. Thus, the model we estimate in the second step, is
+
+$$
+Y = \gamma_1M_2X_1+\xi
+$$
+
+We know that $\hat{\gamma}_1 = (\hat{\upsilon}'\hat{\upsilon})^{-1}\hat{\upsilon}'Y$. Replacing the value of the residual, we get
+
+$$
+\begin{align}
+\hat{\gamma}_1 =& (\hat{\upsilon}'\hat{\upsilon})^{-1}\hat{\upsilon}'Y \\
+=&(X_1'M_2M_2X_1)^{-1}X_1'M_2Y \\
+=&(X_1'M_2X_1)^{-1}X_1'M_2Y
+\end{align}
+$$ \> \[note\] We use both the symmetry and idempotent quality of $M_2$.
+
+Next we want to show that $\hat{\beta}_1$ is given by the same value. This part is more complicated. Let's start with by reminding ourselves of the following:
+
+$$
+\begin{align}
+X'X\hat{\beta} &= X'Y \\
+\begin{bmatrix}X_1 & X_2\end{bmatrix}'\begin{bmatrix}X_1 & X_2\end{bmatrix}\begin{bmatrix}\hat{\beta}_1 \\ \hat{\beta}_2\end{bmatrix} &= \begin{bmatrix}X_1 & X_2\end{bmatrix}'Y \\
+\begin{bmatrix}X_1'X_1 & X_1'X_2 \\ X_2'X_1 & X_2'X_2 \end{bmatrix}\begin{bmatrix}\hat{\beta}_1 \\ \hat{\beta}_2\end{bmatrix} &= \begin{bmatrix}X_1'Y \\ X_2'Y\end{bmatrix}
+\end{align}
+$$ We could solve for $\hat{\beta}_1$ by solving for the inverse of $X'X$; however, this will take a long time. An easier approach is to simply verify that $\hat{\beta}_1=(X_1'M_2X_1)^{-1}X_1'M_2Y$. Recall, $\hat{\beta}$ splits $Y$ into two components:
+
+$$
+Y = \hat{\beta}_1X_1+X_2\hat{\beta}_2 + \hat{\varepsilon}
+$$
+
+If we plug this definition of $Y$ into the above expression we get,
+
+$$
+\begin{align}
+&(X_1'M_2X_1)^{-1}X_1'M_2(\hat{\beta}_1X_1+X_2\hat{\beta}_2 + \hat{\varepsilon}) \\
+=&\hat{\beta}_1\underbrace{(X_1'M_2X_1)^{-1}X_1'M_2X_1}_{=I_n} \\
+&+\underbrace{(X_1'M_2X_1)^{-1}X_1'M_2X_2\hat{\beta_2}}_{=0} \\
+&+\underbrace{(X_1'M_2X_1)^{-1}X_1'M_2\hat{\varepsilon}}_{=0} \\
+=&\hat{\beta}_1
+\end{align}
+$$ In line 2, I use the fact that $\hat{\beta}_1$ is a scalar and can be moved to the front (since the order of multiplication does not matter with a scalar). In line 3, I use the fact that $M_2X_2=0$ by definition. Line 4 uses the fact that $M_2\hat{\varepsilon}=\hat{\varepsilon}$ which means that $X_1'M_2\hat{\varepsilon}=X_1'\hat{\varepsilon}=0$.
+
+The OLS estimator solves for $\beta_1$ using the variance in $X_1$ that is orthogonal to $X_2$. This is the manner in which we "hold $X_2$ constant": the variation in $M_2X_1$ is orthogonal to $X_2$. Changes in $M_2X_1$ are *uncorrelated* with changes in $X_2$; *as if* the variation in $M_2X_1$ arose independently of $X_2$. However, uncorrelatedness does NOT imply independence.

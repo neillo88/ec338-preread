@@ -52,46 +52,6 @@
   \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
 
-\usepackage{color}
-\usepackage{fancyvrb}
-\newcommand{\VerbBar}{|}
-\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
-% Add ',fontsize=\small' for more characters per line
-\usepackage{framed}
-\definecolor{shadecolor}{RGB}{241,243,245}
-\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
-\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
-\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
-\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
-\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
-\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
-\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
@@ -195,7 +155,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, frame hidden, sharp corners, enhanced, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, interior hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, interior hidden, frame hidden, boxrule=0pt, sharp corners, enhanced, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -259,45 +219,45 @@ Remember, this is still the same material covered in EC226, just using
 vector notation. In many instances this simplifies the notation, as
 summations over \(n\) and/or \(t\) can be replaced with a simple inner
 product of vectors. For example, consider the average of random variable
-\(Y\),
+\(Y_i\),
 
 \[
 \bar{Y} = \frac{1}{n}\sum_{i=1}^{n}Y_i
 \]
 
-If we define the following two n-dimension column vectors,
+If we define two \(n\times 1\) column vectors,
 
 \[
-\iota = \begin{bmatrix}1 \\ 1 \\ \vdots \\ 1\end{bmatrix}\qquad \text{and}\qquad Y = \begin{bmatrix}Y_1 \\ Y_2 \\ \vdots \\ Y_n\end{bmatrix}
+\ell = \begin{bmatrix}1 \\ 1 \\ \vdots \\ 1\end{bmatrix}\qquad \text{and}\qquad Y = \begin{bmatrix}Y_1 \\ Y_2 \\ \vdots \\ Y_n\end{bmatrix}
 \]
 
 then the inner produce of these vectors is,
 
 \[
-\iota'Y = 1\cdot Y_1+1\cdot Y_2+\dots+1\cdot Y_n = \sum_{i=1}^{n}Y_i
+\langle\ell,Y\rangle = \ell'Y = 1\cdot Y_1+1\cdot Y_2+\dots+1\cdot Y_n = \sum_{i=1}^{n}Y_i
 \]
 
 In addition,
 
 \[
-\iota'\iota = 1\cdot 1+1\cdot 1+\dots+1\cdot 1 = \sum_{i=1}^{n}1 = n
+\langle\ell,\ell\rangle = \ell'\ell = 1\cdot 1+1\cdot 1+\dots+1\cdot 1 = \sum_{i=1}^{n}1 = n
 \]
 
 Thus, the average can be expressed as,
 
 \[
-(\iota'\iota)^{-1}\iota'Y = \frac{1}{n}\sum_{i=1}^{n}Y_i
+(\ell'\ell)^{-1}\ell'Y = \frac{1}{n}\sum_{i=1}^{n}Y_i
 \]
 
 It turns out, this linear transformation of \(Y\),
 
 \[
-AY = (\iota'\iota)^{-1}\iota'Y
+AY = (\ell'\ell)^{-1}\ell'Y
 \]
 
 has a structure that is common to many linear estimators; a structure
-that derives from the projection matrix of the \(\iota\)-vector:
-\(P_{\iota} =\iota(\iota'\iota)^{-1}\iota'\) . We will discuss this in
+that derives from the projection matrix of the \(\ell\)-vector:
+\(P_{\ell} =\ell(\ell'\ell)^{-1}\ell'\) . We will discuss this in
 Chapter Chapter~\ref{sec-geometry} when we explore the geometry of OLS.
 
 At the end of this e-book is a compendium on linear algebra basics. I
@@ -318,14 +278,24 @@ Model}\label{the-linear-regression-model}}
 \section{Vector notation}\label{vector-notation}}
 
 Most undergraduate textbooks discuss data in terms of random variables:
-the dependent (outcome) variable (\(Y\)) and various independent
-(explanatory) variables (\(X_1,X_2,\ldots,X_k\)). There's nothing wrong
-with this language, but to understand the geometry of OLS we will need
-to think in random vectors.
+the dependent or outcome variable (typically denoted \(Y_i\)) and
+various independent or explanatory variables
+(\(X_{i1},X_{i2},\ldots,X_{ik}\)). There's nothing wrong with this
+language, but to understand the geometry of OLS we will need to think in
+terms of random \emph{vectors}.
 
-Think about the random data as a collection of observations for unit
-\(i=1,\ldots,n\). For each unit you observe the outcome (\(Y_i\)) and a
-vector of explanatory variables (or regressors):
+When working with cross-sectional data, we think of a random sample as a
+collection of \(n\) realizations of the same random variable. Each
+observation represents a different unit (e.g., individual, firm,
+classroom, etc.) and we typically add the assumption that the data is
+\emph{i.i.d.} (independently and identically distributed) across units
+of observation. It makes no difference then if we think of this random
+sample as a collection of \(n\times 1\) random vectors, where each
+\emph{row} represents a different unit and the unit of observation is
+maintained across random vector.
+
+For each unit you observe the outcome (\(Y_i\)) and a vector of
+explanatory variables (or regressors):
 
 \[
 X_i = \begin{bmatrix}X_{i1} \\ X_{i2} \\ \vdots \\ X_{ik}\end{bmatrix}
@@ -333,13 +303,14 @@ X_i = \begin{bmatrix}X_{i1} \\ X_{i2} \\ \vdots \\ X_{ik}\end{bmatrix}
 
 Take note of the ordering of the subscripts: the first denotes the unit
 of observation (\(i\)) and the second the number of the regressor
-(\(k\)). The pair \((Y_i,X_i)\) reflects an \emph{observation}, where
-\(Y_i\) is a single random variable and \(X_i\) a random (column)
-vector.\footnote{In these notes, as in the remainder of EC338, I treat
-  \(X_i\) as a column vector. Some texts, including Wooldridge (2011),
-  will treat \(X_i\) as a row vector. This distinction is not
-  significant, but will affect your notation. I will point this out at a
-  later stage.} A collection of observations forms a sample.
+(\(j=1\dots k\)). The pair \((Y_i,X_i)\) represents an
+\emph{observation}, where \(Y_i\) is a single random variable and
+\(X_i\) a random (column) vector.\footnote{In these notes, as in the
+  remainder of EC338, I treat \(X_i\) as a column vector. Some texts,
+  including Wooldridge (2011), will treat \(X_i\) as a row vector. This
+  distinction is not significant, but will affect your notation. I will
+  point this out at a later stage.} A collection of observations forms a
+sample.
 
 You are, no doubt, familiar with the linear regression model. A simple
 univariate model is typically written as,
@@ -350,12 +321,15 @@ Y_i = \beta_1 + \beta_2 X_{i2} + \varepsilon_i
 
 Where \(\beta_1\) is the constant (intercept) and \(\beta_2\) the slope
 coefficient. In EC338, we will discuss in more detail the justification
-for the model. For now, let us focus on notation.
+for this model. For now, let us focus on notation.
 
-This linear regression model is linear \emph{in parameters}, which means
-we can write as a linear function of a set of \(\beta\)-parameters.
-These parameters are constant and unknown. Here is how we could rewrite
-the above equation using vectors,
+The linear regression model is linear \emph{in parameters}, which means
+we can express the outcome as a linear transformation of a finite set of
+parameters (i.e.~\(k\times 1\) vector of parameters). These (population)
+parameters are assumed to be constants and unknown to the
+econometrician.
+
+We can rewrite the above equation using vectors,
 
 \[
 \begin{align} Y_i &= \begin{bmatrix}1\;X_{i2}\end{bmatrix}\begin{bmatrix}\beta_1 \\ \beta_2\end{bmatrix} + \varepsilon_i \\
@@ -368,22 +342,20 @@ Where \(X_i\) is a column vector including the number 1 in the first row
 (for the constant/intercept) and \(X_{i2}\) in the second row.
 
 \begin{quote}
-\textbf{{[}important{]}} You find my notation slightly unusual. First of
-all, a lot undergraduate textbooks use different letters (\(\alpha\),
+\textbf{{[}important{]}} You may find my notation slightly unusual. A
+lot undergraduate textbooks use different letters (\(\alpha\),
 \(\beta\), \(\gamma\), etc.) to denote the constant and slope
-coefficient(s). Since we want to collect all of the coefficients into a
-single vector it makes sense to use indexes instead of different
-letters.
+coefficients. As we are collecting all coefficients in a single vector,
+it helps to use indexes instead of different letters.
 
 Then there is the issue of the where to start the index: \(0\) or \(1\).
 This decision is somewhat arbitrary and hinges on whether the the \(k\)
 regressors included in the model includes the constant term. At the top
 of the page I described an observation as an outcome and a random vector
-of regressors. As the constant is not a \emph{random} variable it is
-natural to think of it apart from the set of regressors included in the
-model. However, this decision is somewhat arbitrary. You could simply
-set \(X_{i1} = 1\;\forall\;i\) and the constant would be included in
-\(k\).
+of regressors. As the constant is not \emph{random} it is natural to
+think of it apart from the set of regressors included in the model.
+However, this decision is somewhat arbitrary. You could simply set
+\(X_{i1} = 1\;\forall\;i\) and the constant would be included in \(k\).
 
 \textbf{In EC226, you indexed from 0.} Recall, the linear model as
 \(k+1\) parameters; the \(+1\) for the constant. When computing the
@@ -508,25 +480,25 @@ one. Indeed, you could use maximum likelihood methods to estimate
 
 The OLS estimator is the solution to,
 
-\[ \max_b\;\sum_{i=1}^n(Y_i-X_i'b)^2 \]
+\[ \min_b\;\sum_{i=1}^n(Y_i-X_i'b)^2 \]
 
 Using vector notation, we can rewrite this as
 
-\[ \begin{align} &\max_b\;(Y-Xb)'(Y-Xb)\\ =&\max_b\;Y'Y-2b'X'Y+b'X'Xb \end{align} \]
+\[ \begin{align} &\min_b\;(Y-Xb)'(Y-Xb)\\ =&\min_b\;Y'Y-2b'X'Y+b'X'Xb \end{align} \]
 
 \begin{quote}
 \textbf{{[}note{]}} When working with vectors and matrices it is
 important to keep track of their size. You can only multiply two
-matrices/vectors if their column and row sizes match. For example, if
-\(A\) and \(B\) are both \(n\times k\) matrices (\(n\neq k\)), then
+matrices/vectors if their column and row dimensions match. For example,
+if \(A\) and \(B\) are both \(n\times k\) matrices (\(n\neq k\)), then
 \(AB\) is not defined since \(A\) has \(k\) columns and \(B\) \(n\)
 rows. For the same reason \(BA\) is also not defined. However, you can
 pre-multiply \(B\) with \(A'\) as \(A'\) is a \(k\times n\) matrix:
-\(A'B\) is therefore a \(k\times k\) matrix. Similarly, \(B'A\) is
-defined, but is a \(n\times n\) matrix.
+\(A'B\) is therefore a \((k\times n)\cdot (n\times k)=k\times k\)
+matrix. Similarly, \(B'A\) is defined, but is a \(n\times n\) matrix.
 
-As you can see, order matters when working with matrices and vectors.
-Pre-multiplication and post-multiplication are not the same thing.
+Order matters when working with matrices and vectors. Pre-multiplication
+and post-multiplication are not the same thing.
 \end{quote}
 
 Keep track of the size of each term to ensure they correspond to one
@@ -538,7 +510,8 @@ we have a
 \((1\times 1)\cdot (1\times k)\cdot (k\times n)\cdot (n\times 1)=1\times 1\).
 
 Differentiating the above expression w.r.t. \(b\) and setting the
-first-order conditions to \(0\), we can solve for \(\hat{\beta}\)
+first-order conditions to \(0\), we find that the following condition
+must hold for \(\hat{\beta}\), the solution.
 
 \[ \begin{align} &0=-2X'Y+2X'X\hat{\beta} \\ \Rightarrow& X'X\hat{\beta} = X'Y \end{align} \]
 What are the dimensions of this equation? Well, \(X'X\) is a
@@ -553,28 +526,28 @@ division is not possible. Instead, we need to pre-multiply both sides by
 the inverse of \(X'X\): \((X'X)^{-1}\). Here's the issue: the inverse of
 a matrix need not exist.
 
-Given a square \(k\times k\) matrix \(A\), its inverse exists \emph{if
-and only if} \(A\) is non-singular. For \(A\) to be non-singular its
-rank must be equal to \(k\): \(r(A)=k\). This means that all \(k\)
-columns/rows must be linearly independent. (See
-Chapter~\ref{sec-compendium} for a more detailed discussion of all these
-terms.)
+Given a \emph{square} \(k\times k\) matrix \(A\), its inverse exists
+\emph{if and only if} \(A\) is non-singular. For \(A\) to be
+non-singular its rank must have full rank: \(r(A)=k\), the number of
+rows/columns. This means that all \(k\) columns/rows must be linearly
+independent. (See Chapter~\ref{sec-compendium} for a more detailed
+discussion of all these terms.)
 
 In our application, \(A=X'X\) and
 
-\[ r(X'X) = r(X) = colrank(X) \]
+\[ r(X'X) = r(X) = colrank(X)\leq k \]
 
-To insure that the inverse exists, \(X\) must have full column rank: all
-column vectors must be \emph{linearly independent}. In practice, this
-means that no regressor can be a \emph{perfect} linear combination of
-others. This gives rise to one of the key linear regression model
-assumptions:
+To insure that the inverse of \(X'X\) exists, \(X\) must have full
+column rank: all column vectors must be \emph{linearly independent}. In
+practice, this means that no regressor can be a \emph{perfect} linear
+combination of others. This gives rise to one of the key linear
+regression model assumptions:
 
 \begin{quote}
 \textbf{{[}assumption{]}} \emph{rank condition:} \(r(X)=k\)
 \end{quote}
 
-You may know this assumption by another name: the absense of perfect
+You may know this assumption by another name: the absence of perfect
 colinearity between regressors.
 
 \begin{quote}
@@ -587,14 +560,14 @@ the first column of \(X\) is
 
 \[ X_1 = \begin{bmatrix}1 \\ 1 \\ \vdots \\ 1\end{bmatrix} \] a
 \(n\times 1\) vector vector of \(1\)'s, sometimes referred to as
-\(\iota\) (the Greek letter \emph{iota}). Suppose you have a categorical
+\(\ell\) (the Greek letter \emph{iota}). Suppose you have a categorical
 - for example, gender in an individual level dataset - that splits the
 same in two. The categories are assumed to be exhaustive and mutually
 exclusive. If you create two dummy variables, one for each category,
 
 \[ X_2 = \begin{bmatrix}1 \\ \vdots \\1\\0\\ \vdots \\ 0\end{bmatrix}\qquad\text{and}\qquad X_3 = \begin{bmatrix}0 \\ \vdots \\0\\1\\ \vdots \\ 1\end{bmatrix} \]
 
-it is evident that \(X_2+X_3 = \iota\). (Here I have depicted the sample
+it is evident that \(X_2+X_3 = \ell\). (Here I have depicted the sample
 as sorted along these two categories.) If \(X=[X_1\;X_2\;X_3]\), then it
 is rank-deficient: \(r(X) = 2<3\), since \(X_3=X_1-X2\). Thus, we can
 only include two of these three regressors. We can even exclude the
@@ -608,18 +581,16 @@ If \(X\) is full rank, then \((X'X)^{-1}\) exists and,
 \[ \hat{\beta} = (X'X)^{-1}X'Y \]
 
 This relatively simple expression is the solution to least squares
-maximization problem, written in matrix notation. Just think, it would
-take three lines of code to programme this. That is the power of knowing
-a little linear algebra.
-
-ADD CODE
+minimization problem. Just think, it would take less than three lines of
+code to programme this. That is the power of knowing a little linear
+algebra.
 
 \begin{quote}
 \textbf{{[}comment{]}} You may recognise the above expression from the
 Chapter~\ref{sec-intro} where we used vectors to define the mean
 estimator. It turns out, the mean estimator is the simplest of OLS
-estimators. It is a reression of \(Y\) against a constant alone:
-\(X=\iota\).
+estimators. It is a regression of \(Y\) against a constant alone:
+\(X=\ell\).
 \end{quote}
 
 We can write the same expression in terms of summations over unit-level
@@ -686,7 +657,7 @@ notation, the model is,
 \begin{align}
 Y =& X\beta+\varepsilon \\
 =& \begin{bmatrix}1&X_{12} \\ 1 & X_{22} \\ \vdots & \vdots \\ 1 & X_{n2}\end{bmatrix}\begin{bmatrix}\beta_1 \\ \beta_2 \end{bmatrix} + \varepsilon \\
-=& \begin{bmatrix}\iota &X_{2} \end{bmatrix}\begin{bmatrix}\beta_1 \\ \beta_2 \end{bmatrix} + \varepsilon
+=& \begin{bmatrix}\ell &X_{2} \end{bmatrix}\begin{bmatrix}\beta_1 \\ \beta_2 \end{bmatrix} + \varepsilon
 \end{align}
 \]
 
@@ -695,8 +666,8 @@ Therefore,
 \[
 \begin{align} 
 \hat{\beta} = \begin{bmatrix}\hat{\beta}_1 \\ \hat{\beta}_2\end{bmatrix}=&(X'X)^{-1}X'Y \\
-=&\bigg(\begin{bmatrix}\iota' \\ X_{2}' \end{bmatrix}\begin{bmatrix}\iota &X_{2}\end{bmatrix}\bigg)^{-1}\begin{bmatrix}\iota'  \\ X_{2}' \end{bmatrix}Y \\
-=&\begin{bmatrix}\iota'\iota & \iota'X_2 \\ X_{2}'\iota & X_2'X_2 \end{bmatrix}^{-1}\begin{bmatrix}\iota'Y  \\ X_{2}'Y \end{bmatrix}
+=&\bigg(\begin{bmatrix}\ell' \\ X_{2}' \end{bmatrix}\begin{bmatrix}\ell &X_{2}\end{bmatrix}\bigg)^{-1}\begin{bmatrix}\ell'  \\ X_{2}' \end{bmatrix}Y \\
+=&\begin{bmatrix}\ell'\ell & \ell'X_2 \\ X_{2}'\ell & X_2'X_2 \end{bmatrix}^{-1}\begin{bmatrix}\ell'Y  \\ X_{2}'Y \end{bmatrix}
 \end{align} 
 \]
 
@@ -713,11 +684,11 @@ matrix:
 
 \begin{itemize}
 \item
-  element {[}1,1{]}: \(\iota'\iota = \sum_{i=1}^n 1 = n\)
+  element {[}1,1{]}: \(\ell'\ell = \sum_{i=1}^n 1 = n\)
 \item
-  element {[}1,2{]}: \(\iota'X_2 = \sum_{i=1}^nX_{i2} = n\bar{X}_2\)
+  element {[}1,2{]}: \(\ell'X_2 = \sum_{i=1}^nX_{i2} = n\bar{X}_2\)
 \item
-  element {[}2,1{]}: \(X_2'\iota = \sum_{i=1}^nX_{i2} = n\bar{X}_2\) (as
+  element {[}2,1{]}: \(X_2'\ell = \sum_{i=1}^nX_{i2} = n\bar{X}_2\) (as
   above, since scalars are symmetric)
 \item
   element {[}2,2{]}: \(X_2'X_2=\sum_{i=1}^nX_{i2}^2\)
@@ -727,7 +698,7 @@ Next, consider the final \(2\times 1\) vector,
 
 \begin{itemize}
 \item
-  element {[}1,1{]}: \(\iota'Y = \sum_{i=1}^n Y_i = n\bar{Y}\)
+  element {[}1,1{]}: \(\ell'Y = \sum_{i=1}^n Y_i = n\bar{Y}\)
 \item
   element {[}2,1{]}: \(X_2'Y = \sum_{i=1}^nY_iX_{i2}\)
 \end{itemize}
@@ -779,8 +750,8 @@ described as a linear transformation of the \(Y\) vector.
 
 We also saw that in order for there to be a (unique) solution to the
 least squared problem, the \(X\) matrix must be full rank. This rules
-out any perfect colinearity between variables in the \(X\) matrix,
-including the constant.
+out any perfect colinearity between columns (i.e.~regressors) in the
+\(X\) matrix, including the constant.
 
 Given the vector of OLS coefficients, we can also estimate the residual,
 
@@ -797,7 +768,7 @@ separates the vector \(Y\) into two components:
 
 \[
 \begin{align}
- Y =& X\hat{\beta} + \hat{\varepsilon}\\
+ Y =& X\hat{\beta} + \hat{\varepsilon} \\
 =&\underbrace{X(X'X)^{-1}X'}_{P_X}Y + (\underbrace{I_n-X(X'X)X^{-1}}_{I_n-P_X = M_X})Y \\
 =&P_XY + M_XY
 \end{align}
@@ -805,7 +776,7 @@ separates the vector \(Y\) into two components:
 
 The matrix \(P_X = X(X'X)^{-1}X'\) is a \(n\times n\) \emph{projection}
 matrix. It is a linear transformation that projects any vector into the
-span of \(X\): \(S(X)\). (See Chapter~\ref{sec-compendium} more
+span of \(X\): \(S(X)\). (See Chapter~\ref{sec-compendium} for more
 information on these terms.) \(S(X)\) is the vector space spanned by the
 columns of \(X\). The dimensions of this vector space depends on the
 rank of \(P_X\),
@@ -847,7 +818,7 @@ the latter (but not the other way around).
 When we use OLS, we estimate the vector \(\hat{\beta}\) such that,
 
 \[
-X'\hat{\varepsilon}=0 \quad always
+X'(Y-X\hat{\beta})=X'\hat{\varepsilon}=0 \quad always
 \]
 
 This is true, \emph{not just in expectation}, but by definition. The
@@ -871,8 +842,8 @@ that if the assumption is wrong, so is the projection.
 \hypertarget{partitioned-regression}{%
 \section{Partitioned regression}\label{partitioned-regression}}
 
-The tools of linear algebra also help us to understand partitioned
-regression. In fact, I would go as far to to say that it is quite
+The tools of linear algebra can help us better understand partitioned
+regression. Indeed, I would go as far to to say that it is quite
 difficult to understand partitioned regression without an understanding
 of projection matrices. Moreover, we need to understand partitioned
 regression to really understand multivariate regression.
@@ -898,10 +869,14 @@ Next, you regress \(Y\) on the residual from the above model,
 Y = \gamma_1 \hat{\upsilon}_1+\xi
 \]
 
-The OLS estimator for \(\gamma_1\) is equal to that of \(\beta_1\).
+The partitioned regression result states that the OLS estimator for
+\(\hat{\gamma_1}=\hat{\beta_1}\). This aids in our understanding of
+\(\beta_1\) as the partial effect of \(X_1\) on \(Y\), holding \(X_2\)
+constant.
 
-Let us begin by applying our existing knowledge. From above, we know
-that the residual from the regression of \(X_1\) on \(X_2\) is,
+We can show this using projection matrices. Let us begin by applying our
+existing knowledge. From above, we know that the residual from the
+regression of \(X_1\) on \(X_2\) is,
 
 \[
 \hat{\upsilon} = M_2X_1
@@ -956,28 +931,283 @@ If we plug this definition of \(Y\) into the above expression we get,
 &+\underbrace{(X_1'M_2X_1)^{-1}X_1'M_2\hat{\varepsilon}}_{=0} \\
 =&\hat{\beta}_1
 \end{align}
-\] In line 2 I use the fact that \(\hat{\beta}_1\) is a scalar and can
-be moved to the front (order of multiplication does not matter). In line
-3 we exploit the fact that \(M_2X_2=0\) by definition. Line 4 uses the
-fact that \(M_2\hat{\varepsilon}=\hat{\varepsilon}\) which means that
+\] In line 2, I use the fact that \(\hat{\beta}_1\) is a scalar and can
+be moved to the front (since the order of multiplication does not matter
+with a scalar). In line 3, I use the fact that \(M_2X_2=0\) by
+definition. Line 4 uses the fact that
+\(M_2\hat{\varepsilon}=\hat{\varepsilon}\) which means that
 \(X_1'M_2\hat{\varepsilon}=X_1'\hat{\varepsilon}=0\).
+
+The OLS estimator solves for \(\beta_1\) using the variance in \(X_1\)
+that is orthogonal to \(X_2\). This is the manner in which we ``hold
+\(X_2\) constant'': the variation in \(M_2X_1\) is orthogonal to
+\(X_2\). Changes in \(M_2X_1\) are \emph{uncorrelated} with changes in
+\(X_2\); \emph{as if} the variation in \(M_2X_1\) arose independently of
+\(X_2\). However, uncorrelatedness does NOT imply independence.
 
 \bookmarksetup{startatroot}
 
 \hypertarget{sec-dummy}{%
 \chapter{Dummy Variables}\label{sec-dummy}}
 
-In summary, this book has no content whatsoever.
+Dummy variables are used extensively in Microeconometrics. They are used
+to model discrete public policy and experimental `treatments' in
+Microeconomics and are the building blocks of ``fixed effects'' used
+widely in Microeconomics models.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\DecValTok{1} \SpecialCharTok{+} \DecValTok{1}
-\end{Highlighting}
-\end{Shaded}
+Any dummy variable, \(D_i=\mathbf{1}\{true\}\), splits the sample into
+two groups: true (e.g.~treated) and false (e.g.~control/untreated). In a
+basic setting the use a of dummy variable might be relatively straight
+forward. For example, consider a linear model using to assess a single
+treatment from a randomized control trial,
 
-\begin{verbatim}
-[1] 2
-\end{verbatim}
+\[
+Y_i = \beta_{10}+\beta_{11} D_{1i} + \varepsilon_i
+\] where \(D_{1i} = \mathbf{1}\{treated\}\) identifies those who are
+treated in the sample.
+
+For ease of demonstration, let us assume that the data is sorted on
+\(D_i\): the first \(N_0\) observations are the untreated control group,
+and the next \(N_1 = N-N_0\) the treated. From previous chapters, we
+know that the matrix of regressors in this model is given by,
+
+\[
+X_1=[\ell,D_1]=\begin{bmatrix}1 & 0 \\ \vdots & \vdots \\ 1 & 0 \\ 1 & 1 \\ \vdots & \vdots \\ 1 & 1 \end{bmatrix}
+\] The above matrix has rank 2, as the columns are linearly independent.
+Likewise, the rank of the \(2\times 2\) matrix \(X_1'X_1\) is also 2
+(i.e.~full rank) and is therefore invertible. If \(N=N_0\) - i.e., no
+units were treated - the matrix would be rank deficient. Similarly, if
+\(N_0=0\) - i.e., all units were treated - \(D_1\) would be a column of
+\(1\)'s, colinear with the constant.
+
+Consider then the regressor
+\(D_{2i} = 1-D_{1i} = \mathbf{1}\{control\}\). What would happen if we
+included \(D_{2i}\) in the above model? The matrix of regressors would
+be, \[
+X=[\ell,D_1,D_2]=\begin{bmatrix}1 & 0 &1 \\ \vdots & \vdots & \vdots \\ 1 & 0 &1 \\ 1 & 1 &0\\ \vdots & \vdots & \vdots \\ 1 & 1 & 0 \end{bmatrix}
+\] The rank of matrix \(X\) is not 3; it remains 2. This because the
+three columns of \(X\) are linearly dependent: \[
+\begin{bmatrix}1 \\ \vdots \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix}=\begin{bmatrix}0 \\ \vdots \\ 0 \\ 1 \\ \vdots \\ 1 \end{bmatrix}+\begin{bmatrix}1 \\ \vdots \\ 1 \\ 0\\  \vdots \\  0 \end{bmatrix}
+\] You can have ANY two of the columns in the model, but not all three.
+Moreover, regardless which two you choose, the projection remains the
+same. Consider, the three possible models,
+
+\[
+\begin{align}
+Y_i =& \beta_{10}+\beta_{11} D_{1i}+\varepsilon_i=X_1\beta_1+\varepsilon_i & \qquad\text{where} \quad X_1 = [\ell\;D_1] \\
+Y_i =& \beta_{20}+\beta_{22} D_{2i}+\varepsilon_i=X_2\beta_2+\varepsilon_i & \qquad\text{where} \quad X_2 = [\ell\;D_2] \\
+Y_i =& \beta_{01}D_{1i} + \beta_{02}D_{2i}+\varepsilon_i=X_0\beta_0+\varepsilon_i & \qquad\text{where} \quad X_0 = [D_1\;D_2] 
+\end{align}
+\] It turns out that, \[
+P_1 = X_1(X_1'X_1)^{-1}X_1' = P_2 = P_0
+\]
+
+Similarly,
+
+\[
+M_1 = I_n-X_1(X_1'X_1)^{-1}X_1' = M_2 = M_0
+\]
+
+Thus, the vector of residuals estimated by OLS for the above three
+models are all the same.
+
+\textbf{Why does this matter?} Consider, the case where you include a
+categorical covariate (`control' variable) in your model. We know from
+EC226 that a categorical variable must be included in the model as a set
+of dummy variables: one for each category.
+
+\[
+Y_i = \alpha + \beta Z_i + \sum_{j=2}^J \gamma_j D_{ji} + \upsilon_i
+\] We must exclude 1 of the J categories since the model contains a
+constant and all the dummy variables (for the \(J\) categories) add up
+to 1 (or the vector \(\ell\)). Here, I exclude the first category,
+\(j=1\).
+
+We know from the previous discussion on partitioned regression that we
+can estimate the scalar parameter \(\beta\) by first regressing \(Z_i\)
+on all other regressors,
+
+\[
+Z_i = \delta + \sum_{j=2}^J \psi_j D_{ji} + \nu_i
+\]
+
+Next we regress the outcome, \(Y_i\), on the residuals from the above
+equation. Using vector notation, this model is given by,
+
+\[
+  Y_i = \beta \hat{\nu_i}+\zeta_i = \beta M_{D_1}Z_i+\zeta_i
+\] where \(M_{D_1}\) is the orthogonal projection matrix from the
+regression of \(Z_i\) on the full set of dummy variables (excluding
+category 1) and constant. The OLS estimator for \(\beta\) is given by,
+
+\[
+  \hat{\beta} = (Z'M_{D_1}Z)^{-1}Z'M_{D_1}Y
+\] There are two things to take from this equation. First, we get the
+same result whether or not we first orthogonalize \(Y_i\) on the full
+set of covariates, since \(M_D\) is idempotent:
+\(M_{D_1} = M_{D_1}M_{D_1}\). Thus,
+
+\[
+  (Z'M_{D_1}Z)^{-1}Z'M_{D_1}M_{D_1}Y = (Z'M_{D_1}Z)^{-1}Z'M_{D_1}Y = \hat{\beta}
+\] Second, the choice of base category among the control variables is
+irrelevant. Indeed, even if we dropped the constant and included a dummy
+variable for all \(J\) categories, we would achieve the same estimator.
+This is because,
+
+\[
+M_{D_0} = M_{D_1} = M_{D_2} ... = M_{D_J}
+\] where \(M_{D_0}\) is the orthogonal projection matrix from a
+regression with all \(J\) categories (and no constant) and \(M_{D_j}\)
+is the orthogonal projection matrix from a regression with the \(j\)-th
+category excluded (and a constant).
+
+\hypertarget{fixed-effects}{%
+\section{Fixed Effects}\label{fixed-effects}}
+
+One way of interpreting a model with an (exhaustive) set of dummy
+variables is as a model with a group-specific constant. Since, it makes
+no difference to parameter of interest whether you include the constant
+and \(J-1\) dummies or exclude the constant and include all \(J\) dummy
+variables, we can consider the model,\footnote{The choice of base
+  category makes a difference when the variable of interest is a
+  categorical variable. In this instance, the choice of base category
+  changes the interpretation of the coefficient. This discussion relates
+  more to instances where the categorical variable is included as a
+  control variable.}
+
+\[
+Y_i = \beta Z_i + \sum_{j=1}^J \gamma_j D_{ji} + \upsilon_i
+\]
+
+A common short-hand notation for such a set-up is,
+
+\[
+Y_i = \beta Z_i + \gamma_j + \upsilon_i
+\] where \(\gamma_j\) signifies the presence of \(J\) group fixed
+effects. For each group the constant, denoted by \(\gamma\), changes.
+However, it is important to remember that this notation is a short-hand.
+The full set of regressors includes \(J\) dummy variables (or a constant
+and \(J-1\) dummy variables). When applying this shorthand it is
+standard to drop the constant term.
+
+\hypertarget{multi-level-fixed-effects}{%
+\section{Multi-level Fixed Effects}\label{multi-level-fixed-effects}}
+
+Suppose you had two categorical variables, where one was a proper subset
+of the other. For example, an individual level dataset that contained
+information on the country in the UK where an individual lived
+(i.e.~England, Scotland, Wales, Northern Ireland) and their county
+(i.e.~Warwickshire, Oxfordshire, Cambridgeshire, etc.). Since county
+borders do not overlap country borders in the UK, an individuals county
+perfectly predicts their country.
+
+Consider then the model,
+
+\[
+Y_i = \beta Z_i + \gamma_j + \delta_k + \upsilon_i
+\] where \(j\) represents country fixed effects and \(k\) county fixed
+effects. Let's assume the data is sorted by country and then county, and
+that there are two countries, each with 2 counties. (An obvious
+simplification.) If we consider the matrix of fixed effects, they can be
+written as,
+
+\[
+  \begin{bmatrix}1 & 0 & 1 & 0 & 0 & 0 \\ 
+  \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+  \vdots & \vdots & 1 & 0 & 0 & 0 \\
+  \vdots & \vdots & 0 & 1 & 0 & 0 \\
+  \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+  1 & 0 & 0 & 1 & 0 & 0 \\
+  0 & 1 & 0 & 0 & 1 & 0 \\
+  \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+  \vdots & \vdots & 0 & 0 & 1 & 0 \\
+  \vdots & \vdots & 0 & 0 & 0 & 1 \\
+  \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+  0& 1 & 0 & 0 & 0 & 1 \\
+  \end{bmatrix}
+\] We can immediately see that the matrix is rank deficient. Columns 3
+and 4 add up to give you column 1. Likewise, columns 5 and 6 add up to
+give you column 2. This implies that the matrix is not invertible and we
+cannot separately identify all fixed effects.
+
+If we include column 1 (i.e.~dummy variable for country \(j=1\)), we
+must exclude \emph{either} column 3 or 4 (i.e.~one of the counties in
+country \(j=1\)). For the same reasons discussed above (when selecting
+between the inclusion of the constant and dummy variables), it makes no
+difference whether we include column 1 and drop either column 3 or 4; or
+keep columns 3 and 4, and exclude column 1. Thus, we can only identify
+the model,\footnote{I deliberately changed the parameters denoting the
+  county fixed effects from \(\delta_k\) to \(\tilde{\delta}_k\) since
+  the true model (data generating process) may contain both country and
+  county fixed effects. However, we cannot separately identify these. We
+  can identify \(\tilde{\delta}_k\): a combination of both sets of
+  parameters.}
+
+\[
+Y_i = \beta Z_i + \tilde{\delta}_k + \upsilon_i
+\] The general rule is, you retain the ``highest'' level of fixed
+effect. In this application, the model with county fixed effects.
+
+\hypertarget{fixed-effects-in-panel-data}{%
+\section{Fixed Effects in Panel
+Data}\label{fixed-effects-in-panel-data}}
+
+Fixed effects are used extensively in panel data models. They are used
+to control for time-invariant, unit-level heterogeneity and flexible,
+aggregate time trends. Consider, the model
+
+\[
+  Y_{it} = \beta Z_{it} + \alpha_i + \delta_t + \varepsilon_{it}
+\] As before, this notation is used as a shorthand. The full set of unit
+fixed effects are given by, \[
+\alpha_i=\sum_{j=1}^N\alpha_j\mathbf{1}\{i=j\}
+\] and the time fixed effects are given by, \[
+\delta_t=\sum_{j=1}^T\delta_k\mathbf{1}\{t=k\}
+\] What if we wanted to include group-level controls in the model; e.g.,
+an indicator for treatment group status? If group membership is stable
+over time, then for the reasons discussed above, group membership is
+perfectly co-linear with the unit fixed effects. The dummy variables for
+treated units (a subset of the unit fixed effects) add up to the dummy
+variable for the treated group. You will see this again in EC338.
+
+A final point on this. What if you need to include a variable that
+identifies treatment-group status in the model for
+\emph{identification}. For example, in a simple two-group-two-period
+difference-in-differences model you have,
+
+\[
+  Y_{it} = \alpha + \psi D_i + \delta T_t + \beta D_i\cdot T_t + \varepsilon_{it}
+\] where \(D_i = \mathbf{1}\{treated\}\) and
+\(T_t = \mathbf{1}\{t\geq t_0\}\) where \(t_0\) is the period of
+treatment. The coefficient on the interaction term is the parameter of
+interest. If we include unit fixed effects in this model,
+
+\[
+  Y_{it} = \alpha_i + \delta T_t + \beta D_i\cdot T_t + \upsilon_{it}
+\] then we drop the treatment-group indicator dummy variable: \(D_i\).
+And if we include include time fixed effects, \[
+  Y_{it} = \alpha_i + \delta_t + \beta D_i\cdot T_t + \upsilon_{it}
+\] we drop \(T_t\). Is this a problem for identification? No, the group
+indicator, \(D_i\), is ``implied'' by unit fixed effects. Because the
+group dummy is perfectly co-linear with the unit fixed effects, you
+could always have included it by excluding one of the unit fixed
+effects. In fact, \emph{with a balanced panel}, replacing the group
+indicator with unit fixed effects will not actually change the estimated
+coefficient on the interaction term. It will, however, reduce the
+standard error of estimator.
+
+For this reason, the most common notation used for (static)
+difference-in-differences is,
+
+\[
+  Y_{it} = \alpha_i + \delta_t + \beta D_{it} + \upsilon_{it}
+\] where \(D_{it} = \mathbf{1}\{treated\}\cdot\mathbf{1}\{t\geq t_0\}\).
+This notation is particularly useful because it does not need to be
+adapted when you add more time periods. However, it can only be used in
+applications with longitudinal data. If you are using repeated
+cross-sections then you cannot include unit fixed effects and must
+retain a treatment group indicator. We will discuss this futher in
+EC338.
 
 \bookmarksetup{startatroot}
 
