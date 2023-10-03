@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>EC338 Pre-reading - 3&nbsp; Ordinary Least Squares</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./geometry-ols.html" rel="next">
+<link href="./linear-reg.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ols.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ordinary Least Squares</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">EC338 Pre-reading</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear-reg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Linear Regression Model</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ols.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ordinary Least Squares</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./geometry-ols.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Geometry of OLS</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dummy-var.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./compendium.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Compendium</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-uni-variate-case" id="toc-the-uni-variate-case" class="nav-link active" data-scroll-target="#the-uni-variate-case"><span class="header-section-number">3.1</span> The uni-variate case</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-ols" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ordinary Least Squares</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>You are, no doubt, familiar with the ordinary least squares (OLS) estimator from your previous studies in Econometrics (EC226 or otherwise). OLS is <em>an</em> estimator for <span class="math inline">\(\beta\)</span>, it is not the only one. Indeed, you could use maximum likelihood methods to estimate <span class="math inline">\(\beta\)</span>.</p>
+<p>The OLS estimator is the solution to,</p>
+<p><span class="math display">\[
+\min_b\;\sum_{i=1}^n(Y_i-X_i'b)^2
+\]</span></p>
+<p>Using vector notation, we can rewrite this as</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\min_b\;(Y-Xb)'(Y-Xb)\\
+=&amp;\min_b\;Y'Y-2b'X'Y+b'X'Xb
+\end{aligned}
+\]</span></p>
+<blockquote class="blockquote">
+<p><strong>[note]</strong> When working with vectors and matrices it is important to keep track of their size. You can only multiply two matrices/vectors if their column and row dimensions match. For example, if <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are both <span class="math inline">\(n\times k\)</span> matrices (<span class="math inline">\(n\neq k\)</span>), then <span class="math inline">\(AB\)</span> is not defined since <span class="math inline">\(A\)</span> has <span class="math inline">\(k\)</span> columns and <span class="math inline">\(B\)</span> <span class="math inline">\(n\)</span> rows. For the same reason <span class="math inline">\(BA\)</span> is also not defined. However, you can pre-multiply <span class="math inline">\(B\)</span> with <span class="math inline">\(A'\)</span> as <span class="math inline">\(A'\)</span> is a <span class="math inline">\(k\times n\)</span> matrix: <span class="math inline">\(A'B\)</span> is therefore a <span class="math inline">\((k\times n)\cdot (n\times k)=k\times k\)</span> matrix. Similarly, <span class="math inline">\(B'A\)</span> is defined, but is a <span class="math inline">\(n\times n\)</span> matrix.</p>
+<p>Order matters when working with matrices and vectors. Pre-multiplication and post-multiplication are not the same thing.</p>
+</blockquote>
+<p>Keep track of the size of each term to ensure they correspond to one another. In this instance, each term should be a scalar. For example, <span class="math inline">\(-2b'X'Y\)</span> is the multiplication of a scalar (<span class="math inline">\(-2\)</span>: size <span class="math inline">\(1\times 1\)</span>), row vector (<span class="math inline">\(b'\)</span>: size <span class="math inline">\(1\times k\)</span>), matrix (<span class="math inline">\(X'\)</span>: size <span class="math inline">\(k\times n\)</span>), and column vector (<span class="math inline">\(Y\)</span>: size <span class="math inline">\(n\times 1\)</span>). Thus we have a <span class="math inline">\((1\times 1)\cdot (1\times k)\cdot (k\times n)\cdot (n\times 1)=1\times 1\)</span>.</p>
+<p>Differentiating the above expression w.r.t. <span class="math inline">\(b\)</span> and setting the first-order conditions to <span class="math inline">\(0\)</span>, we find that the following condition must hold for <span class="math inline">\(\hat{\beta}\)</span>, the solution.</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;0=-2X'Y+2X'X\hat{\beta}
+\\ \Rightarrow&amp; X'X\hat{\beta} = X'Y
+\end{aligned}
+\]</span></p>
+<p>What are the dimensions of this equation? Well, <span class="math inline">\(X'X\)</span> is a <span class="math inline">\(k\times k\)</span> matrix and <span class="math inline">\(\hat{\beta}\)</span> a <span class="math inline">\(k\times 1\)</span> vector. Thus the left-hand side of the equation is a <span class="math inline">\(k\times 1\)</span> vector, as is the right-hand side. [Check that you agree.]</p>
+<p>In order to solve for <span class="math inline">\(\hat{\beta}\)</span> we need to move the <span class="math inline">\(X'X\)</span> term to the right-hand side. If these were scalars we would simply divide both sides by the same constant. However, as <span class="math inline">\(X'X\)</span> is a matrix, division is not possible. Instead, we need to pre-multiply both sides by the inverse of <span class="math inline">\(X'X\)</span>: <span class="math inline">\((X'X)^{-1}\)</span>. Here’s the issue: the inverse of a matrix need not exist.</p>
+<p>Given a <em>square</em> <span class="math inline">\(k\times k\)</span> matrix <span class="math inline">\(A\)</span>, its inverse exists <em>if and only if</em> <span class="math inline">\(A\)</span> is non-singular. For <span class="math inline">\(A\)</span> to be non-singular its rank must have full rank: <span class="math inline">\(r(A)=k\)</span>, the number of rows/columns. This means that all <span class="math inline">\(k\)</span> columns/rows must be linearly independent. (See <a href="compendium.html"><span>Chapter&nbsp;6</span></a> for a more detailed discussion of all these terms.)</p>
+<p>In our application, <span class="math inline">\(A=X'X\)</span> and</p>
+<p><span class="math display">\[ r(X'X) = r(X) = colrank(X)\leq k \]</span></p>
+<p>To insure that the inverse of <span class="math inline">\(X'X\)</span> exists, <span class="math inline">\(X\)</span> must have full column rank: all column vectors must be <em>linearly independent</em>. In practice, this means that no regressor can be a <em>perfect</em> linear combination of others. This gives rise to one of the key linear regression model assumptions:</p>
+<blockquote class="blockquote">
+<p><strong>[assumption]</strong> <em>rank condition:</em> <span class="math inline">\(r(X)=k\)</span></p>
+</blockquote>
+<p>You may know this assumption by another name: the absence of perfect colinearity between regressors.</p>
+<blockquote class="blockquote">
+<p><strong>[comment]</strong> The rank condition is the reason we exclude a base category when working with categorical variables. We will revisit this subject in more detail in <a href="dummy-var.html"><span>Chapter&nbsp;5</span></a>.</p>
+<p>Recall, most linear regression models are specified with constant. Thus, the first column of <span class="math inline">\(X\)</span> is</p>
+<p><span class="math display">\[ X_1 = \begin{bmatrix}1 \\ 1 \\ \vdots \\ 1\end{bmatrix} \]</span> a <span class="math inline">\(n\times 1\)</span> vector vector of <span class="math inline">\(1\)</span>’s, denoted here as <span class="math inline">\(\ell\)</span>. Suppose you have a categorical - for example, gender in an individual level dataset - that splits the same in two. The categories are assumed to be exhaustive and mutually exclusive. If you create two dummy variables, one for each category,</p>
+<p><span class="math display">\[ X_2 = \begin{bmatrix}1 \\ \vdots \\1\\0\\ \vdots \\ 0\end{bmatrix}\qquad\text{and}\qquad X_3 = \begin{bmatrix}0 \\ \vdots \\0\\1\\ \vdots \\ 1\end{bmatrix} \]</span></p>
+<p>it is evident that <span class="math inline">\(X_2+X_3 = \ell\)</span>. (Here I have depicted the sample as sorted along these two categories.) If <span class="math inline">\(X=[X_1\;X_2\;X_3]\)</span>, then it is rank-deficient: <span class="math inline">\(r(X) = 2&lt;3\)</span>, since <span class="math inline">\(X_3=X_1-X2\)</span>. Thus, we can only include two of these three regressors. We can even exclude the constant and have <span class="math inline">\(X=[X_2\;X_3]\)</span>. In <a href="geometry-ols.html"><span>Chapter&nbsp;4</span></a> we will show that the projection remains the same regardless of which category we exclude, even the constant.</p>
+</blockquote>
+<p>If <span class="math inline">\(X\)</span> is full rank, then <span class="math inline">\((X'X)^{-1}\)</span> exists and,</p>
+<p><span class="math display">\[
+\hat{\beta} = (X'X)^{-1}X'Y
+\]</span></p>
+<p>This relatively simple expression is the solution to least squares minimization problem. Just think, it would take less than three lines of code to programme this. That is the power of knowing a little linear algebra.</p>
+<blockquote class="blockquote">
+<p><strong>[comment]</strong> You may recognise the above expression from the <a href="intro.html"><span>Chapter&nbsp;1</span></a> where we used vectors to define the mean estimator. It turns out, the mean estimator is the simplest of OLS estimators. It is a regression of <span class="math inline">\(Y\)</span> against a constant alone: <span class="math inline">\(X=\ell\)</span>.</p>
+</blockquote>
+<p>We can write the same expression in terms of summations over unit-level observations,</p>
+<p><span class="math display">\[
+\hat{\beta} = \big(\sum_{i=1}^nX_iX_i')^{-1}\sum_{i=1}^nX_iY_i
+\]</span></p>
+<p>Note, the change in position of the transpose: <span class="math inline">\(X_i\)</span> is a column vector <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(X_i'X_i\)</span> is a scalar and <span class="math inline">\(X_iX_i'\)</span> is a <span class="math inline">\(k\times k\)</span> matrix. To match the first expression, the term inside the parenthesis must be a <span class="math inline">\(k\times k\)</span> matrix. Similarly, <span class="math inline">\(X'Y\)</span> is a <span class="math inline">\(k\times 1\)</span> vector, as is <span class="math inline">\(X_iY_i\)</span>.</p>
+<section id="the-uni-variate-case" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="the-uni-variate-case"><span class="header-section-number">3.1</span> The uni-variate case</h2>
+<p>Undergraduate textbooks all teach a very similar expression for the OLS estimator of a uni-variate regression model (with a constant), such as</p>
+<p><span class="math display">\[
+Y_i = \beta_1+\beta_2X_{i2}+\varepsilon_i
+\]</span></p>
+<blockquote class="blockquote">
+<p><strong>[note]</strong> Once you are familiar with vector notation, it is relatively easy to tell whether a model is uni- or multi-variate. This is because the notation <span class="math inline">\(\beta_2 X_{i2}\)</span> is not consistent with <span class="math inline">\(X_{2i}\)</span> being a vector (row or column).</p>
+<p>If <span class="math inline">\(X_{i2}\)</span> is a <span class="math inline">\(k\times 1\)</span> vector then so is <span class="math inline">\(\beta_2\)</span>. Thus, <span class="math inline">\(\beta_2 X_{i2}\)</span> is <span class="math inline">\((k\times 1)\cdot (k\times1)\)</span>, which is not defined.</p>
+<p>If <span class="math inline">\(X_{i2}\)</span> is a row vector (as in Wooldridge, 2011), <span class="math inline">\(\beta_2 X_{i2}\)</span> will then be <span class="math inline">\((k\times 1)\cdot (1\times k)\)</span>, a <span class="math inline">\(k\times k\)</span> matrix. This cannot be correct since the model is defined at the unit level.</p>
+<p>Thus, if you see a model written with the parameter in front of the regressor, you know that this must be a single regressor. This is subtle, yet imporant, distinction that researchers often use to convey the structure of their model. Whenever <span class="math inline">\(X_{i2}\)</span> is a vector, researchers will <em>almost always</em> use the notation <span class="math inline">\(X_{i2}'\beta\)</span> or <span class="math inline">\(X_{i2}\beta\)</span>, depending on whether <span class="math inline">\(X_{i2}\)</span> is assumed to be a column or row vector.</p>
+</blockquote>
+<p>We know that,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\tilde{\beta}_2 =&amp; \frac{\sum(Y_i-\bar{Y})(X_{i2}-\bar{X}_2)}{\sum_{i=1}^n(X_{i2}-\bar{X}_2)^2} \\
+\text{and}\qquad \tilde{\beta}_1 =&amp; \bar{Y}-\tilde{\beta_2}\bar{X}_2
+\end{aligned}
+\]</span></p>
+<p>I am deliberately using the notation <span class="math inline">\(\tilde{\beta}\)</span> to distinguish these two estimators from the expression below.</p>
+<p>Let us see if we can replicate this result. When written in vector notation, the model is,</p>
+<p><span class="math display">\[
+\begin{aligned}
+Y =&amp; X\beta+\varepsilon \\
+=&amp; \begin{bmatrix}1&amp;X_{12} \\ 1 &amp; X_{22} \\ \vdots &amp; \vdots \\ 1 &amp; X_{n2}\end{bmatrix}\begin{bmatrix}\beta_1 \\ \beta_2 \end{bmatrix} + \varepsilon \\
+=&amp; \begin{bmatrix}\ell &amp;X_{2} \end{bmatrix}\begin{bmatrix}\beta_1 \\ \beta_2 \end{bmatrix} + \varepsilon
+\end{aligned}
+\]</span></p>
+<p>Therefore,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{\beta} = \begin{bmatrix}\hat{\beta}_1 \\ \hat{\beta}_2\end{bmatrix}=&amp;(X'X)^{-1}X'Y \\
+=&amp;\bigg(\begin{bmatrix}\ell' \\ X_{2}' \end{bmatrix}\begin{bmatrix}\ell &amp;X_{2}\end{bmatrix}\bigg)^{-1}\begin{bmatrix}\ell'  \\ X_{2}' \end{bmatrix}Y \\
+=&amp;\begin{bmatrix}\ell'\ell &amp; \ell'X_2 \\ X_{2}'\ell &amp; X_2'X_2 \end{bmatrix}^{-1}\begin{bmatrix}\ell'Y  \\ X_{2}'Y \end{bmatrix}
+\end{aligned}
+\]</span></p>
+<p>I went through this rather quickly, using a number of linear algebra rules that you may not be familiar with. Do not worry, the point of the exercise is not become a linear algebra master, but instead to focus on the element of each of each matrix/vector. Each element is a scalar (size <span class="math inline">\(1\times 1\)</span>).</p>
+<p>If we right them each down as sums you they might be a little more familiar. (Take a look back at <a href="intro.html"><span>Chapter&nbsp;1</span></a> to remind yourself of some of these steps). First consider the <span class="math inline">\(2\times 2\)</span> matrix:</p>
+<ul>
+<li><p>element [1,1]: <span class="math inline">\(\ell'\ell = \sum_{i=1}^n 1 = n\)</span></p></li>
+<li><p>element [1,2]: <span class="math inline">\(\ell'X_2 = \sum_{i=1}^nX_{i2} = n\bar{X}_2\)</span></p></li>
+<li><p>element [2,1]: <span class="math inline">\(X_2'\ell = \sum_{i=1}^nX_{i2} = n\bar{X}_2\)</span> (as above, since scalars are symmetric)</p></li>
+<li><p>element [2,2]: <span class="math inline">\(X_2'X_2=\sum_{i=1}^nX_{i2}^2\)</span></p></li>
+</ul>
+<p>Next, consider the final <span class="math inline">\(2\times 1\)</span> vector,</p>
+<ul>
+<li><p>element [1,1]: <span class="math inline">\(\ell'Y = \sum_{i=1}^n Y_i = n\bar{Y}\)</span></p></li>
+<li><p>element [2,1]: <span class="math inline">\(X_2'Y = \sum_{i=1}^nY_iX_{i2}\)</span></p></li>
+</ul>
+<p>Our OLS estimator is therefore,</p>
+<p><span class="math display">\[
+\hat{\beta} = \begin{bmatrix} n &amp; n\bar{X}_2 \\ n\bar{X}_2 &amp; \sum_{i=1}^nX_{i2}^2 \end{bmatrix}^{-1}\begin{bmatrix}n\bar{Y}_2  \\ \sum_{i=1}^nY_iX_{i2} \end{bmatrix}
+\]</span></p>
+<p>We now need to solve for the inverse of the <span class="math inline">\(2\times 2\)</span> matrix. You can easily find notes on how to do this online. Here, I will just provide the solution.</p>
+<p><span class="math display">\[
+\hat{\beta} = \frac{1}{n\sum_{i=1}^nX_{i2}^2-n^2\bar{X}_2^2}\begin{bmatrix} \sum_{i=1}^nX_{i2}^2 &amp; -n\bar{X}_2 \\ -n\bar{X}_2 &amp;  n\end{bmatrix}\begin{bmatrix}n\bar{Y}_2  \\ \sum_{i=1}^nY_iX_{i2} \end{bmatrix}
+\]</span></p>
+<p>Remember, this is still a <span class="math inline">\(2\times 1\)</span> vector. We can now solve for the final solution:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{\beta} =&amp; \frac{1}{n\sum_{i=1}^nX_{i2}^2-n^2\bar{X}_2^2}\begin{bmatrix} n\bar{Y}\sum_{i=1}^nX_{i2}^2 -n\bar{X}_2\sum_{i=1}^nY_iX_{i2} \\ n\sum_{i=1}^nY_iX_{i2}-n^2\bar{X}_2\bar{Y}\end{bmatrix} \\
+=&amp; \frac{1}{n\sum_{i=1}^n(X_{i2}-\bar{X}_2)^2}\begin{bmatrix} n\bar{Y}\sum_{i=1}^nX_{i2}^2 + n^2\bar{Y}\bar{X}^2 - n^2\bar{Y}\bar{X}^2 -n\bar{X}_2\sum_{i=1}^nY_iX_{i2} \\ n\sum_{i=1}^n(Y_i-\bar{Y})(X_{i2}-\bar{X}_2) \end{bmatrix} \\
+=&amp; \frac{1}{n\sum_{i=1}^n(X_{i2}-\bar{X}_2)^2}\begin{bmatrix} n\bar{Y}\sum_{i=1}^n(X_{i2}-\bar{X})^2 -n\bar{X}_2\sum_{i=1}^n(Y_i-\bar{Y})(X_{i2}-\bar{X}_2) \\ n\sum_{i=1}^n(Y_i-\bar{Y})(X_{i2}-\bar{X}_2) \end{bmatrix} \\
+=&amp; \begin{bmatrix} \bar{Y}  -\frac{n\sum_{i=1}^n(Y_i-\bar{Y})(X_{i2}-\bar{X}_2)}{n\sum_{i=1}^n(X_{i2}-\bar{X}_2)^2}\bar{X}_2 \\ \frac{n\sum_{i=1}^n(Y_i-\bar{Y})(X_{i2}-\bar{X}_2)}{n\sum_{i=1}^n(X_{i2}-\bar{X}_2)^2} \end{bmatrix} \\
+=&amp; \begin{bmatrix} \bar{Y}  -\tilde{\beta}_2\bar{X}_2 \\ \tilde{\beta}_2 \end{bmatrix} \\
+=&amp; \begin{bmatrix}\tilde{\beta}_1 \\ \tilde{\beta}_2 \end{bmatrix}
+\end{aligned}
+\]</span></p>
+<p>The math is a little involved, but it shows you these solutions are are the same. Unfortunately, the working gets even more arduous in a multivariate context. However, there are useful tools to help us with that we will discuss next.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./linear-reg.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Linear Regression Model</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./geometry-ols.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Geometry of OLS</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
