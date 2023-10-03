@@ -5,7 +5,7 @@ project:
 book:
   title: "EC338 Pre-reading"
   author: "Neil Lloyd"
-  date: "2023-09-18"
+  date: "2023-10-03"
   chapters:
     - index.qmd
     - intro.qmd
