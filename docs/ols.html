@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -57,7 +57,8 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -78,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ols.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ordinary Least Squares</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -161,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ordinary Least Squares</span></h1>
+<h1 class="title"><span id="sec-ols" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ordinary Least Squares</span></span></h1>
 </div>
 
 
@@ -178,18 +179,31 @@ ul.task-list li input[type="checkbox"] {
 
 <p>You are, no doubt, familiar with the ordinary least squares (OLS) estimator from your previous studies in Econometrics (EC226 or otherwise). OLS is <em>an</em> estimator for <span class="math inline">\(\beta\)</span>, it is not the only one. Indeed, you could use maximum likelihood methods to estimate <span class="math inline">\(\beta\)</span>.</p>
 <p>The OLS estimator is the solution to,</p>
-<p><span class="math display">\[ \min_b\;\sum_{i=1}^n(Y_i-X_i'b)^2 \]</span></p>
+<p><span class="math display">\[
+\min_b\;\sum_{i=1}^n(Y_i-X_i'b)^2
+\]</span></p>
 <p>Using vector notation, we can rewrite this as</p>
-<p><span class="math display">\[ \begin{align} &amp;\min_b\;(Y-Xb)'(Y-Xb)\\ =&amp;\min_b\;Y'Y-2b'X'Y+b'X'Xb \end{align} \]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\min_b\;(Y-Xb)'(Y-Xb)\\
+=&amp;\min_b\;Y'Y-2b'X'Y+b'X'Xb
+\end{aligned}
+\]</span></p>
 <blockquote class="blockquote">
 <p><strong>[note]</strong> When working with vectors and matrices it is important to keep track of their size. You can only multiply two matrices/vectors if their column and row dimensions match. For example, if <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are both <span class="math inline">\(n\times k\)</span> matrices (<span class="math inline">\(n\neq k\)</span>), then <span class="math inline">\(AB\)</span> is not defined since <span class="math inline">\(A\)</span> has <span class="math inline">\(k\)</span> columns and <span class="math inline">\(B\)</span> <span class="math inline">\(n\)</span> rows. For the same reason <span class="math inline">\(BA\)</span> is also not defined. However, you can pre-multiply <span class="math inline">\(B\)</span> with <span class="math inline">\(A'\)</span> as <span class="math inline">\(A'\)</span> is a <span class="math inline">\(k\times n\)</span> matrix: <span class="math inline">\(A'B\)</span> is therefore a <span class="math inline">\((k\times n)\cdot (n\times k)=k\times k\)</span> matrix. Similarly, <span class="math inline">\(B'A\)</span> is defined, but is a <span class="math inline">\(n\times n\)</span> matrix.</p>
 <p>Order matters when working with matrices and vectors. Pre-multiplication and post-multiplication are not the same thing.</p>
 </blockquote>
 <p>Keep track of the size of each term to ensure they correspond to one another. In this instance, each term should be a scalar. For example, <span class="math inline">\(-2b'X'Y\)</span> is the multiplication of a scalar (<span class="math inline">\(-2\)</span>: size <span class="math inline">\(1\times 1\)</span>), row vector (<span class="math inline">\(b'\)</span>: size <span class="math inline">\(1\times k\)</span>), matrix (<span class="math inline">\(X'\)</span>: size <span class="math inline">\(k\times n\)</span>), and column vector (<span class="math inline">\(Y\)</span>: size <span class="math inline">\(n\times 1\)</span>). Thus we have a <span class="math inline">\((1\times 1)\cdot (1\times k)\cdot (k\times n)\cdot (n\times 1)=1\times 1\)</span>.</p>
 <p>Differentiating the above expression w.r.t. <span class="math inline">\(b\)</span> and setting the first-order conditions to <span class="math inline">\(0\)</span>, we find that the following condition must hold for <span class="math inline">\(\hat{\beta}\)</span>, the solution.</p>
-<p><span class="math display">\[ \begin{align} &amp;0=-2X'Y+2X'X\hat{\beta} \\ \Rightarrow&amp; X'X\hat{\beta} = X'Y \end{align} \]</span> What are the dimensions of this equation? Well, <span class="math inline">\(X'X\)</span> is a <span class="math inline">\(k\times k\)</span> matrix and <span class="math inline">\(\hat{\beta}\)</span> a <span class="math inline">\(k\times 1\)</span> vector. Thus the left-hand side of the equation is a <span class="math inline">\(k\times 1\)</span> vector, as is the right-hand side. [Check that you agree.]</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;0=-2X'Y+2X'X\hat{\beta}
+\\ \Rightarrow&amp; X'X\hat{\beta} = X'Y
+\end{aligned}
+\]</span></p>
+<p>What are the dimensions of this equation? Well, <span class="math inline">\(X'X\)</span> is a <span class="math inline">\(k\times k\)</span> matrix and <span class="math inline">\(\hat{\beta}\)</span> a <span class="math inline">\(k\times 1\)</span> vector. Thus the left-hand side of the equation is a <span class="math inline">\(k\times 1\)</span> vector, as is the right-hand side. [Check that you agree.]</p>
 <p>In order to solve for <span class="math inline">\(\hat{\beta}\)</span> we need to move the <span class="math inline">\(X'X\)</span> term to the right-hand side. If these were scalars we would simply divide both sides by the same constant. However, as <span class="math inline">\(X'X\)</span> is a matrix, division is not possible. Instead, we need to pre-multiply both sides by the inverse of <span class="math inline">\(X'X\)</span>: <span class="math inline">\((X'X)^{-1}\)</span>. Here’s the issue: the inverse of a matrix need not exist.</p>
-<p>Given a <em>square</em> <span class="math inline">\(k\times k\)</span> matrix <span class="math inline">\(A\)</span>, its inverse exists <em>if and only if</em> <span class="math inline">\(A\)</span> is non-singular. For <span class="math inline">\(A\)</span> to be non-singular its rank must have full rank: <span class="math inline">\(r(A)=k\)</span>, the number of rows/columns. This means that all <span class="math inline">\(k\)</span> columns/rows must be linearly independent. (See <a href="#sec-compendium"><span class="quarto-unresolved-ref">sec-compendium</span></a> for a more detailed discussion of all these terms.)</p>
+<p>Given a <em>square</em> <span class="math inline">\(k\times k\)</span> matrix <span class="math inline">\(A\)</span>, its inverse exists <em>if and only if</em> <span class="math inline">\(A\)</span> is non-singular. For <span class="math inline">\(A\)</span> to be non-singular its rank must have full rank: <span class="math inline">\(r(A)=k\)</span>, the number of rows/columns. This means that all <span class="math inline">\(k\)</span> columns/rows must be linearly independent. (See <a href="compendium.html"><span>Chapter&nbsp;6</span></a> for a more detailed discussion of all these terms.)</p>
 <p>In our application, <span class="math inline">\(A=X'X\)</span> and</p>
 <p><span class="math display">\[ r(X'X) = r(X) = colrank(X)\leq k \]</span></p>
 <p>To insure that the inverse of <span class="math inline">\(X'X\)</span> exists, <span class="math inline">\(X\)</span> must have full column rank: all column vectors must be <em>linearly independent</em>. In practice, this means that no regressor can be a <em>perfect</em> linear combination of others. This gives rise to one of the key linear regression model assumptions:</p>
@@ -198,20 +212,24 @@ ul.task-list li input[type="checkbox"] {
 </blockquote>
 <p>You may know this assumption by another name: the absence of perfect colinearity between regressors.</p>
 <blockquote class="blockquote">
-<p><strong>[comment]</strong> The rank condition is the reason we exclude a base category when working with categorical variables. We will revisit this subject in more detail in <a href="#sec-dummy"><span class="quarto-unresolved-ref">sec-dummy</span></a>.</p>
+<p><strong>[comment]</strong> The rank condition is the reason we exclude a base category when working with categorical variables. We will revisit this subject in more detail in <a href="dummy-var.html"><span>Chapter&nbsp;5</span></a>.</p>
 <p>Recall, most linear regression models are specified with constant. Thus, the first column of <span class="math inline">\(X\)</span> is</p>
-<p><span class="math display">\[ X_1 = \begin{bmatrix}1 \\ 1 \\ \vdots \\ 1\end{bmatrix} \]</span> a <span class="math inline">\(n\times 1\)</span> vector vector of <span class="math inline">\(1\)</span>’s, sometimes referred to as <span class="math inline">\(\ell\)</span> (the Greek letter <em>iota</em>). Suppose you have a categorical - for example, gender in an individual level dataset - that splits the same in two. The categories are assumed to be exhaustive and mutually exclusive. If you create two dummy variables, one for each category,</p>
+<p><span class="math display">\[ X_1 = \begin{bmatrix}1 \\ 1 \\ \vdots \\ 1\end{bmatrix} \]</span> a <span class="math inline">\(n\times 1\)</span> vector vector of <span class="math inline">\(1\)</span>’s, denoted here as <span class="math inline">\(\ell\)</span>. Suppose you have a categorical - for example, gender in an individual level dataset - that splits the same in two. The categories are assumed to be exhaustive and mutually exclusive. If you create two dummy variables, one for each category,</p>
 <p><span class="math display">\[ X_2 = \begin{bmatrix}1 \\ \vdots \\1\\0\\ \vdots \\ 0\end{bmatrix}\qquad\text{and}\qquad X_3 = \begin{bmatrix}0 \\ \vdots \\0\\1\\ \vdots \\ 1\end{bmatrix} \]</span></p>
-<p>it is evident that <span class="math inline">\(X_2+X_3 = \ell\)</span>. (Here I have depicted the sample as sorted along these two categories.) If <span class="math inline">\(X=[X_1\;X_2\;X_3]\)</span>, then it is rank-deficient: <span class="math inline">\(r(X) = 2&lt;3\)</span>, since <span class="math inline">\(X_3=X_1-X2\)</span>. Thus, we can only include two of these three regressors. We can even exclude the constant and have <span class="math inline">\(X=[X_2\;X_3]\)</span>. In <a href="#sec-geometry"><span class="quarto-unresolved-ref">sec-geometry</span></a> we will show that the projection remains the same regardless of which category we exclude, even the constant.</p>
+<p>it is evident that <span class="math inline">\(X_2+X_3 = \ell\)</span>. (Here I have depicted the sample as sorted along these two categories.) If <span class="math inline">\(X=[X_1\;X_2\;X_3]\)</span>, then it is rank-deficient: <span class="math inline">\(r(X) = 2&lt;3\)</span>, since <span class="math inline">\(X_3=X_1-X2\)</span>. Thus, we can only include two of these three regressors. We can even exclude the constant and have <span class="math inline">\(X=[X_2\;X_3]\)</span>. In <a href="geometry-ols.html"><span>Chapter&nbsp;4</span></a> we will show that the projection remains the same regardless of which category we exclude, even the constant.</p>
 </blockquote>
 <p>If <span class="math inline">\(X\)</span> is full rank, then <span class="math inline">\((X'X)^{-1}\)</span> exists and,</p>
-<p><span class="math display">\[ \hat{\beta} = (X'X)^{-1}X'Y \]</span></p>
+<p><span class="math display">\[
+\hat{\beta} = (X'X)^{-1}X'Y
+\]</span></p>
 <p>This relatively simple expression is the solution to least squares minimization problem. Just think, it would take less than three lines of code to programme this. That is the power of knowing a little linear algebra.</p>
 <blockquote class="blockquote">
-<p><strong>[comment]</strong> You may recognise the above expression from the <a href="#sec-intro"><span class="quarto-unresolved-ref">sec-intro</span></a> where we used vectors to define the mean estimator. It turns out, the mean estimator is the simplest of OLS estimators. It is a regression of <span class="math inline">\(Y\)</span> against a constant alone: <span class="math inline">\(X=\ell\)</span>.</p>
+<p><strong>[comment]</strong> You may recognise the above expression from the <a href="intro.html"><span>Chapter&nbsp;1</span></a> where we used vectors to define the mean estimator. It turns out, the mean estimator is the simplest of OLS estimators. It is a regression of <span class="math inline">\(Y\)</span> against a constant alone: <span class="math inline">\(X=\ell\)</span>.</p>
 </blockquote>
 <p>We can write the same expression in terms of summations over unit-level observations,</p>
-<p><span class="math display">\[ \hat{\beta} = \big(\sum_{i=1}^nX_iX_i')^{-1}\sum_{i=1}^nX_iY_i \]</span></p>
+<p><span class="math display">\[
+\hat{\beta} = \big(\sum_{i=1}^nX_iX_i')^{-1}\sum_{i=1}^nX_iY_i
+\]</span></p>
 <p>Note, the change in position of the transpose: <span class="math inline">\(X_i\)</span> is a column vector <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(X_i'X_i\)</span> is a scalar and <span class="math inline">\(X_iX_i'\)</span> is a <span class="math inline">\(k\times k\)</span> matrix. To match the first expression, the term inside the parenthesis must be a <span class="math inline">\(k\times k\)</span> matrix. Similarly, <span class="math inline">\(X'Y\)</span> is a <span class="math inline">\(k\times 1\)</span> vector, as is <span class="math inline">\(X_iY_i\)</span>.</p>
 <section id="the-uni-variate-case" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="the-uni-variate-case"><span class="header-section-number">3.1</span> The uni-variate case</h2>
@@ -227,30 +245,30 @@ Y_i = \beta_1+\beta_2X_{i2}+\varepsilon_i
 </blockquote>
 <p>We know that,</p>
 <p><span class="math display">\[
-\begin{align}
+\begin{aligned}
 \tilde{\beta}_2 =&amp; \frac{\sum(Y_i-\bar{Y})(X_{i2}-\bar{X}_2)}{\sum_{i=1}^n(X_{i2}-\bar{X}_2)^2} \\
 \text{and}\qquad \tilde{\beta}_1 =&amp; \bar{Y}-\tilde{\beta_2}\bar{X}_2
-\end{align}
+\end{aligned}
 \]</span></p>
 <p>I am deliberately using the notation <span class="math inline">\(\tilde{\beta}\)</span> to distinguish these two estimators from the expression below.</p>
 <p>Let us see if we can replicate this result. When written in vector notation, the model is,</p>
 <p><span class="math display">\[
-\begin{align}
+\begin{aligned}
 Y =&amp; X\beta+\varepsilon \\
 =&amp; \begin{bmatrix}1&amp;X_{12} \\ 1 &amp; X_{22} \\ \vdots &amp; \vdots \\ 1 &amp; X_{n2}\end{bmatrix}\begin{bmatrix}\beta_1 \\ \beta_2 \end{bmatrix} + \varepsilon \\
 =&amp; \begin{bmatrix}\ell &amp;X_{2} \end{bmatrix}\begin{bmatrix}\beta_1 \\ \beta_2 \end{bmatrix} + \varepsilon
-\end{align}
+\end{aligned}
 \]</span></p>
 <p>Therefore,</p>
 <p><span class="math display">\[
-\begin{align}
+\begin{aligned}
 \hat{\beta} = \begin{bmatrix}\hat{\beta}_1 \\ \hat{\beta}_2\end{bmatrix}=&amp;(X'X)^{-1}X'Y \\
 =&amp;\bigg(\begin{bmatrix}\ell' \\ X_{2}' \end{bmatrix}\begin{bmatrix}\ell &amp;X_{2}\end{bmatrix}\bigg)^{-1}\begin{bmatrix}\ell'  \\ X_{2}' \end{bmatrix}Y \\
 =&amp;\begin{bmatrix}\ell'\ell &amp; \ell'X_2 \\ X_{2}'\ell &amp; X_2'X_2 \end{bmatrix}^{-1}\begin{bmatrix}\ell'Y  \\ X_{2}'Y \end{bmatrix}
-\end{align}
+\end{aligned}
 \]</span></p>
 <p>I went through this rather quickly, using a number of linear algebra rules that you may not be familiar with. Do not worry, the point of the exercise is not become a linear algebra master, but instead to focus on the element of each of each matrix/vector. Each element is a scalar (size <span class="math inline">\(1\times 1\)</span>).</p>
-<p>If we right them each down as sums you they might be a little more familiar. (Take a look back at <a href="#sec-intro"><span class="quarto-unresolved-ref">sec-intro</span></a> to remind yourself of some of these steps). First consider the <span class="math inline">\(2\times 2\)</span> matrix:</p>
+<p>If we right them each down as sums you they might be a little more familiar. (Take a look back at <a href="intro.html"><span>Chapter&nbsp;1</span></a> to remind yourself of some of these steps). First consider the <span class="math inline">\(2\times 2\)</span> matrix:</p>
 <ul>
 <li><p>element [1,1]: <span class="math inline">\(\ell'\ell = \sum_{i=1}^n 1 = n\)</span></p></li>
 <li><p>element [1,2]: <span class="math inline">\(\ell'X_2 = \sum_{i=1}^nX_{i2} = n\bar{X}_2\)</span></p></li>
@@ -272,14 +290,14 @@ Y =&amp; X\beta+\varepsilon \\
 \]</span></p>
 <p>Remember, this is still a <span class="math inline">\(2\times 1\)</span> vector. We can now solve for the final solution:</p>
 <p><span class="math display">\[
-\begin{align}
+\begin{aligned}
 \hat{\beta} =&amp; \frac{1}{n\sum_{i=1}^nX_{i2}^2-n^2\bar{X}_2^2}\begin{bmatrix} n\bar{Y}\sum_{i=1}^nX_{i2}^2 -n\bar{X}_2\sum_{i=1}^nY_iX_{i2} \\ n\sum_{i=1}^nY_iX_{i2}-n^2\bar{X}_2\bar{Y}\end{bmatrix} \\
 =&amp; \frac{1}{n\sum_{i=1}^n(X_{i2}-\bar{X}_2)^2}\begin{bmatrix} n\bar{Y}\sum_{i=1}^nX_{i2}^2 + n^2\bar{Y}\bar{X}^2 - n^2\bar{Y}\bar{X}^2 -n\bar{X}_2\sum_{i=1}^nY_iX_{i2} \\ n\sum_{i=1}^n(Y_i-\bar{Y})(X_{i2}-\bar{X}_2) \end{bmatrix} \\
 =&amp; \frac{1}{n\sum_{i=1}^n(X_{i2}-\bar{X}_2)^2}\begin{bmatrix} n\bar{Y}\sum_{i=1}^n(X_{i2}-\bar{X})^2 -n\bar{X}_2\sum_{i=1}^n(Y_i-\bar{Y})(X_{i2}-\bar{X}_2) \\ n\sum_{i=1}^n(Y_i-\bar{Y})(X_{i2}-\bar{X}_2) \end{bmatrix} \\
 =&amp; \begin{bmatrix} \bar{Y}  -\frac{n\sum_{i=1}^n(Y_i-\bar{Y})(X_{i2}-\bar{X}_2)}{n\sum_{i=1}^n(X_{i2}-\bar{X}_2)^2}\bar{X}_2 \\ \frac{n\sum_{i=1}^n(Y_i-\bar{Y})(X_{i2}-\bar{X}_2)}{n\sum_{i=1}^n(X_{i2}-\bar{X}_2)^2} \end{bmatrix} \\
 =&amp; \begin{bmatrix} \bar{Y}  -\tilde{\beta}_2\bar{X}_2 \\ \tilde{\beta}_2 \end{bmatrix} \\
 =&amp; \begin{bmatrix}\tilde{\beta}_1 \\ \tilde{\beta}_2 \end{bmatrix}
-\end{align}
+\end{aligned}
 \]</span></p>
 <p>The math is a little involved, but it shows you these solutions are are the same. Unfortunately, the working gets even more arduous in a multivariate context. However, there are useful tools to help us with that we will discuss next.</p>
 

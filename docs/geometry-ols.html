@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -57,7 +57,8 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -78,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./geometry-ols.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Geometry of OLS</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -183,19 +184,19 @@ ul.task-list li input[type="checkbox"] {
 <p>We also saw that in order for there to be a (unique) solution to the least squared problem, the <span class="math inline">\(X\)</span> matrix must be full rank. This rules out any perfect colinearity between columns (i.e.&nbsp;regressors) in the <span class="math inline">\(X\)</span> matrix, including the constant.</p>
 <p>Given the vector of OLS coefficients, we can also estimate the residual,</p>
 <p><span class="math display">\[
-\begin{align}
+\begin{aligned}
 \hat{\varepsilon} =&amp; Y - X\hat{\beta} \\
 =&amp;Y-X(X'X)^{-1}X'Y \\
 =&amp;(I_n-X(X'X)X^{-1})Y
-\end{align}
+\end{aligned}
 \]</span></p>
 <p>by plugging the definition of <span class="math inline">\(\hat{\beta}\)</span>. Thus, the OLS estimator separates the vector <span class="math inline">\(Y\)</span> into two components:</p>
 <p><span class="math display">\[
-\begin{align}
+\begin{aligned}
 Y =&amp; X\hat{\beta} + \hat{\varepsilon} \\
 =&amp;\underbrace{X(X'X)^{-1}X'}_{P_X}Y + (\underbrace{I_n-X(X'X)X^{-1}}_{I_n-P_X = M_X})Y \\
 =&amp;P_XY + M_XY
-\end{align}
+\end{aligned}
 \]</span></p>
 <p>The matrix <span class="math inline">\(P_X = X(X'X)^{-1}X'\)</span> is a <span class="math inline">\(n\times n\)</span> <em>projection</em> matrix. It is a linear transformation that projects any vector into the span of <span class="math inline">\(X\)</span>: <span class="math inline">\(S(X)\)</span>. (See <a href="compendium.html"><span>Chapter&nbsp;6</span></a> for more information on these terms.) <span class="math inline">\(S(X)\)</span> is the vector space spanned by the columns of <span class="math inline">\(X\)</span>. The dimensions of this vector space depends on the rank of <span class="math inline">\(P_X\)</span>,</p>
 <p><span class="math display">\[
@@ -217,13 +218,13 @@ X'(Y-X\hat{\beta})=X'\hat{\varepsilon}=0 \quad always
 \]</span></p>
 <p>This is true, <em>not just in expectation</em>, but by definition. The relationship is “mechanical”: the covariates and estimated residual are perfectly uncorrelated. This can be easily shown:</p>
 <p><span class="math display">\[
-\begin{align}
+\begin{aligned}
 X'\hat{\varepsilon} =&amp; X'M_XY \\
 =&amp; X'(I_n-P_X)Y \\
 =&amp;X'I_nY-X'X(X'X)^{-1}X'Y \\
 =&amp;X'Y-X'Y \\
 =&amp;0
-\end{align}
+\end{aligned}
 \]</span></p>
 <p>You are essentially imposing the assumption of uncorrelatedness between the explained and unexplained components of Y on the data. This means that if the assumption is wrong, so is the projection.</p>
 <section id="partitioned-regression" class="level2" data-number="4.1">
@@ -250,35 +251,37 @@ Y = \gamma_1 \hat{\upsilon}_1+\xi
 <p><span class="math display">\[
 Y = \gamma_1M_2X_1+\xi
 \]</span></p>
-<p>We know that <span class="math inline">\(\hat{\gamma}_1 = (\hat{\upsilon}'\hat{\upsilon})^{-1}\hat{\upsilon}'Y\)</span>. Replacing the value of the residual, we get</p>
+<p>We know that <span class="math inline">\(\hat{\gamma}_1 = (\hat{\upsilon}'\hat{\upsilon})^{-1}\hat{\upsilon}'Y\)</span>. Replacing the value of the residual, we get&gt; [note] We use both the symmetry and idempotent quality of <span class="math inline">\(M_2\)</span>.</p>
 <p><span class="math display">\[
-\begin{align}
+\begin{aligned}
 \hat{\gamma}_1 =&amp; (\hat{\upsilon}'\hat{\upsilon})^{-1}\hat{\upsilon}'Y \\
 =&amp;(X_1'M_2M_2X_1)^{-1}X_1'M_2Y \\
 =&amp;(X_1'M_2X_1)^{-1}X_1'M_2Y
-\end{align}
-\]</span> &gt; [note] We use both the symmetry and idempotent quality of <span class="math inline">\(M_2\)</span>.</p>
+\end{aligned}
+\]</span></p>
 <p>Next we want to show that <span class="math inline">\(\hat{\beta}_1\)</span> is given by the same value. This part is more complicated. Let’s start with by reminding ourselves of the following:</p>
 <p><span class="math display">\[
-\begin{align}
+\begin{aligned}
 X'X\hat{\beta} &amp;= X'Y \\
 \begin{bmatrix}X_1 &amp; X_2\end{bmatrix}'\begin{bmatrix}X_1 &amp; X_2\end{bmatrix}\begin{bmatrix}\hat{\beta}_1 \\ \hat{\beta}_2\end{bmatrix} &amp;= \begin{bmatrix}X_1 &amp; X_2\end{bmatrix}'Y \\
 \begin{bmatrix}X_1'X_1 &amp; X_1'X_2 \\ X_2'X_1 &amp; X_2'X_2 \end{bmatrix}\begin{bmatrix}\hat{\beta}_1 \\ \hat{\beta}_2\end{bmatrix} &amp;= \begin{bmatrix}X_1'Y \\ X_2'Y\end{bmatrix}
-\end{align}
-\]</span> We could solve for <span class="math inline">\(\hat{\beta}_1\)</span> by solving for the inverse of <span class="math inline">\(X'X\)</span>; however, this will take a long time. An easier approach is to simply verify that <span class="math inline">\(\hat{\beta}_1=(X_1'M_2X_1)^{-1}X_1'M_2Y\)</span>. Recall, <span class="math inline">\(\hat{\beta}\)</span> splits <span class="math inline">\(Y\)</span> into two components:</p>
+\end{aligned}
+\]</span></p>
+<p>We could solve for <span class="math inline">\(\hat{\beta}_1\)</span> by solving for the inverse of <span class="math inline">\(X'X\)</span>; however, this will take a long time. An easier approach is to simply verify that <span class="math inline">\(\hat{\beta}_1=(X_1'M_2X_1)^{-1}X_1'M_2Y\)</span>. Recall, <span class="math inline">\(\hat{\beta}\)</span> splits <span class="math inline">\(Y\)</span> into two components:</p>
 <p><span class="math display">\[
 Y = \hat{\beta}_1X_1+X_2\hat{\beta}_2 + \hat{\varepsilon}
 \]</span></p>
 <p>If we plug this definition of <span class="math inline">\(Y\)</span> into the above expression we get,</p>
 <p><span class="math display">\[
-\begin{align}
+\begin{aligned}
 &amp;(X_1'M_2X_1)^{-1}X_1'M_2(\hat{\beta}_1X_1+X_2\hat{\beta}_2 + \hat{\varepsilon}) \\
 =&amp;\hat{\beta}_1\underbrace{(X_1'M_2X_1)^{-1}X_1'M_2X_1}_{=I_n} \\
 &amp;+\underbrace{(X_1'M_2X_1)^{-1}X_1'M_2X_2\hat{\beta_2}}_{=0} \\
 &amp;+\underbrace{(X_1'M_2X_1)^{-1}X_1'M_2\hat{\varepsilon}}_{=0} \\
 =&amp;\hat{\beta}_1
-\end{align}
-\]</span> In line 2, I use the fact that <span class="math inline">\(\hat{\beta}_1\)</span> is a scalar and can be moved to the front (since the order of multiplication does not matter with a scalar). In line 3, I use the fact that <span class="math inline">\(M_2X_2=0\)</span> by definition. Line 4 uses the fact that <span class="math inline">\(M_2\hat{\varepsilon}=\hat{\varepsilon}\)</span> which means that <span class="math inline">\(X_1'M_2\hat{\varepsilon}=X_1'\hat{\varepsilon}=0\)</span>.</p>
+\end{aligned}
+\]</span></p>
+<p>In line 2, I use the fact that <span class="math inline">\(\hat{\beta}_1\)</span> is a scalar and can be moved to the front (since the order of multiplication does not matter with a scalar). In line 3, I use the fact that <span class="math inline">\(M_2X_2=0\)</span> by definition. Line 4 uses the fact that <span class="math inline">\(M_2\hat{\varepsilon}=\hat{\varepsilon}\)</span> which means that <span class="math inline">\(X_1'M_2\hat{\varepsilon}=X_1'\hat{\varepsilon}=0\)</span>.</p>
 <p>The OLS estimator solves for <span class="math inline">\(\beta_1\)</span> using the variance in <span class="math inline">\(X_1\)</span> that is orthogonal to <span class="math inline">\(X_2\)</span>. This is the manner in which we “hold <span class="math inline">\(X_2\)</span> constant”: the variation in <span class="math inline">\(M_2X_1\)</span> is orthogonal to <span class="math inline">\(X_2\)</span>. Changes in <span class="math inline">\(M_2X_1\)</span> are <em>uncorrelated</em> with changes in <span class="math inline">\(X_2\)</span>; <em>as if</em> the variation in <span class="math inline">\(M_2X_1\)</span> arose independently of <span class="math inline">\(X_2\)</span>. However, uncorrelatedness does NOT imply independence.</p>
 
 

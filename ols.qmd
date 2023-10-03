@@ -1,14 +1,21 @@
-# Ordinary Least Squares
+# Ordinary Least Squares {#sec-ols}
 
 You are, no doubt, familiar with the ordinary least squares (OLS) estimator from your previous studies in Econometrics (EC226 or otherwise). OLS is *an* estimator for $\beta$, it is not the only one. Indeed, you could use maximum likelihood methods to estimate $\beta$.
 
 The OLS estimator is the solution to,
 
-$$ \min_b\;\sum_{i=1}^n(Y_i-X_i'b)^2 $$
+$$ 
+\min_b\;\sum_{i=1}^n(Y_i-X_i'b)^2 
+$$
 
 Using vector notation, we can rewrite this as
 
-$$ \begin{align} &\min_b\;(Y-Xb)'(Y-Xb)\\ =&\min_b\;Y'Y-2b'X'Y+b'X'Xb \end{align} $$
+$$ 
+\begin{aligned} 
+&\min_b\;(Y-Xb)'(Y-Xb)\\ 
+=&\min_b\;Y'Y-2b'X'Y+b'X'Xb 
+\end{aligned} 
+$$
 
 > **\[note\]** When working with vectors and matrices it is important to keep track of their size. You can only multiply two matrices/vectors if their column and row dimensions match. For example, if $A$ and $B$ are both $n\times k$ matrices ($n\neq k$), then $AB$ is not defined since $A$ has $k$ columns and $B$ $n$ rows. For the same reason $BA$ is also not defined. However, you can pre-multiply $B$ with $A'$ as $A'$ is a $k\times n$ matrix: $A'B$ is therefore a $(k\times n)\cdot (n\times k)=k\times k$ matrix. Similarly, $B'A$ is defined, but is a $n\times n$ matrix.
 >
@@ -16,9 +23,16 @@ $$ \begin{align} &\min_b\;(Y-Xb)'(Y-Xb)\\ =&\min_b\;Y'Y-2b'X'Y+b'X'Xb \end{align
 
 Keep track of the size of each term to ensure they correspond to one another. In this instance, each term should be a scalar. For example, $-2b'X'Y$ is the multiplication of a scalar ($-2$: size $1\times 1$), row vector ($b'$: size $1\times k$), matrix ($X'$: size $k\times n$), and column vector ($Y$: size $n\times 1$). Thus we have a $(1\times 1)\cdot (1\times k)\cdot (k\times n)\cdot (n\times 1)=1\times 1$.
 
-Differentiating the above expression w.r.t. $b$ and setting the first-order conditions to $0$, we find that the following condition must hold for $\hat{\beta}$, the solution. 
+Differentiating the above expression w.r.t. $b$ and setting the first-order conditions to $0$, we find that the following condition must hold for $\hat{\beta}$, the solution.
 
-$$ \begin{align} &0=-2X'Y+2X'X\hat{\beta} \\ \Rightarrow& X'X\hat{\beta} = X'Y \end{align} $$ What are the dimensions of this equation? Well, $X'X$ is a $k\times k$ matrix and $\hat{\beta}$ a $k\times 1$ vector. Thus the left-hand side of the equation is a $k\times 1$ vector, as is the right-hand side. \[Check that you agree.\]
+$$ 
+\begin{aligned} 
+&0=-2X'Y+2X'X\hat{\beta} 
+\\ \Rightarrow& X'X\hat{\beta} = X'Y 
+\end{aligned} 
+$$ 
+
+What are the dimensions of this equation? Well, $X'X$ is a $k\times k$ matrix and $\hat{\beta}$ a $k\times 1$ vector. Thus the left-hand side of the equation is a $k\times 1$ vector, as is the right-hand side. \[Check that you agree.\]
 
 In order to solve for $\hat{\beta}$ we need to move the $X'X$ term to the right-hand side. If these were scalars we would simply divide both sides by the same constant. However, as $X'X$ is a matrix, division is not possible. Instead, we need to pre-multiply both sides by the inverse of $X'X$: $(X'X)^{-1}$. Here's the issue: the inverse of a matrix need not exist.
 
@@ -38,7 +52,7 @@ You may know this assumption by another name: the absence of perfect colinearity
 >
 > Recall, most linear regression models are specified with constant. Thus, the first column of $X$ is
 >
-> $$ X_1 = \begin{bmatrix}1 \\ 1 \\ \vdots \\ 1\end{bmatrix} $$ a $n\times 1$ vector vector of $1$'s, sometimes referred to as $\ell$ (the Greek letter *iota*). Suppose you have a categorical - for example, gender in an individual level dataset - that splits the same in two. The categories are assumed to be exhaustive and mutually exclusive. If you create two dummy variables, one for each category,
+> $$ X_1 = \begin{bmatrix}1 \\ 1 \\ \vdots \\ 1\end{bmatrix} $$ a $n\times 1$ vector vector of $1$'s, denoted here as $\ell$. Suppose you have a categorical - for example, gender in an individual level dataset - that splits the same in two. The categories are assumed to be exhaustive and mutually exclusive. If you create two dummy variables, one for each category,
 >
 > $$ X_2 = \begin{bmatrix}1 \\ \vdots \\1\\0\\ \vdots \\ 0\end{bmatrix}\qquad\text{and}\qquad X_3 = \begin{bmatrix}0 \\ \vdots \\0\\1\\ \vdots \\ 1\end{bmatrix} $$
 >
@@ -46,7 +60,9 @@ You may know this assumption by another name: the absence of perfect colinearity
 
 If $X$ is full rank, then $(X'X)^{-1}$ exists and,
 
-$$ \hat{\beta} = (X'X)^{-1}X'Y $$
+$$ 
+\hat{\beta} = (X'X)^{-1}X'Y 
+$$
 
 This relatively simple expression is the solution to least squares minimization problem. Just think, it would take less than three lines of code to programme this. That is the power of knowing a little linear algebra.
 
@@ -54,7 +70,9 @@ This relatively simple expression is the solution to least squares minimization 
 
 We can write the same expression in terms of summations over unit-level observations,
 
-$$ \hat{\beta} = \big(\sum_{i=1}^nX_iX_i')^{-1}\sum_{i=1}^nX_iY_i $$
+$$ 
+\hat{\beta} = \big(\sum_{i=1}^nX_iX_i')^{-1}\sum_{i=1}^nX_iY_i 
+$$
 
 Note, the change in position of the transpose: $X_i$ is a column vector $\Rightarrow$ $X_i'X_i$ is a scalar and $X_iX_i'$ is a $k\times k$ matrix. To match the first expression, the term inside the parenthesis must be a $k\times k$ matrix. Similarly, $X'Y$ is a $k\times 1$ vector, as is $X_iY_i$.
 
@@ -77,10 +95,10 @@ $$
 We know that,
 
 $$
-\begin{align}
+\begin{aligned}
 \tilde{\beta}_2 =& \frac{\sum(Y_i-\bar{Y})(X_{i2}-\bar{X}_2)}{\sum_{i=1}^n(X_{i2}-\bar{X}_2)^2} \\
 \text{and}\qquad \tilde{\beta}_1 =& \bar{Y}-\tilde{\beta_2}\bar{X}_2
-\end{align}
+\end{aligned}
 $$
 
 I am deliberately using the notation $\tilde{\beta}$ to distinguish these two estimators from the expression below.
@@ -88,21 +106,21 @@ I am deliberately using the notation $\tilde{\beta}$ to distinguish these two es
 Let us see if we can replicate this result. When written in vector notation, the model is,
 
 $$
-\begin{align}
+\begin{aligned}
 Y =& X\beta+\varepsilon \\
 =& \begin{bmatrix}1&X_{12} \\ 1 & X_{22} \\ \vdots & \vdots \\ 1 & X_{n2}\end{bmatrix}\begin{bmatrix}\beta_1 \\ \beta_2 \end{bmatrix} + \varepsilon \\
 =& \begin{bmatrix}\ell &X_{2} \end{bmatrix}\begin{bmatrix}\beta_1 \\ \beta_2 \end{bmatrix} + \varepsilon
-\end{align}
+\end{aligned}
 $$
 
 Therefore,
 
 $$
-\begin{align} 
+\begin{aligned} 
 \hat{\beta} = \begin{bmatrix}\hat{\beta}_1 \\ \hat{\beta}_2\end{bmatrix}=&(X'X)^{-1}X'Y \\
 =&\bigg(\begin{bmatrix}\ell' \\ X_{2}' \end{bmatrix}\begin{bmatrix}\ell &X_{2}\end{bmatrix}\bigg)^{-1}\begin{bmatrix}\ell'  \\ X_{2}' \end{bmatrix}Y \\
 =&\begin{bmatrix}\ell'\ell & \ell'X_2 \\ X_{2}'\ell & X_2'X_2 \end{bmatrix}^{-1}\begin{bmatrix}\ell'Y  \\ X_{2}'Y \end{bmatrix}
-\end{align} 
+\end{aligned} 
 $$
 
 I went through this rather quickly, using a number of linear algebra rules that you may not be familiar with. Do not worry, the point of the exercise is not become a linear algebra master, but instead to focus on the element of each of each matrix/vector. Each element is a scalar (size $1\times 1$).
@@ -138,14 +156,14 @@ $$
 Remember, this is still a $2\times 1$ vector. We can now solve for the final solution:
 
 $$
-\begin{align}
+\begin{aligned}
 \hat{\beta} =& \frac{1}{n\sum_{i=1}^nX_{i2}^2-n^2\bar{X}_2^2}\begin{bmatrix} n\bar{Y}\sum_{i=1}^nX_{i2}^2 -n\bar{X}_2\sum_{i=1}^nY_iX_{i2} \\ n\sum_{i=1}^nY_iX_{i2}-n^2\bar{X}_2\bar{Y}\end{bmatrix} \\
 =& \frac{1}{n\sum_{i=1}^n(X_{i2}-\bar{X}_2)^2}\begin{bmatrix} n\bar{Y}\sum_{i=1}^nX_{i2}^2 + n^2\bar{Y}\bar{X}^2 - n^2\bar{Y}\bar{X}^2 -n\bar{X}_2\sum_{i=1}^nY_iX_{i2} \\ n\sum_{i=1}^n(Y_i-\bar{Y})(X_{i2}-\bar{X}_2) \end{bmatrix} \\
 =& \frac{1}{n\sum_{i=1}^n(X_{i2}-\bar{X}_2)^2}\begin{bmatrix} n\bar{Y}\sum_{i=1}^n(X_{i2}-\bar{X})^2 -n\bar{X}_2\sum_{i=1}^n(Y_i-\bar{Y})(X_{i2}-\bar{X}_2) \\ n\sum_{i=1}^n(Y_i-\bar{Y})(X_{i2}-\bar{X}_2) \end{bmatrix} \\
 =& \begin{bmatrix} \bar{Y}  -\frac{n\sum_{i=1}^n(Y_i-\bar{Y})(X_{i2}-\bar{X}_2)}{n\sum_{i=1}^n(X_{i2}-\bar{X}_2)^2}\bar{X}_2 \\ \frac{n\sum_{i=1}^n(Y_i-\bar{Y})(X_{i2}-\bar{X}_2)}{n\sum_{i=1}^n(X_{i2}-\bar{X}_2)^2} \end{bmatrix} \\
 =& \begin{bmatrix} \bar{Y}  -\tilde{\beta}_2\bar{X}_2 \\ \tilde{\beta}_2 \end{bmatrix} \\
 =& \begin{bmatrix}\tilde{\beta}_1 \\ \tilde{\beta}_2 \end{bmatrix}
-\end{align}
+\end{aligned}
 $$
 
 The math is a little involved, but it shows you these solutions are are the same. Unfortunately, the working gets even more arduous in a multivariate context. However, there are useful tools to help us with that we will discuss next.

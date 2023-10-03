@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -57,7 +57,8 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -78,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./dummy-var.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Dummy Variables</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -182,23 +183,31 @@ ul.task-list li input[type="checkbox"] {
 <p>Any dummy variable, <span class="math inline">\(D_i=\mathbf{1}\{true\}\)</span>, splits the sample into two groups: true (e.g.&nbsp;treated) and false (e.g.&nbsp;control/untreated). In a basic setting the use a of dummy variable might be relatively straight forward. For example, consider a linear model using to assess a single treatment from a randomized control trial,</p>
 <p><span class="math display">\[
 Y_i = \beta_{10}+\beta_{11} D_{1i} + \varepsilon_i
-\]</span> where <span class="math inline">\(D_{1i} = \mathbf{1}\{treated\}\)</span> identifies those who are treated in the sample.</p>
+\]</span></p>
+<p>where <span class="math inline">\(D_{1i} = \mathbf{1}\{treated\}\)</span> identifies those who are treated in the sample.</p>
 <p>For ease of demonstration, let us assume that the data is sorted on <span class="math inline">\(D_i\)</span>: the first <span class="math inline">\(N_0\)</span> observations are the untreated control group, and the next <span class="math inline">\(N_1 = N-N_0\)</span> the treated. From previous chapters, we know that the matrix of regressors in this model is given by,</p>
 <p><span class="math display">\[
 X_1=[\ell,D_1]=\begin{bmatrix}1 &amp; 0 \\ \vdots &amp; \vdots \\ 1 &amp; 0 \\ 1 &amp; 1 \\ \vdots &amp; \vdots \\ 1 &amp; 1 \end{bmatrix}
-\]</span> The above matrix has rank 2, as the columns are linearly independent. Likewise, the rank of the <span class="math inline">\(2\times 2\)</span> matrix <span class="math inline">\(X_1'X_1\)</span> is also 2 (i.e.&nbsp;full rank) and is therefore invertible. If <span class="math inline">\(N=N_0\)</span> - i.e., no units were treated - the matrix would be rank deficient. Similarly, if <span class="math inline">\(N_0=0\)</span> - i.e., all units were treated - <span class="math inline">\(D_1\)</span> would be a column of <span class="math inline">\(1\)</span>’s, colinear with the constant.</p>
-<p>Consider then the regressor <span class="math inline">\(D_{2i} = 1-D_{1i} = \mathbf{1}\{control\}\)</span>. What would happen if we included <span class="math inline">\(D_{2i}\)</span> in the above model? The matrix of regressors would be, <span class="math display">\[
-X=[\ell,D_1,D_2]=\begin{bmatrix}1 &amp; 0 &amp;1 \\ \vdots &amp; \vdots &amp; \vdots \\ 1 &amp; 0 &amp;1 \\ 1 &amp; 1 &amp;0\\ \vdots &amp; \vdots &amp; \vdots \\ 1 &amp; 1 &amp; 0 \end{bmatrix}
-\]</span> The rank of matrix <span class="math inline">\(X\)</span> is not 3; it remains 2. This because the three columns of <span class="math inline">\(X\)</span> are linearly dependent: <span class="math display">\[
-\begin{bmatrix}1 \\ \vdots \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix}=\begin{bmatrix}0 \\ \vdots \\ 0 \\ 1 \\ \vdots \\ 1 \end{bmatrix}+\begin{bmatrix}1 \\ \vdots \\ 1 \\ 0\\  \vdots \\  0 \end{bmatrix}
-\]</span> You can have ANY two of the columns in the model, but not all three. Moreover, regardless which two you choose, the projection remains the same. Consider, the three possible models,</p>
+\]</span></p>
+<p>The above matrix has rank 2, as the columns are linearly independent. Likewise, the rank of the <span class="math inline">\(2\times 2\)</span> matrix <span class="math inline">\(X_1'X_1\)</span> is also 2 (i.e.&nbsp;full rank) and is therefore invertible. If <span class="math inline">\(N=N_0\)</span> - i.e., no units were treated - the matrix would be rank deficient. Similarly, if <span class="math inline">\(N_0=0\)</span> - i.e., all units were treated - <span class="math inline">\(D_1\)</span> would be a column of <span class="math inline">\(1\)</span>’s, colinear with the constant.</p>
+<p>Consider then the regressor <span class="math inline">\(D_{2i} = 1-D_{1i} = \mathbf{1}\{control\}\)</span>. What would happen if we included <span class="math inline">\(D_{2i}\)</span> in the above model? The matrix of regressors would be,</p>
 <p><span class="math display">\[
-\begin{align}
+X=[\ell,D_1,D_2]=\begin{bmatrix}1 &amp; 0 &amp;1 \\ \vdots &amp; \vdots &amp; \vdots \\ 1 &amp; 0 &amp;1 \\ 1 &amp; 1 &amp;0\\ \vdots &amp; \vdots &amp; \vdots \\ 1 &amp; 1 &amp; 0 \end{bmatrix}
+\]</span></p>
+<p>The rank of matrix <span class="math inline">\(X\)</span> is not 3; it remains 2. This because the three columns of <span class="math inline">\(X\)</span> are linearly dependent:</p>
+<p><span class="math display">\[
+\begin{bmatrix}1 \\ \vdots \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix}=\begin{bmatrix}0 \\ \vdots \\ 0 \\ 1 \\ \vdots \\ 1 \end{bmatrix}+\begin{bmatrix}1 \\ \vdots \\ 1 \\ 0\\  \vdots \\  0 \end{bmatrix}
+\]</span></p>
+<p>You can have ANY two of the columns in the model, but not all three. Moreover, regardless which two you choose, the projection remains the same. Consider, the three possible models,</p>
+<p><span class="math display">\[
+\begin{aligned}
 Y_i =&amp; \beta_{10}+\beta_{11} D_{1i}+\varepsilon_i=X_1\beta_1+\varepsilon_i &amp; \qquad\text{where} \quad X_1 = [\ell\;D_1] \\
 Y_i =&amp; \beta_{20}+\beta_{22} D_{2i}+\varepsilon_i=X_2\beta_2+\varepsilon_i &amp; \qquad\text{where} \quad X_2 = [\ell\;D_2] \\
 Y_i =&amp; \beta_{01}D_{1i} + \beta_{02}D_{2i}+\varepsilon_i=X_0\beta_0+\varepsilon_i &amp; \qquad\text{where} \quad X_0 = [D_1\;D_2]
-\end{align}
-\]</span> It turns out that, <span class="math display">\[
+\end{aligned}
+\]</span></p>
+<p>It turns out that,</p>
+<p><span class="math display">\[
 P_1 = X_1(X_1'X_1)^{-1}X_1' = P_2 = P_0
 \]</span></p>
 <p>Similarly,</p>
@@ -209,7 +218,8 @@ M_1 = I_n-X_1(X_1'X_1)^{-1}X_1' = M_2 = M_0
 <p><strong>Why does this matter?</strong> Consider, the case where you include a categorical covariate (‘control’ variable) in your model. We know from EC226 that a categorical variable must be included in the model as a set of dummy variables: one for each category.</p>
 <p><span class="math display">\[
 Y_i = \alpha + \beta Z_i + \sum_{j=2}^J \gamma_j D_{ji} + \upsilon_i
-\]</span> We must exclude 1 of the J categories since the model contains a constant and all the dummy variables (for the <span class="math inline">\(J\)</span> categories) add up to 1 (or the vector <span class="math inline">\(\ell\)</span>). Here, I exclude the first category, <span class="math inline">\(j=1\)</span>.</p>
+\]</span></p>
+<p>We must exclude 1 of the J categories since the model contains a constant and all the dummy variables (for the <span class="math inline">\(J\)</span> categories) add up to 1 (or the vector <span class="math inline">\(\ell\)</span>). Here, I exclude the first category, <span class="math inline">\(j=1\)</span>.</p>
 <p>We know from the previous discussion on partitioned regression that we can estimate the scalar parameter <span class="math inline">\(\beta\)</span> by first regressing <span class="math inline">\(Z_i\)</span> on all other regressors,</p>
 <p><span class="math display">\[
 Z_i = \delta + \sum_{j=2}^J \psi_j D_{ji} + \nu_i
@@ -217,16 +227,20 @@ Z_i = \delta + \sum_{j=2}^J \psi_j D_{ji} + \nu_i
 <p>Next we regress the outcome, <span class="math inline">\(Y_i\)</span>, on the residuals from the above equation. Using vector notation, this model is given by,</p>
 <p><span class="math display">\[
   Y_i = \beta \hat{\nu_i}+\zeta_i = \beta M_{D_1}Z_i+\zeta_i
-\]</span> where <span class="math inline">\(M_{D_1}\)</span> is the orthogonal projection matrix from the regression of <span class="math inline">\(Z_i\)</span> on the full set of dummy variables (excluding category 1) and constant. The OLS estimator for <span class="math inline">\(\beta\)</span> is given by,</p>
+\]</span></p>
+<p>where <span class="math inline">\(M_{D_1}\)</span> is the orthogonal projection matrix from the regression of <span class="math inline">\(Z_i\)</span> on the full set of dummy variables (excluding category 1) and constant. The OLS estimator for <span class="math inline">\(\beta\)</span> is given by,</p>
 <p><span class="math display">\[
   \hat{\beta} = (Z'M_{D_1}Z)^{-1}Z'M_{D_1}Y
-\]</span> There are two things to take from this equation. First, we get the same result whether or not we first orthogonalize <span class="math inline">\(Y_i\)</span> on the full set of covariates, since <span class="math inline">\(M_D\)</span> is idempotent: <span class="math inline">\(M_{D_1} = M_{D_1}M_{D_1}\)</span>. Thus,</p>
+\]</span></p>
+<p>There are two things to take from this equation. First, we get the same result whether or not we first orthogonalize <span class="math inline">\(Y_i\)</span> on the full set of covariates, since <span class="math inline">\(M_D\)</span> is idempotent: <span class="math inline">\(M_{D_1} = M_{D_1}M_{D_1}\)</span>. Thus,</p>
 <p><span class="math display">\[
   (Z'M_{D_1}Z)^{-1}Z'M_{D_1}M_{D_1}Y = (Z'M_{D_1}Z)^{-1}Z'M_{D_1}Y = \hat{\beta}
-\]</span> Second, the choice of base category among the control variables is irrelevant. Indeed, even if we dropped the constant and included a dummy variable for all <span class="math inline">\(J\)</span> categories, we would achieve the same estimator. This is because,</p>
+\]</span></p>
+<p>Second, the choice of base category among the control variables is irrelevant. Indeed, even if we dropped the constant and included a dummy variable for all <span class="math inline">\(J\)</span> categories, we would achieve the same estimator. This is because,</p>
 <p><span class="math display">\[
 M_{D_0} = M_{D_1} = M_{D_2} ... = M_{D_J}
-\]</span> where <span class="math inline">\(M_{D_0}\)</span> is the orthogonal projection matrix from a regression with all <span class="math inline">\(J\)</span> categories (and no constant) and <span class="math inline">\(M_{D_j}\)</span> is the orthogonal projection matrix from a regression with the <span class="math inline">\(j\)</span>-th category excluded (and a constant).</p>
+\]</span></p>
+<p>where <span class="math inline">\(M_{D_0}\)</span> is the orthogonal projection matrix from a regression with all <span class="math inline">\(J\)</span> categories (and no constant) and <span class="math inline">\(M_{D_j}\)</span> is the orthogonal projection matrix from a regression with the <span class="math inline">\(j\)</span>-th category excluded (and a constant).</p>
 <section id="fixed-effects" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="fixed-effects"><span class="header-section-number">5.1</span> Fixed Effects</h2>
 <p>One way of interpreting a model with an (exhaustive) set of dummy variables is as a model with a group-specific constant. Since, it makes no difference to parameter of interest whether you include the constant and <span class="math inline">\(J-1\)</span> dummies or exclude the constant and include all <span class="math inline">\(J\)</span> dummy variables, we can consider the model,<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
@@ -236,7 +250,8 @@ Y_i = \beta Z_i + \sum_{j=1}^J \gamma_j D_{ji} + \upsilon_i
 <p>A common short-hand notation for such a set-up is,</p>
 <p><span class="math display">\[
 Y_i = \beta Z_i + \gamma_j + \upsilon_i
-\]</span> where <span class="math inline">\(\gamma_j\)</span> signifies the presence of <span class="math inline">\(J\)</span> group fixed effects. For each group the constant, denoted by <span class="math inline">\(\gamma\)</span>, changes. However, it is important to remember that this notation is a short-hand. The full set of regressors includes <span class="math inline">\(J\)</span> dummy variables (or a constant and <span class="math inline">\(J-1\)</span> dummy variables). When applying this shorthand it is standard to drop the constant term.</p>
+\]</span></p>
+<p>where <span class="math inline">\(\gamma_j\)</span> signifies the presence of <span class="math inline">\(J\)</span> group fixed effects. For each group the constant, denoted by <span class="math inline">\(\gamma\)</span>, changes. However, it is important to remember that this notation is a short-hand. The full set of regressors includes <span class="math inline">\(J\)</span> dummy variables (or a constant and <span class="math inline">\(J-1\)</span> dummy variables). When applying this shorthand it is standard to drop the constant term.</p>
 </section>
 <section id="multi-level-fixed-effects" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="multi-level-fixed-effects"><span class="header-section-number">5.2</span> Multi-level Fixed Effects</h2>
@@ -244,7 +259,8 @@ Y_i = \beta Z_i + \gamma_j + \upsilon_i
 <p>Consider then the model,</p>
 <p><span class="math display">\[
 Y_i = \beta Z_i + \gamma_j + \delta_k + \upsilon_i
-\]</span> where <span class="math inline">\(j\)</span> represents country fixed effects and <span class="math inline">\(k\)</span> county fixed effects. Let’s assume the data is sorted by country and then county, and that there are two countries, each with 2 counties. (An obvious simplification.) If we consider the matrix of fixed effects, they can be written as,</p>
+\]</span></p>
+<p>where <span class="math inline">\(j\)</span> represents country fixed effects and <span class="math inline">\(k\)</span> county fixed effects. Let’s assume the data is sorted by country and then county, and that there are two countries, each with 2 counties. (An obvious simplification.) If we consider the matrix of fixed effects, they can be written as,</p>
 <p><span class="math display">\[
   \begin{bmatrix}1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
   \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
@@ -259,7 +275,8 @@ Y_i = \beta Z_i + \gamma_j + \delta_k + \upsilon_i
   \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
   0&amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
   \end{bmatrix}
-\]</span> We can immediately see that the matrix is rank deficient. Columns 3 and 4 add up to give you column 1. Likewise, columns 5 and 6 add up to give you column 2. This implies that the matrix is not invertible and we cannot separately identify all fixed effects.</p>
+\]</span></p>
+<p>We can immediately see that the matrix is rank deficient. Columns 3 and 4 add up to give you column 1. Likewise, columns 5 and 6 add up to give you column 2. This implies that the matrix is not invertible and we cannot separately identify all fixed effects.</p>
 <p>If we include column 1 (i.e.&nbsp;dummy variable for country <span class="math inline">\(j=1\)</span>), we must exclude <em>either</em> column 3 or 4 (i.e.&nbsp;one of the counties in country <span class="math inline">\(j=1\)</span>). For the same reasons discussed above (when selecting between the inclusion of the constant and dummy variables), it makes no difference whether we include column 1 and drop either column 3 or 4; or keep columns 3 and 4, and exclude column 1. Thus, we can only identify the model,<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <p><span class="math display">\[
 Y_i = \beta Z_i + \tilde{\delta}_k + \upsilon_i
@@ -270,24 +287,34 @@ Y_i = \beta Z_i + \tilde{\delta}_k + \upsilon_i
 <p>Fixed effects are used extensively in panel data models. They are used to control for time-invariant, unit-level heterogeneity and flexible, aggregate time trends. Consider, the model</p>
 <p><span class="math display">\[
   Y_{it} = \beta Z_{it} + \alpha_i + \delta_t + \varepsilon_{it}
-\]</span> As before, this notation is used as a shorthand. The full set of unit fixed effects are given by, <span class="math display">\[
+\]</span></p>
+<p>As before, this notation is used as a shorthand. The full set of unit fixed effects are given by,</p>
+<p><span class="math display">\[
 \alpha_i=\sum_{j=1}^N\alpha_j\mathbf{1}\{i=j\}
-\]</span> and the time fixed effects are given by, <span class="math display">\[
+\]</span></p>
+<p>and the time fixed effects are given by,</p>
+<p><span class="math display">\[
 \delta_t=\sum_{j=1}^T\delta_k\mathbf{1}\{t=k\}
-\]</span> What if we wanted to include group-level controls in the model; e.g., an indicator for treatment group status? If group membership is stable over time, then for the reasons discussed above, group membership is perfectly co-linear with the unit fixed effects. The dummy variables for treated units (a subset of the unit fixed effects) add up to the dummy variable for the treated group. You will see this again in EC338.</p>
+\]</span></p>
+<p>What if we wanted to include group-level controls in the model; e.g., an indicator for treatment group status? If group membership is stable over time, then for the reasons discussed above, group membership is perfectly co-linear with the unit fixed effects. The dummy variables for treated units (a subset of the unit fixed effects) add up to the dummy variable for the treated group. You will see this again in EC338.</p>
 <p>A final point on this. What if you need to include a variable that identifies treatment-group status in the model for <em>identification</em>. For example, in a simple two-group-two-period difference-in-differences model you have,</p>
 <p><span class="math display">\[
   Y_{it} = \alpha + \psi D_i + \delta T_t + \beta D_i\cdot T_t + \varepsilon_{it}
-\]</span> where <span class="math inline">\(D_i = \mathbf{1}\{treated\}\)</span> and <span class="math inline">\(T_t = \mathbf{1}\{t\geq t_0\}\)</span> where <span class="math inline">\(t_0\)</span> is the period of treatment. The coefficient on the interaction term is the parameter of interest. If we include unit fixed effects in this model,</p>
+\]</span></p>
+<p>where <span class="math inline">\(D_i = \mathbf{1}\{treated\}\)</span> and <span class="math inline">\(T_t = \mathbf{1}\{t\geq t_0\}\)</span> where <span class="math inline">\(t_0\)</span> is the period of treatment. The coefficient on the interaction term is the parameter of interest. If we include unit fixed effects in this model,</p>
 <p><span class="math display">\[
   Y_{it} = \alpha_i + \delta T_t + \beta D_i\cdot T_t + \upsilon_{it}
-\]</span> then we drop the treatment-group indicator dummy variable: <span class="math inline">\(D_i\)</span>. And if we include include time fixed effects, <span class="math display">\[
+\]</span></p>
+<p>then we drop the treatment-group indicator dummy variable: <span class="math inline">\(D_i\)</span>. And if we include include time fixed effects,</p>
+<p><span class="math display">\[
   Y_{it} = \alpha_i + \delta_t + \beta D_i\cdot T_t + \upsilon_{it}
-\]</span> we drop <span class="math inline">\(T_t\)</span>. Is this a problem for identification? No, the group indicator, <span class="math inline">\(D_i\)</span>, is “implied” by unit fixed effects. Because the group dummy is perfectly co-linear with the unit fixed effects, you could always have included it by excluding one of the unit fixed effects. In fact, <em>with a balanced panel</em>, replacing the group indicator with unit fixed effects will not actually change the estimated coefficient on the interaction term. It will, however, reduce the standard error of estimator.</p>
+\]</span></p>
+<p>we drop <span class="math inline">\(T_t\)</span>. Is this a problem for identification? No, the group indicator, <span class="math inline">\(D_i\)</span>, is “implied” by unit fixed effects. Because the group dummy is perfectly co-linear with the unit fixed effects, you could always have included it by excluding one of the unit fixed effects. In fact, <em>with a balanced panel</em>, replacing the group indicator with unit fixed effects will not actually change the estimated coefficient on the interaction term. It will, however, reduce the standard error of estimator.</p>
 <p>For this reason, the most common notation used for (static) difference-in-differences is,</p>
 <p><span class="math display">\[
   Y_{it} = \alpha_i + \delta_t + \beta D_{it} + \upsilon_{it}
-\]</span> where <span class="math inline">\(D_{it} = \mathbf{1}\{treated\}\cdot\mathbf{1}\{t\geq t_0\}\)</span>. This notation is particularly useful because it does not need to be adapted when you add more time periods. However, it can only be used in applications with longitudinal data. If you are using repeated cross-sections then you cannot include unit fixed effects and must retain a treatment group indicator. We will discuss this further in EC338.</p>
+\]</span></p>
+<p>where <span class="math inline">\(D_{it} = \mathbf{1}\{treated\}\cdot\mathbf{1}\{t\geq t_0\}\)</span>. This notation is particularly useful because it does not need to be adapted when you add more time periods. However, it can only be used in applications with longitudinal data. If you are using repeated cross-sections then you cannot include unit fixed effects and must retain a treatment group indicator. We will discuss this further in EC338.</p>
 
 
 </section>

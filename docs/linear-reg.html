@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -57,7 +57,8 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -78,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-reg.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Linear Regression Model</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -162,7 +163,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Linear Regression Model</span></h1>
+<h1 class="title"><span id="sec-linear-reg" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Linear Regression Model</span></span></h1>
 </div>
 
 
@@ -194,10 +195,10 @@ Y_i = \beta_1 + \beta_2 X_{i2} + \varepsilon_i
 <p>The linear regression model is linear <em>in parameters</em>, which means we can express the outcome as a linear transformation of a finite set of parameters (i.e.&nbsp;<span class="math inline">\(k\times 1\)</span> vector of parameters). These (population) parameters are assumed to be constants and unknown to the econometrician.</p>
 <p>We can rewrite the above equation using vectors,</p>
 <p><span class="math display">\[
-\begin{align} Y_i &amp;= \begin{bmatrix}1\;X_{i2}\end{bmatrix}\begin{bmatrix}\beta_1 \\ \beta_2\end{bmatrix} + \varepsilon_i \\
+\begin{aligned} Y_i &amp;= \begin{bmatrix}1\;X_{i2}\end{bmatrix}\begin{bmatrix}\beta_1 \\ \beta_2\end{bmatrix} + \varepsilon_i \\
 &amp;= \begin{bmatrix}1\\ X_{i2}\end{bmatrix}'\begin{bmatrix}\beta_1 \\ \beta_2\end{bmatrix} + \varepsilon_i \\
 &amp;=X_i'\beta + \varepsilon_i
-\end{align}
+\end{aligned}
 \]</span></p>
 <p>Where <span class="math inline">\(X_i\)</span> is a column vector including the number 1 in the first row (for the constant/intercept) and <span class="math inline">\(X_{i2}\)</span> in the second row.</p>
 <blockquote class="blockquote">
@@ -209,10 +210,11 @@ Y_i = \beta_1 + \beta_2 X_{i2} + \varepsilon_i
 </blockquote>
 <p>We can easily extend this notation to the case of multivariate regression. For example, consider a model with a constant and <span class="math inline">\(k-1\)</span> regressors.</p>
 <p><span class="math display">\[
-\begin{align} Y_i &amp;= \beta_1 + \beta_2 X_{i2} + \beta_3 X_{i3} + \ldots + \beta_k X_{ik} + \varepsilon_i \\
+\begin{aligned}
+Y_i &amp;= \beta_1 + \beta_2 X_{i2} + \beta_3 X_{i3} + \ldots + \beta_k X_{ik} + \varepsilon_i \\
 &amp;= \begin{bmatrix} 1\; X_{i2}\; X_{i3}\; \dots\; X_{ik} \end{bmatrix} \begin{bmatrix} \beta_1\\ \beta_2\\ \beta_3\\ \vdots\\ \beta_k\end{bmatrix} + \varepsilon_i \\
 &amp;=X_i'\beta + \varepsilon_i
-\end{align}
+\end{aligned}
 \]</span></p>
 <p>Regardless of the number of regressors, the notation remains the same. Take note of the fact that the <span class="math inline">\(X_i\)</span> is a column vector which means that the notation must include a transpose: <span class="math inline">\(X_i'\beta\)</span>. Excluding the transpose is incorrect since you cannot multiple two <span class="math inline">\(k\times1\)</span> column vectors. You can multiply a <span class="math inline">\(1\times k\)</span> row vector with a <span class="math inline">\(k\times 1\)</span> column vector giving you a <span class="math inline">\(1\times 1\)</span> scalar. The result should be a scalar since <span class="math inline">\(Y_i\)</span> is a scalar.</p>
 <p>This notation is not universal. For example, Wooldridge (2011) treats <span class="math inline">\(X_i\)</span> as a row vector. For this reason, the linear regression model can be expressed as <span class="math inline">\(X_i\beta\)</span>. Both notations are used in the applied literature, but I am more familiar with and prefer the column-vector notation.</p>
@@ -229,18 +231,19 @@ Y=\begin{bmatrix}Y_1\\ Y_2 \\ \vdots\\ Y_n \end{bmatrix}
 <p><span class="math inline">\(Y\)</span> is a <span class="math inline">\(n\times 1\)</span> column vector of all outcomes in the sample. You can distinguish the vector <span class="math inline">\(Y\)</span> from the scalar <span class="math inline">\(Y_i\)</span> by the absence of a subscript.</p>
 <p>Similarly, we can stack the right-hand side of the equation.</p>
 <p><span class="math display">\[
-\begin{align}
+\begin{aligned}
 Y&amp;=\begin{bmatrix}X_1'\beta\\ X_2'\beta \\ \vdots\\ X_n'\beta \end{bmatrix}+ \begin{bmatrix}\varepsilon_1\\ \varepsilon_2 \\ \vdots\\ \varepsilon_n \end{bmatrix}\\
 &amp;=\begin{bmatrix}X_1'\\ X_2' \\ \vdots\\ X_n' \end{bmatrix}\beta+ \begin{bmatrix}\varepsilon_1\\ \varepsilon_2 \\ \vdots\\ \varepsilon_n \end{bmatrix}\\
 &amp;=X\beta+\varepsilon
-\end{align}
+\end{aligned}
 \]</span></p>
 <p>Like <span class="math inline">\(Y\)</span>, <span class="math inline">\(\varepsilon\)</span> is a <span class="math inline">\(n\times 1\)</span> vector. <span class="math inline">\(X\)</span> is a <span class="math inline">\(n\times k\)</span> matrix and <span class="math inline">\(\beta\)</span> remains a <span class="math inline">\(k\times 1\)</span> vector of parameters. The product of a <span class="math inline">\(n\times k\)</span> matrix and <span class="math inline">\(k\times 1\)</span> vector is a <span class="math inline">\(n\times 1\)</span> vector: the same size vector as <span class="math inline">\(Y\)</span> and <span class="math inline">\(\varepsilon\)</span>. As it is important to understand the structure of <span class="math inline">\(X\)</span>, let us write it out in detail.</p>
 <p><span class="math display">\[
 X = \begin{bmatrix}X_1'\\ X_2' \\ \vdots\\ X_n' \end{bmatrix} = \begin{bmatrix}X_{11} &amp; X_{12}&amp;\dots&amp;X_{1k}\\ X_{21}&amp; X_{22}&amp; &amp; \\ \vdots &amp; &amp; \ddots &amp;\\ X_{n1} &amp; &amp; &amp; X_{nk} \end{bmatrix}
-\]</span> The <span class="math inline">\(X\)</span> matrix has <span class="math inline">\(n\)</span> rows, each representing a different unit of observation, and <span class="math inline">\(k\)</span> columns, each representing a different regressor. Recall, one of these regressors <em>may</em> be a constant. If the model includes a constant then <span class="math inline">\(X_{i1}=1\;\forall\;i\)</span>. This means that the first column of <span class="math inline">\(X\)</span> is a vector of <span class="math inline">\(1\)</span>’s. Each subsequent column represents another regressor.</p>
+\]</span></p>
+<p>The <span class="math inline">\(X\)</span> matrix has <span class="math inline">\(n\)</span> rows, each representing a different unit of observation, and <span class="math inline">\(k\)</span> columns, each representing a different regressor. Recall, one of these regressors <em>may</em> be a constant. If the model includes a constant then <span class="math inline">\(X_{i1}=1\;\forall\;i\)</span>. This means that the first column of <span class="math inline">\(X\)</span> is a vector of <span class="math inline">\(1\)</span>’s. Each subsequent column represents another regressor.</p>
 <p>If you are familiar with rectangular datasets from with working in STATA or R, then you may have notices that <span class="math inline">\(X\)</span> is essentially the “dataset” (excluding the outcome variable). In a rectangular dataset, each row represents a different observation and each column a different variable. That’s what we have here.</p>
-<p>Why is this noteworthy? When assert that there must be an absence of perfect colinearity between the variables in the model, we are actually saying that the columns of <span class="math inline">\(X\)</span> must be linearly independent. The formal way of expressing this is that <span class="math inline">\(X\)</span> must have <em>full</em> column rank; or <span class="math inline">\(r(X)=k\)</span> (see <a href="#sec-compendium"><span class="quarto-unresolved-ref">sec-compendium</span></a> for a definition of linear dependence and rank). This is why the OLS condition included in EC226 as “no perfect colinearity” is sometimes referred to as the rank condition. Without full rank, we cannot estimate the linear regression model.</p>
+<p>Why is this noteworthy? When assert that there must be an absence of perfect colinearity between the variables in the model, we are actually saying that the columns of <span class="math inline">\(X\)</span> must be linearly independent. The formal way of expressing this is that <span class="math inline">\(X\)</span> must have <em>full</em> column rank; or <span class="math inline">\(r(X)=k\)</span> (see <a href="compendium.html"><span>Chapter&nbsp;6</span></a> for a definition of linear dependence and rank). This is why the OLS condition included in EC226 as “no perfect colinearity” is sometimes referred to as the rank condition. Without full rank, we cannot estimate the linear regression model.</p>
 
 
 </section>

@@ -11,21 +11,21 @@ We also saw that in order for there to be a (unique) solution to the least squar
 Given the vector of OLS coefficients, we can also estimate the residual,
 
 $$
-\begin{align}
+\begin{aligned}
 \hat{\varepsilon} =& Y - X\hat{\beta} \\
 =&Y-X(X'X)^{-1}X'Y \\
 =&(I_n-X(X'X)X^{-1})Y
-\end{align}
+\end{aligned}
 $$
 
 by plugging the definition of $\hat{\beta}$. Thus, the OLS estimator separates the vector $Y$ into two components:
 
 $$
-\begin{align}
+\begin{aligned}
  Y =& X\hat{\beta} + \hat{\varepsilon} \\
 =&\underbrace{X(X'X)^{-1}X'}_{P_X}Y + (\underbrace{I_n-X(X'X)X^{-1}}_{I_n-P_X = M_X})Y \\
 =&P_XY + M_XY
-\end{align}
+\end{aligned}
 $$
 
 The matrix $P_X = X(X'X)^{-1}X'$ is a $n\times n$ *projection* matrix. It is a linear transformation that projects any vector into the span of $X$: $S(X)$. (See @sec-compendium for more information on these terms.) $S(X)$ is the vector space spanned by the columns of $X$. The dimensions of this vector space depends on the rank of $P_X$,
@@ -59,13 +59,13 @@ $$
 This is true, *not just in expectation*, but by definition. The relationship is "mechanical": the covariates and estimated residual are perfectly uncorrelated. This can be easily shown:
 
 $$
-\begin{align}
+\begin{aligned}
 X'\hat{\varepsilon} =& X'M_XY \\
 =& X'(I_n-P_X)Y \\
 =&X'I_nY-X'X(X'X)^{-1}X'Y \\
 =&X'Y-X'Y \\
 =&0
-\end{align}
+\end{aligned}
 $$
 
 You are essentially imposing the assumption of uncorrelatedness between the explained and unexplained components of Y on the data. This means that if the assumption is wrong, so is the projection.
@@ -106,25 +106,28 @@ $$
 Y = \gamma_1M_2X_1+\xi
 $$
 
-We know that $\hat{\gamma}_1 = (\hat{\upsilon}'\hat{\upsilon})^{-1}\hat{\upsilon}'Y$. Replacing the value of the residual, we get
+We know that $\hat{\gamma}_1 = (\hat{\upsilon}'\hat{\upsilon})^{-1}\hat{\upsilon}'Y$. Replacing the value of the residual, we get\> \[note\] We use both the symmetry and idempotent quality of $M_2$.
 
 $$
-\begin{align}
+\begin{aligned}
 \hat{\gamma}_1 =& (\hat{\upsilon}'\hat{\upsilon})^{-1}\hat{\upsilon}'Y \\
 =&(X_1'M_2M_2X_1)^{-1}X_1'M_2Y \\
 =&(X_1'M_2X_1)^{-1}X_1'M_2Y
-\end{align}
-$$ \> \[note\] We use both the symmetry and idempotent quality of $M_2$.
+\end{aligned}
+$$ 
+
 
 Next we want to show that $\hat{\beta}_1$ is given by the same value. This part is more complicated. Let's start with by reminding ourselves of the following:
 
 $$
-\begin{align}
+\begin{aligned}
 X'X\hat{\beta} &= X'Y \\
 \begin{bmatrix}X_1 & X_2\end{bmatrix}'\begin{bmatrix}X_1 & X_2\end{bmatrix}\begin{bmatrix}\hat{\beta}_1 \\ \hat{\beta}_2\end{bmatrix} &= \begin{bmatrix}X_1 & X_2\end{bmatrix}'Y \\
 \begin{bmatrix}X_1'X_1 & X_1'X_2 \\ X_2'X_1 & X_2'X_2 \end{bmatrix}\begin{bmatrix}\hat{\beta}_1 \\ \hat{\beta}_2\end{bmatrix} &= \begin{bmatrix}X_1'Y \\ X_2'Y\end{bmatrix}
-\end{align}
-$$ We could solve for $\hat{\beta}_1$ by solving for the inverse of $X'X$; however, this will take a long time. An easier approach is to simply verify that $\hat{\beta}_1=(X_1'M_2X_1)^{-1}X_1'M_2Y$. Recall, $\hat{\beta}$ splits $Y$ into two components:
+\end{aligned}
+$$ 
+
+We could solve for $\hat{\beta}_1$ by solving for the inverse of $X'X$; however, this will take a long time. An easier approach is to simply verify that $\hat{\beta}_1=(X_1'M_2X_1)^{-1}X_1'M_2Y$. Recall, $\hat{\beta}$ splits $Y$ into two components:
 
 $$
 Y = \hat{\beta}_1X_1+X_2\hat{\beta}_2 + \hat{\varepsilon}
@@ -133,13 +136,15 @@ $$
 If we plug this definition of $Y$ into the above expression we get,
 
 $$
-\begin{align}
+\begin{aligned}
 &(X_1'M_2X_1)^{-1}X_1'M_2(\hat{\beta}_1X_1+X_2\hat{\beta}_2 + \hat{\varepsilon}) \\
 =&\hat{\beta}_1\underbrace{(X_1'M_2X_1)^{-1}X_1'M_2X_1}_{=I_n} \\
 &+\underbrace{(X_1'M_2X_1)^{-1}X_1'M_2X_2\hat{\beta_2}}_{=0} \\
 &+\underbrace{(X_1'M_2X_1)^{-1}X_1'M_2\hat{\varepsilon}}_{=0} \\
 =&\hat{\beta}_1
-\end{align}
-$$ In line 2, I use the fact that $\hat{\beta}_1$ is a scalar and can be moved to the front (since the order of multiplication does not matter with a scalar). In line 3, I use the fact that $M_2X_2=0$ by definition. Line 4 uses the fact that $M_2\hat{\varepsilon}=\hat{\varepsilon}$ which means that $X_1'M_2\hat{\varepsilon}=X_1'\hat{\varepsilon}=0$.
+\end{aligned}
+$$ 
+
+In line 2, I use the fact that $\hat{\beta}_1$ is a scalar and can be moved to the front (since the order of multiplication does not matter with a scalar). In line 3, I use the fact that $M_2X_2=0$ by definition. Line 4 uses the fact that $M_2\hat{\varepsilon}=\hat{\varepsilon}$ which means that $X_1'M_2\hat{\varepsilon}=X_1'\hat{\varepsilon}=0$.
 
 The OLS estimator solves for $\beta_1$ using the variance in $X_1$ that is orthogonal to $X_2$. This is the manner in which we "hold $X_2$ constant": the variation in $M_2X_1$ is orthogonal to $X_2$. Changes in $M_2X_1$ are *uncorrelated* with changes in $X_2$; *as if* the variation in $M_2X_1$ arose independently of $X_2$. However, uncorrelatedness does NOT imply independence.
