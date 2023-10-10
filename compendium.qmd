@@ -243,3 +243,98 @@ Here are a few important results concerning idempotent matrices.
 > **\[result\]** $\lambda_i\in\{0,1\}\quad \forall\;i$
 
 *Projection* matrices are idempotent, but need not be symmetric. However, for the purposes of this module we will deal exclusively with symmetric idempotent projection matrices.
+
+## Vector Differentiation
+
+Here we will look at the derivatives of scalar with respect to (W.r.t.) a vector. You can also define other derivatives, such as the derivative of a vector w.r.t. a vector and the derivative of a scalar with respect to a matrix. However, these are not needed for these notes. 
+
+# General case
+Suppose $f(x)\in R$ (i.e. a scalar) and $x\in R^n$ (i.e. a $n\times 1$ vector). Then we can define the partial derivative of $f(x)$ w.r.t. $x$ as,
+
+$$
+  \frac{\partial f(x)}{\partial x}  = \begin{bmatrix}\frac{\partial f(x)}{\partial x_1} \\ \frac{\partial f(x)}{\partial x_2} \\ \vdots \\ \frac{\partial f(x)}{\partial x_n} \end{bmatrix}
+$$
+
+# Linear: scalar case
+A special case is when $f(x)$ is linear in $x$, 
+
+$$
+f(x) = a'x = \sum_{i=1}^n a_ix_i
+$$
+for $a\in R^n$. The derivative of $a'x$ with respect to the **vector** $x$ can be defined as, 
+
+$$
+  \begin{aligned}
+  \frac{\partial a'x}{\partial x} & = \begin{bmatrix}\frac{\partial a'x}{\partial x_1} \\ \frac{\partial a'x}{\partial x_2} \\ \vdots \\ \frac{\partial a'x}{\partial x_n} \end{bmatrix} \\
+  & = \begin{bmatrix}a_1 \\ a_2 \\ \vdots \\ a_n \end{bmatrix} \\
+  & = a
+  \end{aligned}
+$$
+since the the partial derivate of $a'x = \sum_{i=1}^n a_ix_i$ w.r.t. $x_i$ is just the scalar $a_i$.
+
+The derivative of a scalar w.r.t. to a vector yields a vector of partial derivatives. 
+
+Since $a'x$ is a scalar, it is by definition symmetric: $a'x = x'a$. Thus, 
+
+$$
+\frac{\partial x'a}{\partial x} = \frac{\partial a'x}{\partial x} = a
+$$
+# Linear: vector  case
+
+Suppose $f(x)$ is a linear transformation of $x$, 
+
+$$
+f(x) = A'x
+$$
+for any $m\times n$ matrix A, 
+
+$$
+  A = \begin{bmatrix}a_1' \\ a_2' \\ \vdots \\ a_m'\end{bmatrix}
+$$
+where $a_i\in R^n\;\forall i=1,\dots,m$ and, 
+
+$$
+  Ax = \begin{bmatrix}a_1'x \\ a_2'x \\ \vdots \\ a_m'x\end{bmatrix}
+$$
+Note, $f(x)=Ax\in R^m$, a $m\times 1$ vector. We can then define, 
+
+
+$$
+  \begin{aligned}
+  \frac{\partial Ax}{\partial x'} & = \begin{bmatrix}\frac{\partial a_1'x}{\partial x_1} & \frac{\partial a_1'x}{\partial x_2} & \dots & \frac{\partial a_1'x}{\partial x_n}\\ \frac{\partial a_2'x}{\partial x_1} & \frac{\partial a_2'x}{\partial x_2} & \dots & \frac{\partial a_2'x}{\partial x_n}\\ \vdots & \vdots & \ddots & \vdots\\ \frac{\partial a_m'x}{\partial x_1} & \frac{\partial a_m'x}{\partial x_2} & \dots & \frac{\partial a_m'x}{\partial x_n}\\ \end{bmatrix} \\
+  & = \begin{bmatrix} a_{11} & a_{12} & \dots & a_{1n} \\ a_{21} & a_{22} & \dots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots\\ a_{m1} & a_{m2} & \dots & a_{mn} \\ \end{bmatrix} \\
+  & = A
+  \end{aligned}
+$$
+
+Since Ax is $m\times 1$ column vector, we take the derivative w.r.t. $x'$ a row vector and not the column vector $x$. This results in a matrix of partial derivatives. 
+
+# Quadratic form
+
+A second special case is where the function takes on the quadaratic form, 
+
+$$
+f(x) = x'Ax = \sum_{i=1}^N\sum_{j=1}^n a_{ij}x_ix_j
+$$
+
+for $n\times n$ (square) matrix A. As in the first linear case, $f(x)$ is scalar. 
+
+Define $c = Ax$, the $x'Ax = x'c$. From the linear case, we know that, 
+
+$$
+\frac{\partial x'c}{\partial x} = c
+$$
+
+Similarly, if we define $d = A'x$ then $x'Ax = d'x$. From the linear case, we know that, 
+
+$$
+\frac{\partial d'x}{\partial x} = d
+$$
+
+We can define the total derivative as the sum of the partial derivatives w.r.t. to the first and second $x$. Combining these two results, we have that, 
+
+$$
+\frac{\partial x'Ax}{\partial x} = Ax + A'x
+$$
+
+And **if** $A$ is symmetric, this result simplifies to $2Ax$.

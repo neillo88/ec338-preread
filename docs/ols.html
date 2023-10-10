@@ -186,22 +186,34 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math display">\[
 \begin{aligned}
 &amp;\min_b\;(Y-Xb)'(Y-Xb)\\
+=&amp;\min_b\;Y'Y-Y'Xb-b'X'Y+b'X'Xb \\
 =&amp;\min_b\;Y'Y-2b'X'Y+b'X'Xb
 \end{aligned}
-\]</span></p>
+\]</span> From line 2 to 3 we use the face that <span class="math inline">\(Y'Xb\)</span> is a scalar and therefore symmetric: <span class="math inline">\(Y'Xb=b'X'Y\)</span>.</p>
 <blockquote class="blockquote">
 <p><strong>[note]</strong> When working with vectors and matrices it is important to keep track of their size. You can only multiply two matrices/vectors if their column and row dimensions match. For example, if <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are both <span class="math inline">\(n\times k\)</span> matrices (<span class="math inline">\(n\neq k\)</span>), then <span class="math inline">\(AB\)</span> is not defined since <span class="math inline">\(A\)</span> has <span class="math inline">\(k\)</span> columns and <span class="math inline">\(B\)</span> <span class="math inline">\(n\)</span> rows. For the same reason <span class="math inline">\(BA\)</span> is also not defined. However, you can pre-multiply <span class="math inline">\(B\)</span> with <span class="math inline">\(A'\)</span> as <span class="math inline">\(A'\)</span> is a <span class="math inline">\(k\times n\)</span> matrix: <span class="math inline">\(A'B\)</span> is therefore a <span class="math inline">\((k\times n)\cdot (n\times k)=k\times k\)</span> matrix. Similarly, <span class="math inline">\(B'A\)</span> is defined, but is a <span class="math inline">\(n\times n\)</span> matrix.</p>
 <p>Order matters when working with matrices and vectors. Pre-multiplication and post-multiplication are not the same thing.</p>
-</blockquote>
 <p>Keep track of the size of each term to ensure they correspond to one another. In this instance, each term should be a scalar. For example, <span class="math inline">\(-2b'X'Y\)</span> is the multiplication of a scalar (<span class="math inline">\(-2\)</span>: size <span class="math inline">\(1\times 1\)</span>), row vector (<span class="math inline">\(b'\)</span>: size <span class="math inline">\(1\times k\)</span>), matrix (<span class="math inline">\(X'\)</span>: size <span class="math inline">\(k\times n\)</span>), and column vector (<span class="math inline">\(Y\)</span>: size <span class="math inline">\(n\times 1\)</span>). Thus we have a <span class="math inline">\((1\times 1)\cdot (1\times k)\cdot (k\times n)\cdot (n\times 1)=1\times 1\)</span>.</p>
-<p>Differentiating the above expression w.r.t. <span class="math inline">\(b\)</span> and setting the first-order conditions to <span class="math inline">\(0\)</span>, we find that the following condition must hold for <span class="math inline">\(\hat{\beta}\)</span>, the solution.</p>
+</blockquote>
+<p>Differentiating the above expression w.r.t. the vecotr <span class="math inline">\(b\)</span> and setting the first-order conditions to <span class="math inline">\(0\)</span>, we find that the following condition must hold for <span class="math inline">\(\hat{\beta}\)</span>, the solution.</p>
 <p><span class="math display">\[
-\begin{aligned}
-&amp;0=-2X'Y+2X'X\hat{\beta}
-\\ \Rightarrow&amp; X'X\hat{\beta} = X'Y
-\end{aligned}
+  \begin{aligned}
+  &amp;0=-2X'Y+2X'X\hat{\beta}
+  \\ \Rightarrow&amp; X'X\hat{\beta} = X'Y
+  \end{aligned}
 \]</span></p>
-<p>What are the dimensions of this equation? Well, <span class="math inline">\(X'X\)</span> is a <span class="math inline">\(k\times k\)</span> matrix and <span class="math inline">\(\hat{\beta}\)</span> a <span class="math inline">\(k\times 1\)</span> vector. Thus the left-hand side of the equation is a <span class="math inline">\(k\times 1\)</span> vector, as is the right-hand side. [Check that you agree.]</p>
+<hr>
+<p><strong>How did we get this result?</strong> Deriving the first order conditions requires knowledge of how to solve for the derivative of a scalar respect to a column vector (in this case <span class="math inline">\(b\in R^k\)</span>). <a href="compendium.html"><span>Chapter&nbsp;6</span></a> has some notes on vector differentiation.</p>
+<p>We can ignore the first term <span class="math inline">\(Y'Y\)</span> as it does not depend on <span class="math inline">\(b\)</span>. The second term is <span class="math inline">\(-2b'X'Y\)</span>. Here we can use the rule that, <span class="math display">\[
+  \frac{\partial z'a}{\partial z} = \frac{\partial a'z}{\partial z} = a
+\]</span> In this instance, <span class="math inline">\(a = X'Y \in R^k\)</span>. Thus, <span class="math display">\[
+  \frac{\partial -2b'X'Y}{\partial b} = -2\frac{\partial b'X'Y}{\partial b} = -2X'Y
+\]</span> The third term is <span class="math inline">\(b'X'Xb\)</span>. This is what is commonly referred to as a quadratic form: <span class="math inline">\(z'Az\)</span>. We know that the derivative of this form is, <span class="math display">\[
+  \frac{\partial z'Az}{\partial z} = Az + A'z
+\]</span> and if <span class="math inline">\(A\)</span> is symmetric, the result simplies to <span class="math inline">\(2Az\)</span>. In this instance, <span class="math inline">\(A = X'X\)</span> is symmetric and the derivative is given by, <span class="math display">\[
+  \frac{\partial b'X'Xb}{\partial b} = 2X'X
+\]</span></p>
+<hr>
 <p>In order to solve for <span class="math inline">\(\hat{\beta}\)</span> we need to move the <span class="math inline">\(X'X\)</span> term to the right-hand side. If these were scalars we would simply divide both sides by the same constant. However, as <span class="math inline">\(X'X\)</span> is a matrix, division is not possible. Instead, we need to pre-multiply both sides by the inverse of <span class="math inline">\(X'X\)</span>: <span class="math inline">\((X'X)^{-1}\)</span>. Here’s the issue: the inverse of a matrix need not exist.</p>
 <p>Given a <em>square</em> <span class="math inline">\(k\times k\)</span> matrix <span class="math inline">\(A\)</span>, its inverse exists <em>if and only if</em> <span class="math inline">\(A\)</span> is non-singular. For <span class="math inline">\(A\)</span> to be non-singular its rank must have full rank: <span class="math inline">\(r(A)=k\)</span>, the number of rows/columns. This means that all <span class="math inline">\(k\)</span> columns/rows must be linearly independent. (See <a href="compendium.html"><span>Chapter&nbsp;6</span></a> for a more detailed discussion of all these terms.)</p>
 <p>In our application, <span class="math inline">\(A=X'X\)</span> and</p>

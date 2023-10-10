@@ -13,26 +13,41 @@ Using vector notation, we can rewrite this as
 $$ 
 \begin{aligned} 
 &\min_b\;(Y-Xb)'(Y-Xb)\\ 
+=&\min_b\;Y'Y-Y'Xb-b'X'Y+b'X'Xb \\
 =&\min_b\;Y'Y-2b'X'Y+b'X'Xb 
 \end{aligned} 
-$$
+$$ From line 2 to 3 we use the face that $Y'Xb$ is a scalar and therefore symmetric: $Y'Xb=b'X'Y$.
 
 > **\[note\]** When working with vectors and matrices it is important to keep track of their size. You can only multiply two matrices/vectors if their column and row dimensions match. For example, if $A$ and $B$ are both $n\times k$ matrices ($n\neq k$), then $AB$ is not defined since $A$ has $k$ columns and $B$ $n$ rows. For the same reason $BA$ is also not defined. However, you can pre-multiply $B$ with $A'$ as $A'$ is a $k\times n$ matrix: $A'B$ is therefore a $(k\times n)\cdot (n\times k)=k\times k$ matrix. Similarly, $B'A$ is defined, but is a $n\times n$ matrix.
 >
 > Order matters when working with matrices and vectors. Pre-multiplication and post-multiplication are not the same thing.
+>
+> Keep track of the size of each term to ensure they correspond to one another. In this instance, each term should be a scalar. For example, $-2b'X'Y$ is the multiplication of a scalar ($-2$: size $1\times 1$), row vector ($b'$: size $1\times k$), matrix ($X'$: size $k\times n$), and column vector ($Y$: size $n\times 1$). Thus we have a $(1\times 1)\cdot (1\times k)\cdot (k\times n)\cdot (n\times 1)=1\times 1$.
 
-Keep track of the size of each term to ensure they correspond to one another. In this instance, each term should be a scalar. For example, $-2b'X'Y$ is the multiplication of a scalar ($-2$: size $1\times 1$), row vector ($b'$: size $1\times k$), matrix ($X'$: size $k\times n$), and column vector ($Y$: size $n\times 1$). Thus we have a $(1\times 1)\cdot (1\times k)\cdot (k\times n)\cdot (n\times 1)=1\times 1$.
-
-Differentiating the above expression w.r.t. $b$ and setting the first-order conditions to $0$, we find that the following condition must hold for $\hat{\beta}$, the solution.
+Differentiating the above expression w.r.t. the vecotr $b$ and setting the first-order conditions to $0$, we find that the following condition must hold for $\hat{\beta}$, the solution.
 
 $$ 
-\begin{aligned} 
-&0=-2X'Y+2X'X\hat{\beta} 
-\\ \Rightarrow& X'X\hat{\beta} = X'Y 
-\end{aligned} 
-$$ 
+  \begin{aligned} 
+  &0=-2X'Y+2X'X\hat{\beta} 
+  \\ \Rightarrow& X'X\hat{\beta} = X'Y 
+  \end{aligned} 
+$$
 
-What are the dimensions of this equation? Well, $X'X$ is a $k\times k$ matrix and $\hat{\beta}$ a $k\times 1$ vector. Thus the left-hand side of the equation is a $k\times 1$ vector, as is the right-hand side. \[Check that you agree.\]
+------------------------------------------------------------------------
+
+**How did we get this result?** Deriving the first order conditions requires knowledge of how to solve for the derivative of a scalar respect to a column vector (in this case $b\in R^k$). @sec-compendium has some notes on vector differentiation.
+
+We can ignore the first term $Y'Y$ as it does not depend on $b$. The second term is $-2b'X'Y$. Here we can use the rule that, $$
+  \frac{\partial z'a}{\partial z} = \frac{\partial a'z}{\partial z} = a
+$$ In this instance, $a = X'Y \in R^k$. Thus, $$
+  \frac{\partial -2b'X'Y}{\partial b} = -2\frac{\partial b'X'Y}{\partial b} = -2X'Y
+$$ The third term is $b'X'Xb$. This is what is commonly referred to as a quadratic form: $z'Az$. We know that the derivative of this form is, $$
+  \frac{\partial z'Az}{\partial z} = Az + A'z
+$$ and if $A$ is symmetric, the result simplies to $2Az$. In this instance, $A = X'X$ is symmetric and the derivative is given by, $$
+  \frac{\partial b'X'Xb}{\partial b} = 2X'X
+$$
+
+------------------------------------------------------------------------
 
 In order to solve for $\hat{\beta}$ we need to move the $X'X$ term to the right-hand side. If these were scalars we would simply divide both sides by the same constant. However, as $X'X$ is a matrix, division is not possible. Instead, we need to pre-multiply both sides by the inverse of $X'X$: $(X'X)^{-1}$. Here's the issue: the inverse of a matrix need not exist.
 

@@ -158,6 +158,10 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#properties-of-square-matrices" id="toc-properties-of-square-matrices" class="nav-link" data-scroll-target="#properties-of-square-matrices"><span class="header-section-number">6.4</span> Properties of square matrices</a></li>
   <li><a href="#properties-of-symmetric-matrices" id="toc-properties-of-symmetric-matrices" class="nav-link" data-scroll-target="#properties-of-symmetric-matrices"><span class="header-section-number">6.5</span> Properties of symmetric matrices</a></li>
   <li><a href="#properties-of-idempotent-matrices" id="toc-properties-of-idempotent-matrices" class="nav-link" data-scroll-target="#properties-of-idempotent-matrices"><span class="header-section-number">6.6</span> Properties of idempotent matrices</a></li>
+  <li><a href="#vector-differentiation" id="toc-vector-differentiation" class="nav-link" data-scroll-target="#vector-differentiation"><span class="header-section-number">6.7</span> Vector Differentiation</a></li>
+  <li><a href="#general-case" id="toc-general-case" class="nav-link" data-scroll-target="#general-case"><span class="header-section-number">7</span> General case</a></li>
+  <li><a href="#linear-scalar-case" id="toc-linear-scalar-case" class="nav-link" data-scroll-target="#linear-scalar-case"><span class="header-section-number">8</span> Linear: scalar case</a></li>
+  <li><a href="#quadratic-form" id="toc-quadratic-form" class="nav-link" data-scroll-target="#quadratic-form"><span class="header-section-number">9</span> Quadratic form</a></li>
   </ul>
 </nav>
     </div>
@@ -373,6 +377,75 @@ tr(A) = \sum_{i=1}^na_{ii}
 <p><strong>[result]</strong> <span class="math inline">\(\lambda_i\in\{0,1\}\quad \forall\;i\)</span></p>
 </blockquote>
 <p><em>Projection</em> matrices are idempotent, but need not be symmetric. However, for the purposes of this module we will deal exclusively with symmetric idempotent projection matrices.</p>
+</section>
+<section id="vector-differentiation" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="vector-differentiation"><span class="header-section-number">6.7</span> Vector Differentiation</h2>
+<p>Here we will look at the derivatives of scalar with respect to (W.r.t.) a vector. You can also define other derivatives, such as the derivative of a vector w.r.t. a vector and the derivative of a scalar with respect to a matrix. However, these are not needed for these notes.</p>
+</section>
+<section id="general-case" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> General case</h1>
+<p>Suppose <span class="math inline">\(f(x)\in R\)</span> (i.e.&nbsp;a scalar) and <span class="math inline">\(x\in R^n\)</span> (i.e.&nbsp;a <span class="math inline">\(n\times 1\)</span> vector). Then we can define the partial derivative of <span class="math inline">\(f(x)\)</span> w.r.t. <span class="math inline">\(x\)</span> as,</p>
+<p><span class="math display">\[
+  \frac{\partial f(x)}{\partial x}  = \begin{bmatrix}\frac{\partial f(x)}{\partial x_1} \\ \frac{\partial f(x)}{\partial x_2} \\ \vdots \\ \frac{\partial f(x)}{\partial x_n} \end{bmatrix}
+\]</span></p>
+</section>
+<section id="linear-scalar-case" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Linear: scalar case</h1>
+<p>A special case is when <span class="math inline">\(f(x)\)</span> is linear in <span class="math inline">\(x\)</span>,</p>
+<p><span class="math display">\[
+f(x) = a'x = \sum_{i=1}^n a_ix_i
+\]</span> for <span class="math inline">\(a\in R^n\)</span>. The derivative of <span class="math inline">\(a'x\)</span> with respect to the <strong>vector</strong> <span class="math inline">\(x\)</span> can be defined as,</p>
+<p><span class="math display">\[
+  \begin{aligned}
+  \frac{\partial a'x}{\partial x} &amp; = \begin{bmatrix}\frac{\partial a'x}{\partial x_1} \\ \frac{\partial a'x}{\partial x_2} \\ \vdots \\ \frac{\partial a'x}{\partial x_n} \end{bmatrix} \\
+  &amp; = \begin{bmatrix}a_1 \\ a_2 \\ \vdots \\ a_n \end{bmatrix} \\
+  &amp; = a
+  \end{aligned}
+\]</span> since the the partial derivate of <span class="math inline">\(a'x = \sum_{i=1}^n a_ix_i\)</span> w.r.t. <span class="math inline">\(x_i\)</span> is just the scalar <span class="math inline">\(a_i\)</span>.</p>
+<p>The derivative of a scalar w.r.t. to a vector yields a vector of partial derivatives.</p>
+<p>Since <span class="math inline">\(a'x\)</span> is a scalar, it is by definition symmetric: <span class="math inline">\(a'x = x'a\)</span>. Thus,</p>
+<p><span class="math display">\[
+\frac{\partial x'a}{\partial x} = \frac{\partial a'x}{\partial x} = a
+\]</span> # Linear: vector case</p>
+<p>Suppose <span class="math inline">\(f(x)\)</span> is a linear transformation of <span class="math inline">\(x\)</span>,</p>
+<p><span class="math display">\[
+f(x) = A'x
+\]</span> for any <span class="math inline">\(m\times n\)</span> matrix A,</p>
+<p><span class="math display">\[
+  A = \begin{bmatrix}a_1' \\ a_2' \\ \vdots \\ a_m'\end{bmatrix}
+\]</span> where <span class="math inline">\(a_i\in R^n\;\forall i=1,\dots,m\)</span> and,</p>
+<p><span class="math display">\[
+  Ax = \begin{bmatrix}a_1'x \\ a_2'x \\ \vdots \\ a_m'x\end{bmatrix}
+\]</span> Note, <span class="math inline">\(f(x)=Ax\in R^m\)</span>, a <span class="math inline">\(m\times 1\)</span> vector. We can then define,</p>
+<p><span class="math display">\[
+  \begin{aligned}
+  \frac{\partial Ax}{\partial x'} &amp; = \begin{bmatrix}\frac{\partial a_1'x}{\partial x_1} &amp; \frac{\partial a_1'x}{\partial x_2} &amp; \dots &amp; \frac{\partial a_1'x}{\partial x_n}\\ \frac{\partial a_2'x}{\partial x_1} &amp; \frac{\partial a_2'x}{\partial x_2} &amp; \dots &amp; \frac{\partial a_2'x}{\partial x_n}\\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\ \frac{\partial a_m'x}{\partial x_1} &amp; \frac{\partial a_m'x}{\partial x_2} &amp; \dots &amp; \frac{\partial a_m'x}{\partial x_n}\\ \end{bmatrix} \\
+  &amp; = \begin{bmatrix} a_{11} &amp; a_{12} &amp; \dots &amp; a_{1n} \\ a_{21} &amp; a_{22} &amp; \dots &amp; a_{2n} \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\ a_{m1} &amp; a_{m2} &amp; \dots &amp; a_{mn} \\ \end{bmatrix} \\
+  &amp; = A
+  \end{aligned}
+\]</span></p>
+<p>Since Ax is <span class="math inline">\(m\times 1\)</span> column vector, we take the derivative w.r.t. <span class="math inline">\(x'\)</span> a row vector and not the column vector <span class="math inline">\(x\)</span>. This results in a matrix of partial derivatives.</p>
+</section>
+<section id="quadratic-form" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Quadratic form</h1>
+<p>A second special case is where the function takes on the quadaratic form,</p>
+<p><span class="math display">\[
+f(x) = x'Ax = \sum_{i=1}^N\sum_{j=1}^n a_{ij}x_ix_j
+\]</span></p>
+<p>for <span class="math inline">\(n\times n\)</span> (square) matrix A. As in the first linear case, <span class="math inline">\(f(x)\)</span> is scalar.</p>
+<p>Define <span class="math inline">\(c = Ax\)</span>, the <span class="math inline">\(x'Ax = x'c\)</span>. From the linear case, we know that,</p>
+<p><span class="math display">\[
+\frac{\partial x'c}{\partial x} = c
+\]</span></p>
+<p>Similarly, if we define <span class="math inline">\(d = A'x\)</span> then <span class="math inline">\(x'Ax = d'x\)</span>. From the linear case, we know that,</p>
+<p><span class="math display">\[
+\frac{\partial d'x}{\partial x} = d
+\]</span></p>
+<p>We can define the total derivative as the sum of the partial derivatives w.r.t. to the first and second <span class="math inline">\(x\)</span>. Combining these two results, we have that,</p>
+<p><span class="math display">\[
+\frac{\partial x'Ax}{\partial x} = Ax + A'x
+\]</span></p>
+<p>And <strong>if</strong> <span class="math inline">\(A\)</span> is symmetric, this result simplifies to <span class="math inline">\(2Ax\)</span>.</p>
 
 
 </section>
