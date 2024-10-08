@@ -248,14 +248,14 @@ Here are a few important results concerning idempotent matrices.
 
 Here we will look at the derivatives of scalar with respect to (W.r.t.) a vector. You can also define other derivatives, such as the derivative of a vector w.r.t. a vector and the derivative of a scalar with respect to a matrix. However, these are not needed for these notes. 
 
-# General case
+### General case
 Suppose $f(x)\in R$ (i.e. a scalar) and $x\in R^n$ (i.e. a $n\times 1$ vector). Then we can define the partial derivative of $f(x)$ w.r.t. $x$ as,
 
 $$
   \frac{\partial f(x)}{\partial x}  = \begin{bmatrix}\frac{\partial f(x)}{\partial x_1} \\ \frac{\partial f(x)}{\partial x_2} \\ \vdots \\ \frac{\partial f(x)}{\partial x_n} \end{bmatrix}
 $$
 
-# Linear: scalar case
+### Linear: scalar case
 A special case is when $f(x)$ is linear in $x$, 
 
 $$
@@ -279,7 +279,7 @@ Since $a'x$ is a scalar, it is by definition symmetric: $a'x = x'a$. Thus,
 $$
 \frac{\partial x'a}{\partial x} = \frac{\partial a'x}{\partial x} = a
 $$
-# Linear: vector  case
+### Linear: vector  case
 
 Suppose $f(x)$ is a linear transformation of $x$, 
 
@@ -309,7 +309,7 @@ $$
 
 Since Ax is $m\times 1$ column vector, we take the derivative w.r.t. $x'$ a row vector and not the column vector $x$. This results in a matrix of partial derivatives. 
 
-# Quadratic form
+### Quadratic form
 
 A second special case is where the function takes on the quadaratic form, 
 

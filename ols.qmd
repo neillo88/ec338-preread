@@ -159,13 +159,13 @@ Next, consider the final $2\times 1$ vector,
 Our OLS estimator is therefore,
 
 $$
-\hat{\beta} = \begin{bmatrix} n & n\bar{X}_2 \\ n\bar{X}_2 & \sum_{i=1}^nX_{i2}^2 \end{bmatrix}^{-1}\begin{bmatrix}n\bar{Y}_2  \\ \sum_{i=1}^nY_iX_{i2} \end{bmatrix}
+\hat{\beta} = \begin{bmatrix} n & n\bar{X}_2 \\ n\bar{X}_2 & \sum_{i=1}^nX_{i2}^2 \end{bmatrix}^{-1}\begin{bmatrix}n\bar{Y}  \\ \sum_{i=1}^nY_iX_{i2} \end{bmatrix}
 $$
 
 We now need to solve for the inverse of the $2\times 2$ matrix. You can easily find notes on how to do this online. Here, I will just provide the solution.
 
 $$
-\hat{\beta} = \frac{1}{n\sum_{i=1}^nX_{i2}^2-n^2\bar{X}_2^2}\begin{bmatrix} \sum_{i=1}^nX_{i2}^2 & -n\bar{X}_2 \\ -n\bar{X}_2 &  n\end{bmatrix}\begin{bmatrix}n\bar{Y}_2  \\ \sum_{i=1}^nY_iX_{i2} \end{bmatrix}
+\hat{\beta} = \frac{1}{n\sum_{i=1}^nX_{i2}^2-n^2\bar{X}_2^2}\begin{bmatrix} \sum_{i=1}^nX_{i2}^2 & -n\bar{X}_2 \\ -n\bar{X}_2 &  n\end{bmatrix}\begin{bmatrix}n\bar{Y}  \\ \sum_{i=1}^nY_iX_{i2} \end{bmatrix}
 $$
 
 Remember, this is still a $2\times 1$ vector. We can now solve for the final solution:

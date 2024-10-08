@@ -91,7 +91,7 @@ Like $Y$, $\varepsilon$ is a $n\times 1$ vector. $X$ is a $n\times k$ matrix and
 
 $$
 X = \begin{bmatrix}X_1'\\ X_2' \\ \vdots\\ X_n' \end{bmatrix} = \begin{bmatrix}X_{11} & X_{12}&\dots&X_{1k}\\ X_{21}& X_{22}& & \\ \vdots & & \ddots &\\ X_{n1} & & & X_{nk} \end{bmatrix}
-$$ 
+$$
 
 The $X$ matrix has $n$ rows, each representing a different unit of observation, and $k$ columns, each representing a different regressor. Recall, one of these regressors *may* be a constant. If the model includes a constant then $X_{i1}=1\;\forall\;i$. This means that the first column of $X$ is a vector of $1$'s. Each subsequent column represents another regressor.
 

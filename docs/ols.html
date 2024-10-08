@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -47,7 +47,13 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -56,6 +62,7 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -65,6 +72,33 @@ ul.task-list li input[type="checkbox"] {
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 </head>
 
 <body class="nav-sidebar floating">
@@ -73,12 +107,12 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ols.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ordinary Least Squares</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-reg.html">Test Part</a></li><li class="breadcrumb-item"><a href="./ols.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ordinary Least Squares</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -88,7 +122,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">EC338 Pre-reading</a> 
@@ -113,40 +147,51 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Test Part</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear-reg.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Linear Regression Model</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ols.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ordinary Least Squares</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./geometry-ols.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Geometry of OLS</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./dummy-var.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./compendium.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Compendium</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -160,7 +205,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-reg.html">Test Part</a></li><li class="breadcrumb-item"><a href="./ols.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ordinary Least Squares</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span id="sec-ols" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ordinary Least Squares</span></span></h1>
 </div>
@@ -175,7 +220,9 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
+
 </header>
+
 
 <p>You are, no doubt, familiar with the ordinary least squares (OLS) estimator from your previous studies in Econometrics (EC226 or otherwise). OLS is <em>an</em> estimator for <span class="math inline">\(\beta\)</span>, it is not the only one. Indeed, you could use maximum likelihood methods to estimate <span class="math inline">\(\beta\)</span>.</p>
 <p>The OLS estimator is the solution to,</p>
@@ -203,7 +250,7 @@ ul.task-list li input[type="checkbox"] {
   \end{aligned}
 \]</span></p>
 <hr>
-<p><strong>How did we get this result?</strong> Deriving the first order conditions requires knowledge of how to solve for the derivative of a scalar respect to a column vector (in this case <span class="math inline">\(b\in R^k\)</span>). <a href="compendium.html"><span>Chapter&nbsp;6</span></a> has some notes on vector differentiation.</p>
+<p><strong>How did we get this result?</strong> Deriving the first order conditions requires knowledge of how to solve for the derivative of a scalar respect to a column vector (in this case <span class="math inline">\(b\in R^k\)</span>). <a href="compendium.html" class="quarto-xref"><span>Chapter 6</span></a> has some notes on vector differentiation.</p>
 <p>We can ignore the first term <span class="math inline">\(Y'Y\)</span> as it does not depend on <span class="math inline">\(b\)</span>. The second term is <span class="math inline">\(-2b'X'Y\)</span>. Here we can use the rule that, <span class="math display">\[
   \frac{\partial z'a}{\partial z} = \frac{\partial a'z}{\partial z} = a
 \]</span> In this instance, <span class="math inline">\(a = X'Y \in R^k\)</span>. Thus, <span class="math display">\[
@@ -215,7 +262,7 @@ ul.task-list li input[type="checkbox"] {
 \]</span></p>
 <hr>
 <p>In order to solve for <span class="math inline">\(\hat{\beta}\)</span> we need to move the <span class="math inline">\(X'X\)</span> term to the right-hand side. If these were scalars we would simply divide both sides by the same constant. However, as <span class="math inline">\(X'X\)</span> is a matrix, division is not possible. Instead, we need to pre-multiply both sides by the inverse of <span class="math inline">\(X'X\)</span>: <span class="math inline">\((X'X)^{-1}\)</span>. Here’s the issue: the inverse of a matrix need not exist.</p>
-<p>Given a <em>square</em> <span class="math inline">\(k\times k\)</span> matrix <span class="math inline">\(A\)</span>, its inverse exists <em>if and only if</em> <span class="math inline">\(A\)</span> is non-singular. For <span class="math inline">\(A\)</span> to be non-singular its rank must have full rank: <span class="math inline">\(r(A)=k\)</span>, the number of rows/columns. This means that all <span class="math inline">\(k\)</span> columns/rows must be linearly independent. (See <a href="compendium.html"><span>Chapter&nbsp;6</span></a> for a more detailed discussion of all these terms.)</p>
+<p>Given a <em>square</em> <span class="math inline">\(k\times k\)</span> matrix <span class="math inline">\(A\)</span>, its inverse exists <em>if and only if</em> <span class="math inline">\(A\)</span> is non-singular. For <span class="math inline">\(A\)</span> to be non-singular its rank must have full rank: <span class="math inline">\(r(A)=k\)</span>, the number of rows/columns. This means that all <span class="math inline">\(k\)</span> columns/rows must be linearly independent. (See <a href="compendium.html" class="quarto-xref"><span>Chapter 6</span></a> for a more detailed discussion of all these terms.)</p>
 <p>In our application, <span class="math inline">\(A=X'X\)</span> and</p>
 <p><span class="math display">\[ r(X'X) = r(X) = colrank(X)\leq k \]</span></p>
 <p>To insure that the inverse of <span class="math inline">\(X'X\)</span> exists, <span class="math inline">\(X\)</span> must have full column rank: all column vectors must be <em>linearly independent</em>. In practice, this means that no regressor can be a <em>perfect</em> linear combination of others. This gives rise to one of the key linear regression model assumptions:</p>
@@ -224,11 +271,11 @@ ul.task-list li input[type="checkbox"] {
 </blockquote>
 <p>You may know this assumption by another name: the absence of perfect colinearity between regressors.</p>
 <blockquote class="blockquote">
-<p><strong>[comment]</strong> The rank condition is the reason we exclude a base category when working with categorical variables. We will revisit this subject in more detail in <a href="dummy-var.html"><span>Chapter&nbsp;5</span></a>.</p>
+<p><strong>[comment]</strong> The rank condition is the reason we exclude a base category when working with categorical variables. We will revisit this subject in more detail in <a href="dummy-var.html" class="quarto-xref"><span>Chapter 5</span></a>.</p>
 <p>Recall, most linear regression models are specified with constant. Thus, the first column of <span class="math inline">\(X\)</span> is</p>
 <p><span class="math display">\[ X_1 = \begin{bmatrix}1 \\ 1 \\ \vdots \\ 1\end{bmatrix} \]</span> a <span class="math inline">\(n\times 1\)</span> vector vector of <span class="math inline">\(1\)</span>’s, denoted here as <span class="math inline">\(\ell\)</span>. Suppose you have a categorical - for example, gender in an individual level dataset - that splits the same in two. The categories are assumed to be exhaustive and mutually exclusive. If you create two dummy variables, one for each category,</p>
 <p><span class="math display">\[ X_2 = \begin{bmatrix}1 \\ \vdots \\1\\0\\ \vdots \\ 0\end{bmatrix}\qquad\text{and}\qquad X_3 = \begin{bmatrix}0 \\ \vdots \\0\\1\\ \vdots \\ 1\end{bmatrix} \]</span></p>
-<p>it is evident that <span class="math inline">\(X_2+X_3 = \ell\)</span>. (Here I have depicted the sample as sorted along these two categories.) If <span class="math inline">\(X=[X_1\;X_2\;X_3]\)</span>, then it is rank-deficient: <span class="math inline">\(r(X) = 2&lt;3\)</span>, since <span class="math inline">\(X_3=X_1-X2\)</span>. Thus, we can only include two of these three regressors. We can even exclude the constant and have <span class="math inline">\(X=[X_2\;X_3]\)</span>. In <a href="geometry-ols.html"><span>Chapter&nbsp;4</span></a> we will show that the projection remains the same regardless of which category we exclude, even the constant.</p>
+<p>it is evident that <span class="math inline">\(X_2+X_3 = \ell\)</span>. (Here I have depicted the sample as sorted along these two categories.) If <span class="math inline">\(X=[X_1\;X_2\;X_3]\)</span>, then it is rank-deficient: <span class="math inline">\(r(X) = 2&lt;3\)</span>, since <span class="math inline">\(X_3=X_1-X2\)</span>. Thus, we can only include two of these three regressors. We can even exclude the constant and have <span class="math inline">\(X=[X_2\;X_3]\)</span>. In <a href="geometry-ols.html" class="quarto-xref"><span>Chapter 4</span></a> we will show that the projection remains the same regardless of which category we exclude, even the constant.</p>
 </blockquote>
 <p>If <span class="math inline">\(X\)</span> is full rank, then <span class="math inline">\((X'X)^{-1}\)</span> exists and,</p>
 <p><span class="math display">\[
@@ -236,7 +283,7 @@ ul.task-list li input[type="checkbox"] {
 \]</span></p>
 <p>This relatively simple expression is the solution to least squares minimization problem. Just think, it would take less than three lines of code to programme this. That is the power of knowing a little linear algebra.</p>
 <blockquote class="blockquote">
-<p><strong>[comment]</strong> You may recognise the above expression from the <a href="intro.html"><span>Chapter&nbsp;1</span></a> where we used vectors to define the mean estimator. It turns out, the mean estimator is the simplest of OLS estimators. It is a regression of <span class="math inline">\(Y\)</span> against a constant alone: <span class="math inline">\(X=\ell\)</span>.</p>
+<p><strong>[comment]</strong> You may recognise the above expression from the <a href="intro.html" class="quarto-xref"><span>Chapter 1</span></a> where we used vectors to define the mean estimator. It turns out, the mean estimator is the simplest of OLS estimators. It is a regression of <span class="math inline">\(Y\)</span> against a constant alone: <span class="math inline">\(X=\ell\)</span>.</p>
 </blockquote>
 <p>We can write the same expression in terms of summations over unit-level observations,</p>
 <p><span class="math display">\[
@@ -280,7 +327,7 @@ Y =&amp; X\beta+\varepsilon \\
 \end{aligned}
 \]</span></p>
 <p>I went through this rather quickly, using a number of linear algebra rules that you may not be familiar with. Do not worry, the point of the exercise is not become a linear algebra master, but instead to focus on the element of each of each matrix/vector. Each element is a scalar (size <span class="math inline">\(1\times 1\)</span>).</p>
-<p>If we right them each down as sums you they might be a little more familiar. (Take a look back at <a href="intro.html"><span>Chapter&nbsp;1</span></a> to remind yourself of some of these steps). First consider the <span class="math inline">\(2\times 2\)</span> matrix:</p>
+<p>If we right them each down as sums you they might be a little more familiar. (Take a look back at <a href="intro.html" class="quarto-xref"><span>Chapter 1</span></a> to remind yourself of some of these steps). First consider the <span class="math inline">\(2\times 2\)</span> matrix:</p>
 <ul>
 <li><p>element [1,1]: <span class="math inline">\(\ell'\ell = \sum_{i=1}^n 1 = n\)</span></p></li>
 <li><p>element [1,2]: <span class="math inline">\(\ell'X_2 = \sum_{i=1}^nX_{i2} = n\bar{X}_2\)</span></p></li>
@@ -294,11 +341,11 @@ Y =&amp; X\beta+\varepsilon \\
 </ul>
 <p>Our OLS estimator is therefore,</p>
 <p><span class="math display">\[
-\hat{\beta} = \begin{bmatrix} n &amp; n\bar{X}_2 \\ n\bar{X}_2 &amp; \sum_{i=1}^nX_{i2}^2 \end{bmatrix}^{-1}\begin{bmatrix}n\bar{Y}_2  \\ \sum_{i=1}^nY_iX_{i2} \end{bmatrix}
+\hat{\beta} = \begin{bmatrix} n &amp; n\bar{X}_2 \\ n\bar{X}_2 &amp; \sum_{i=1}^nX_{i2}^2 \end{bmatrix}^{-1}\begin{bmatrix}n\bar{Y}  \\ \sum_{i=1}^nY_iX_{i2} \end{bmatrix}
 \]</span></p>
 <p>We now need to solve for the inverse of the <span class="math inline">\(2\times 2\)</span> matrix. You can easily find notes on how to do this online. Here, I will just provide the solution.</p>
 <p><span class="math display">\[
-\hat{\beta} = \frac{1}{n\sum_{i=1}^nX_{i2}^2-n^2\bar{X}_2^2}\begin{bmatrix} \sum_{i=1}^nX_{i2}^2 &amp; -n\bar{X}_2 \\ -n\bar{X}_2 &amp;  n\end{bmatrix}\begin{bmatrix}n\bar{Y}_2  \\ \sum_{i=1}^nY_iX_{i2} \end{bmatrix}
+\hat{\beta} = \frac{1}{n\sum_{i=1}^nX_{i2}^2-n^2\bar{X}_2^2}\begin{bmatrix} \sum_{i=1}^nX_{i2}^2 &amp; -n\bar{X}_2 \\ -n\bar{X}_2 &amp;  n\end{bmatrix}\begin{bmatrix}n\bar{Y}  \\ \sum_{i=1}^nY_iX_{i2} \end{bmatrix}
 \]</span></p>
 <p>Remember, this is still a <span class="math inline">\(2\times 1\)</span> vector. We can now solve for the final solution:</p>
 <p><span class="math display">\[
@@ -396,10 +443,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -409,8 +473,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -422,7 +495,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -466,6 +662,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -491,6 +688,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -552,17 +775,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./linear-reg.html" class="pagination-link">
+      <a href="./linear-reg.html" class="pagination-link" aria-label="The Linear Regression Model">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Linear Regression Model</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./geometry-ols.html" class="pagination-link">
+      <a href="./geometry-ols.html" class="pagination-link" aria-label="The Geometry of OLS">
         <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Geometry of OLS</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 

@@ -9,11 +9,13 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
-    - linear-reg.qmd
-    - ols.qmd
-    - geometry-ols.qmd
-    - dummy-var.qmd
-    - compendium.qmd
+    - part: "Test Part"
+      chapters:
+      - linear-reg.qmd
+      - ols.qmd
+      - geometry-ols.qmd
+      - dummy-var.qmd
+      - compendium.qmd
 
 bibliography: references.bib
 
